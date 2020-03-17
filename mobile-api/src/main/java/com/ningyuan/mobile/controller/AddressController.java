@@ -1,4 +1,4 @@
-package com.ningyuan.pos.controller;
+package com.ningyuan.mobile.controller;
 
 import com.ningyuan.base.BaseController;
 import io.swagger.annotations.ApiOperation;

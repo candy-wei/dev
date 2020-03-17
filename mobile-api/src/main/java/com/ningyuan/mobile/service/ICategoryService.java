@@ -1,4 +1,4 @@
-package com.ningyuan.service;
+package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
 import com.ningyuan.system.model.SysParamsModel;

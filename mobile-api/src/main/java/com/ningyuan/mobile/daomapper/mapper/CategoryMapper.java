@@ -1,4 +1,4 @@
-package com.ningyuan.daomapper.mapper;
+package com.ningyuan.mobile.daomapper.mapper;
 
 import com.ningyuan.system.model.SysParamsModel;
 import tk.mybatis.mapper.common.Mapper;
