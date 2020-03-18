@@ -14,6 +14,7 @@
         <module>mobile-core</module>
         <module>swagger</module>
         <module>security</module>
+        <module>wx</module>
     </modules>
 
     <properties>
