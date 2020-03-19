@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.CategoryMapper">
+
+    <sql id="listBannerRel">
+        select
+            *
+        from
+            merriment_lottery as ml
+        left join lottery_award as la on ml.lottery_id = la.id
+        left join wx_user as wx on ml.open_id = wx.open_id
+    </sql>
+</mapper>
