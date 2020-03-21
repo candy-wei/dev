@@ -2,8 +2,7 @@ package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
 import com.ningyuan.mobile.daomapper.mapper.CategoryMapper;
-import com.ningyuan.mobile.dto.CategoryBannerDto;
-import com.ningyuan.mobile.dto.CategoryDto;
+import com.ningyuan.mobile.model.CmsBannerModel;
 import com.ningyuan.mobile.model.ShopCategoryModel;
 import com.ningyuan.mobile.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, ShopCat
     }
 
     @Override
-    public List<CategoryBannerDto> listBannerRel(Long id) {
+    public List<CmsBannerModel> listBannerRel(Long id) {
         return categoryMapper.listBannerRel(id);
     }
 }

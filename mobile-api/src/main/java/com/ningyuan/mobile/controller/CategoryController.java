@@ -31,13 +31,7 @@ public class CategoryController extends BaseController {
         log.info("CategoryController.list: {}", "日志日志日志日志日志日志日志日志日志");
         List<ShopCategoryModel> list = categoryService.listCategory();
         list.forEach(item->{
-            List<CategoryBannerDto> relList = categoryService.listBannerRel(item.getId());
-            List<CmsBannerModel> bannerList = Lists.newArrayList();
-            relList.forEach( relItem->{
-                bannerList.add(relItem.getBanner());
-            });
-
-            item.setBannerList(bannerList);
+            item.setBannerList(categoryService.listBannerRel(item.getId()));
         });
         return Rets.success(list);
     }

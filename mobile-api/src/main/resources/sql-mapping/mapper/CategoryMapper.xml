@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ningyuan.mobile.daomapper.mapper.CategoryMapper">
 
-    <sql id="listBannerRel">
+    <select id="listBannerRel" resultType="com.ningyuan.mobile.model.CmsBannerModel">
         select
-            *
+            cb.*
         from
-            merriment_lottery as ml
-        left join lottery_award as la on ml.lottery_id = la.id
-        left join wx_user as wx on ml.open_id = wx.open_id
-    </sql>
+            cms_banner as cb left join shop_category_banner_rel as scbr on scbr.id_banner = cb.id
+        where
+            scbr.id_category = #{id}
+    </select>
 </mapper>

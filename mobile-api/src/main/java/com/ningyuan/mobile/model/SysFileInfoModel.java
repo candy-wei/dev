@@ -2,6 +2,8 @@ package com.ningyuan.mobile.model;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.ningyuan.base.BaseModel;
 import java.util.Date;
 
@@ -26,6 +28,9 @@ public class SysFileInfoModel extends BaseModel {
 
     @Column(name = "update_time" )
     private Date updateTime;
+
+    @Transient
+    private String ablatePath;
 
     public String getOriginalFileName() {
         return this.originalFileName;
@@ -59,4 +64,7 @@ public class SysFileInfoModel extends BaseModel {
         this.updateTime = updateTime;
     }
 
+    public String getAblatePath() { return ablatePath; }
+
+    public void setAblatePath(String ablatePath) { this.ablatePath = ablatePath; }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopCartMapper">
+
+    <resultMap id="queryCartMap" type="com.ningyuan.mobile.dto.ShopCartDto">
+
+    </resultMap>
+
+    <select id="queryCart" resultMap="queryCartMap">
+        select id, idGoods, idSku, amount, price, title, sg.*, sgs.* from shop_cart as sc
+        left join shop_goods as sg on sc.id_goods = sg.id left join shop_goods_sku as sgs
+        on sc.id_sku = sgs.id
+    </select>
+</mapper>

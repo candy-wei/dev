@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.GoodsMapper">
+
+    <resultMap id="goodsMap" type="com.ningyuan.mobile.dto.GoodsDto">
+        <id property="id" column="id"/>
+        <association property="author" javaType="com.ningyuan.mobile.model.ShopCategoryModel">
+            <id property="id" column="idCategory"/>
+        </association>
+    </resultMap>
+
+    <select id="getGoods" resultMap="goodsMap">
+        select
+            *
+        from
+            shop_goods as sg left join shop_category as sc on sg.id_category = sc.id
+        where
+            sg.idCategory = #{idCategory}
+            and sg.is_on_sale = #{isOnSale}
+    </select>
+</mapper>

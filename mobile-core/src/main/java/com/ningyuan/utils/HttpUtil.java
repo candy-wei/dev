@@ -1,5 +1,9 @@
 package com.ningyuan.utils;
 
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,5 +56,13 @@ public class HttpUtil {
             }  
         }  
         return null;  
+    }
+
+    /**
+     * 获取 HttpServletRequest
+     */
+    public static HttpServletResponse getResponse() {
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        return response;
     }
 }  
