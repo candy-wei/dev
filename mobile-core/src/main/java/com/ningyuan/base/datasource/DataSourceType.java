@@ -4,7 +4,7 @@ public enum DataSourceType {
 
     SOURCE_MAPPER("dataSourceMapper"),
 
-    SOURCE_MAPPER_R("dataSourceMapperR"),
+    SOURCE_MAPPER_R("dataSourceMapper"),
 
     SOURCE_DAO("dataSourceDao"),
 

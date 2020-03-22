@@ -15,6 +15,7 @@ import com.ningyuan.mobile.service.IShopGoodsSkuService;
 import com.ningyuan.utils.Lists;
 import com.ningyuan.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +25,8 @@ import java.util.Map;
  * @author ：enilu
  * @date ：Created in 11/5/2019 11:16 AM
  */
-@RestController
-@RequestMapping("/goods")
+@Controller
+@RequestMapping("goods")
 public class GoodsController extends BaseController {
     @Autowired
     private IGoodsService goodsService;
