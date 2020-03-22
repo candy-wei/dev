@@ -35,12 +35,14 @@ public class ShopCartController extends BaseController {
     private IGoodsService goodsService;
 
     @RequestMapping(value = "/queryByUser",method = RequestMethod.GET)
+    @ResponseBody
     public Object getByUser(String openId){
         List<ShopCartDto> list = cartService.queryCart(openId);
         return Rets.success(list);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @ResponseBody
     public Object add(@RequestBody CartAddDto cartDto, String openId){
         cartDto.setOpenId(openId);
 //        Integer result = cartService.add(cartDto);
@@ -48,13 +50,15 @@ public class ShopCartController extends BaseController {
     }
 
     @RequestMapping(value="/count",method = RequestMethod.GET)
+    @ResponseBody
     public Object count(String openId){
         ShopCartModel shopCartModel = new ShopCartModel();
         shopCartModel.setOpenId(openId);
         return Rets.success(cartService.selectCount(shopCartModel));
     }
 
-    @RequestMapping(value = "/update/{id}/{count}",method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}/{count}", method = RequestMethod.POST)
+    @ResponseBody
     public Object update(@PathVariable("id") Long id, @PathVariable("count") String count){
         ShopCartModel queryModel = new ShopCartModel();
         queryModel.setId(id);
@@ -64,7 +68,8 @@ public class ShopCartController extends BaseController {
         return Rets.success();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @ResponseBody
     public Object remove(@RequestParam Long id){
         String openId = Context.getOpenId();
         ShopCartModel queryModel = new ShopCartModel();

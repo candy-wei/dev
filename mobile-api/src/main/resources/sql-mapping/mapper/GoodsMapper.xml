@@ -33,7 +33,8 @@
         from
             shop_goods as sg left join shop_category as sc on sg.id_category = sc.id
         where
-            sg.idCategory = #{idCategory}
+            sg.id_category = #{idCategory}
             and sg.is_on_sale = #{isOnSale}
+        order by sg.create_time desc
     </select>
 </mapper>

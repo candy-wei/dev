@@ -34,6 +34,7 @@ public class FileController extends BaseController {
      * @return
      */
     @RequestMapping(value="upload",method = RequestMethod.POST)
+    @ResponseBody
     public Object upload(@RequestPart("file") MultipartFile multipartFile) {
 
         try {
@@ -46,6 +47,7 @@ public class FileController extends BaseController {
     }
 
     @RequestMapping(value = "upload/base64",method = RequestMethod.POST)
+    @ResponseBody
     public Object uploadUploadFileBase64(@RequestBody Base64FileDto base64File) {
 
         try {
@@ -61,6 +63,7 @@ public class FileController extends BaseController {
      * @param fileName
      */
     @RequestMapping(value="download",method = RequestMethod.GET)
+    @ResponseBody
     public void download(@RequestParam("idFile") String fileName){
         SysFileInfoModel fileInfo = fileService.getByName(fileName);
         fileName = StringUtils.isEmpty(fileName)? fileInfo.getOriginalFileName():fileName;
@@ -107,6 +110,7 @@ public class FileController extends BaseController {
      * @return
      */
     @RequestMapping(value="getImgBase64",method = RequestMethod.GET)
+    @ResponseBody
     public Object getImgBase64(@RequestParam("idFile")String fileName){
 
         SysFileInfoModel fileInfo = fileService.getByName(fileName);

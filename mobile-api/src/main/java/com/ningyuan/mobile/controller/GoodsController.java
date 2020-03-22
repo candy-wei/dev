@@ -17,6 +17,7 @@ import com.ningyuan.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
@@ -42,19 +43,22 @@ public class GoodsController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/queryGoods", method = RequestMethod.GET)
+    @ResponseBody
     public Object queryGoods(Long idCategory) {
-        PageHelper.startPage(Context.getHttpServletRequest());
+//        PageHelper.startPage(Context.getHttpServletRequest());
+        PageHelper.startPage(0, 10, true);
         return Rets.success(PageInfo.of(goodsService.getGoods(idCategory, true)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
     public Object get(@PathVariable Long id) {
         ShopGoodsModel goodsModel = new ShopGoodsModel();
         goodsModel.setId(id);
         ShopGoodsModel goods = goodsService.selectByPrimaryKey(goodsModel);
-        ShopGoodsSkuModel goodsSkuModel = new ShopGoodsSkuModel();
-        goodsSkuModel.setIdGoods(id);
-        List<ShopGoodsSkuModel> skuList = goodsSkuService.selectByExample(goodsSkuModel);
+        Example example = new Example(ShopGoodsSkuModel.class);
+        example.createCriteria().andEqualTo("idGoods", id);
+        List<ShopGoodsSkuModel> skuList = goodsSkuService.selectByExample(example);
 
         Map skuMap = Maps.newHashMap();
 
@@ -62,9 +66,11 @@ public class GoodsController extends BaseController {
 
         if (!skuList.isEmpty()) {
             List<ShopAttrVal> attrValList = Lists.newArrayList();
-            ShopAttrKey shopAttrKey = new ShopAttrKey();
-            shopAttrKey.setIdCategory(goods.getIdCategory());
-            List<ShopAttrKey> attrKeyList = attrKeyService.selectByExample(shopAttrKey);
+
+            Example example2 = new Example(ShopAttrKey.class);
+            example2.createCriteria().andEqualTo("idCategory", goods.getIdCategory());
+            List<ShopAttrKey> attrKeyList = attrKeyService.selectByExample(example2);
+
             for (ShopAttrKey attrKey : attrKeyList) {
                 Map treeNode = Maps.newHashMap();
                 treeNode.put("k", attrKey.getAttrName());
