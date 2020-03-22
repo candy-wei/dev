@@ -23,8 +23,8 @@ public class SysFileInfoModel extends BaseModel {
     @Column(name = "real_file_name" )
     private String realFileName;
 
-    @Column(name = "created_time" )
-    private Date createdTime;
+    @Column(name = "create_time" )
+    private Date createTime;
 
     @Column(name = "update_time" )
     private Date updateTime;
@@ -48,12 +48,12 @@ public class SysFileInfoModel extends BaseModel {
         this.realFileName = realFileName;
     }
 
-    public Date getCreatedTime() {
-        return this.createdTime;
+    public Date getCreateTime() {
+        return this.createTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {

@@ -102,8 +102,8 @@ public class ShopGoodsModel extends BaseModel {
     @Column(name = "stock" )
     private Long stock;
 
-    @Column(name = "created_time" )
-    private Date createdTime;
+    @Column(name = "create_time" )
+    private Date createTime;
 
     @Column(name = "update_time" )
     private Date updateTime;
@@ -200,12 +200,12 @@ public class ShopGoodsModel extends BaseModel {
         this.stock = stock;
     }
 
-    public Date getCreatedTime() {
-        return this.createdTime;
+    public Date getCreateTime() {
+        return this.createTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {

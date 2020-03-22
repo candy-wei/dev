@@ -30,8 +30,8 @@ public class ShopCategoryBannerRelModel extends BaseModel {
     @Column(name = "id_category" )
     private Long idCategory;
 
-    @Column(name = "created_time" )
-    private Date createdTime;
+    @Column(name = "create_time" )
+    private Date createTime;
 
     @Column(name = "update_time" )
     private Date updateTime;
@@ -52,12 +52,12 @@ public class ShopCategoryBannerRelModel extends BaseModel {
         this.idCategory = idCategory;
     }
 
-    public Date getCreatedTime() {
-        return this.createdTime;
+    public Date getCreateTime() {
+        return this.createTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {
