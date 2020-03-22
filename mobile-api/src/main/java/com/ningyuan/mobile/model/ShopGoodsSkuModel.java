@@ -53,12 +53,6 @@ public class ShopGoodsSkuModel extends BaseModel {
     @Column(name = "price" )
     private BigDecimal price;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public String getCode() {
         return this.code;
     }
@@ -90,21 +84,5 @@ public class ShopGoodsSkuModel extends BaseModel {
     public BigDecimal getPrice() { return price; }
 
     public void setPrice(BigDecimal price) { this.price = price; }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
 }

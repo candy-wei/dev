@@ -22,12 +22,6 @@ public class ShopCustomerModel extends BaseModel {
     @Column(name = "open_id" )
     private String openId;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public String getMobile() {
         return this.mobile;
     }
@@ -42,22 +36,6 @@ public class ShopCustomerModel extends BaseModel {
 
     public void setOpenId(String openId) {
         this.openId = openId;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
 }

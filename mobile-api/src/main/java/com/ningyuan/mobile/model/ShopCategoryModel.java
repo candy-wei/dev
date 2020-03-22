@@ -40,12 +40,6 @@ public class ShopCategoryModel extends BaseModel {
     @Column(name = "url" )
     private String url;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     @Transient
     private List<CmsBannerModel> bannerList;
 
@@ -71,22 +65,6 @@ public class ShopCategoryModel extends BaseModel {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public List<CmsBannerModel> getBannerList() { return bannerList; }

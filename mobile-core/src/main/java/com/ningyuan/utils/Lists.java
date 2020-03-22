@@ -126,6 +126,30 @@ public final class Lists {
         return false;
     }
 
+    /**
+     * 将集合转换为map
+     *
+     * @param list
+     * @param keyProperty
+     * @param <K>
+     * @param <V>
+     * @return
+     */
+    public static <K, V> Map<K, V> toMap(List<V> list, String keyProperty) {
+        Map<K, V> map = new HashMap<K, V>(100);
+        for (V v : list) {
+
+            try {
+                K k = (K) getProperty(v, keyProperty);
+                map.put(k, v);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return map;
+    }
+
     public static <V> List<V> newArrayList(V... vs) {
         List<V> list = new ArrayList<V>();
         for (V v : vs) {
@@ -148,4 +172,7 @@ public final class Lists {
         return builder.toString().substring(0,builder.toString().length()-1);
     }
 
+    private static Object getProperty(Object bean,String name){
+        return null;
+    }
 }

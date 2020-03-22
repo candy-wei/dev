@@ -22,13 +22,6 @@ public class SysFileInfoModel extends BaseModel {
 
     @Column(name = "real_file_name" )
     private String realFileName;
-
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     @Transient
     private String ablatePath;
 
@@ -46,22 +39,6 @@ public class SysFileInfoModel extends BaseModel {
 
     public void setRealFileName(String realFileName) {
         this.realFileName = realFileName;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getAblatePath() { return ablatePath; }

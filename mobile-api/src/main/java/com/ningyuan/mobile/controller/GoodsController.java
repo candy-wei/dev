@@ -5,12 +5,20 @@ import com.github.pagehelper.PageInfo;
 import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Rets;
 import com.ningyuan.core.Context;
+import com.ningyuan.mobile.model.ShopAttrKey;
+import com.ningyuan.mobile.model.ShopAttrVal;
+import com.ningyuan.mobile.model.ShopGoodsModel;
+import com.ningyuan.mobile.model.ShopGoodsSkuModel;
+import com.ningyuan.mobile.service.IAttrKeyService;
 import com.ningyuan.mobile.service.IGoodsService;
+import com.ningyuan.mobile.service.IShopGoodsSkuService;
+import com.ningyuan.utils.Lists;
+import com.ningyuan.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：enilu
@@ -21,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoodsController extends BaseController {
     @Autowired
     private IGoodsService goodsService;
-    /*@Autowired
-    private GoodsSkuService goodsSkuService;
     @Autowired
-    private AttrKeyService attrKeyService;*/
+    private IShopGoodsSkuService goodsSkuService;
+    @Autowired
+    private IAttrKeyService attrKeyService;
 
     /**
      * 获取指定类别下的商品列表
@@ -33,33 +41,36 @@ public class GoodsController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/queryGoods", method = RequestMethod.GET)
-    public Object queryGoods(@RequestParam("idCategory") Long idCategory) {
+    public Object queryGoods(Long idCategory) {
         PageHelper.startPage(Context.getHttpServletRequest());
         return Rets.success(PageInfo.of(goodsService.getGoods(idCategory, true)));
     }
 
-    /*@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Object get(@PathVariable Long id) {
-        Goods goods = goodsService.get(id);
-        List<GoodsSku> skuList = goodsSkuService.queryAll(Lists.newArrayList(
-                SearchFilter.build("idGoods", id)
-        ));
-
+        ShopGoodsModel goodsModel = new ShopGoodsModel();
+        goodsModel.setId(id);
+        ShopGoodsModel goods = goodsService.selectByPrimaryKey(goodsModel);
+        ShopGoodsSkuModel goodsSkuModel = new ShopGoodsSkuModel();
+        goodsSkuModel.setIdGoods(id);
+        List<ShopGoodsSkuModel> skuList = goodsSkuService.selectByExample(goodsSkuModel);
 
         Map skuMap = Maps.newHashMap();
 
         List<Map> tree = Lists.newArrayList();
 
         if (!skuList.isEmpty()) {
-            List<AttrVal> attrValList = Lists.newArrayList();
-            List<AttrKey> attrKeyList = attrKeyService.queryBy(goods.getIdCategory());
-            for (AttrKey attrKey : attrKeyList) {
+            List<ShopAttrVal> attrValList = Lists.newArrayList();
+            ShopAttrKey shopAttrKey = new ShopAttrKey();
+            shopAttrKey.setIdCategory(goods.getIdCategory());
+            List<ShopAttrKey> attrKeyList = attrKeyService.selectByExample(shopAttrKey);
+            for (ShopAttrKey attrKey : attrKeyList) {
                 Map treeNode = Maps.newHashMap();
                 treeNode.put("k", attrKey.getAttrName());
                 List<Map> v = Lists.newArrayList();
-                List<AttrVal> attrValListChildren = attrKey.getAttrVals();
+                List<ShopAttrVal> attrValListChildren = attrKeyService.getAttrVals();
                 attrValList.addAll(attrValListChildren);
-                for (AttrVal attrVal : attrValListChildren) {
+                for (ShopAttrVal attrVal : attrValListChildren) {
                     v.add(Maps.newHashMap(
                             "id", attrVal.getId(),
                             "name", attrVal.getAttrVal(),
@@ -70,19 +81,18 @@ public class GoodsController extends BaseController {
                 treeNode.put("k_s", "s" + attrKey.getId());
                 tree.add(treeNode);
             }
-            Map<Long, AttrVal> attrValMap = Lists.toMap(attrValList, "id");
+            Map<Long, ShopAttrVal> attrValMap = Lists.toMap(attrValList, "id");
             List<Map> skuList2 = Lists.newArrayList();
 
-            for (GoodsSku sku : skuList) {
+            for (ShopGoodsSkuModel sku : skuList) {
                 Map oneSkuMap = Maps.newHashMap();
                 oneSkuMap.put("id", sku.getId());
                 oneSkuMap.put("price", sku.getPrice());
                 String[] attrValIdArr = sku.getCode().split(",");
                 for (String attrValId : attrValIdArr) {
-                    AttrVal attrVal = attrValMap.get(Long.valueOf(attrValId));
+                    ShopAttrVal attrVal = attrValMap.get(Long.valueOf(attrValId));
                     oneSkuMap.put("s" + attrVal.getIdAttrKey(), attrVal.getId());
                 }
-                oneSkuMap.put("stock_num", sku.getStock());
                 oneSkuMap.put("code", sku.getCode());
                 skuList2.add(oneSkuMap);
             }
@@ -102,5 +112,5 @@ public class GoodsController extends BaseController {
                 "goods", goods,
                 "sku", skuMap
         ));
-    }*/
+    }
 }

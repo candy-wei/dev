@@ -5,14 +5,31 @@
 
     <resultMap id="goodsMap" type="com.ningyuan.mobile.dto.GoodsDto">
         <id property="id" column="id"/>
-        <association property="author" javaType="com.ningyuan.mobile.model.ShopCategoryModel">
-            <id property="id" column="idCategory"/>
-        </association>
+        <result property="descript" column="goods_descript"/>
+        <result property="detail" column="goods_detail"/>
+        <result property="gallery" column="goods_gallery"/>
+        <result property="idCategory" column="goods_id_category"/>
+        <result property="isOnSale" column="goods_noSale"/>
+        <result property="name" column="goods_name"/>
+        <result property="pic" column="goods_pic"/>
+        <result property="price" column="goods_price"/>
+        <result property="stock" column="goods_stock"/>
+        <association property="category" column="goods_id_category"
+                     javaType="com.ningyuan.mobile.model.ShopCategoryModel" resultMap="categoryResult"/>
+    </resultMap>
+
+    <resultMap id="categoryResult" type="com.ningyuan.mobile.model.ShopCategoryModel">
+        <id property="id" column="category_id"/>
+        <result property="icon" column="category_icon"/>
+        <result property="name" column="category_name"/>
+        <result property="url" column="category_url"/>
     </resultMap>
 
     <select id="getGoods" resultMap="goodsMap">
         select
-            *
+            sg.id, sg.descript goods_descript, sg.detail goods_detail, sg.is_on_sale goods_noSale, sg.gallery goods_gallery,
+            sg.id_category goods_id_category, sg.name goods_name, sg.pic goods_pic, sg.price goods_price, sg.stock goods_stock,
+            sc.id category_id, sc.icon category_icon, sc.name category_name, sc.url category_url
         from
             shop_goods as sg left join shop_category as sc on sg.id_category = sc.id
         where

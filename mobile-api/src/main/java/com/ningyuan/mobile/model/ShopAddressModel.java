@@ -91,12 +91,6 @@ public class ShopAddressModel extends BaseModel {
     @Column(name = "province" )
     private String province;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public String getName() {
         return this.name;
     }
@@ -184,21 +178,4 @@ public class ShopAddressModel extends BaseModel {
     public void setProvince(String province) {
         this.province = province;
     }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
 }

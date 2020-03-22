@@ -47,34 +47,6 @@ public class ShopGoodsModel extends BaseModel {
     private Long idCategory;
 
     /**
-     * 是否删除
-     */
-    @FiledComment(text = "是否删除" )
-    @Column(name = "is_delete" )
-    private Integer isDelete;
-
-    /**
-     * 是否人气商品
-     */
-    @FiledComment(text = "是否人气商品" )
-    @Column(name = "is_hot" )
-    private Integer isHot;
-
-    /**
-     * 是否新品推荐
-     */
-    @FiledComment(text = "是否新品推荐" )
-    @Column(name = "is_new" )
-    private Integer isNew;
-
-    /**
-     * 是否上架
-     */
-    @FiledComment(text = "是否上架" )
-    @Column(name = "is_on_sale" )
-    private Integer isOnSale;
-
-    /**
      * 名称
      */
     @FiledComment(text = "名称" )
@@ -101,12 +73,6 @@ public class ShopGoodsModel extends BaseModel {
     @FiledComment(text = "库存数量" )
     @Column(name = "stock" )
     private Long stock;
-
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
 
     public String getDescript() {
         return this.descript;
@@ -140,38 +106,6 @@ public class ShopGoodsModel extends BaseModel {
         this.idCategory = idCategory;
     }
 
-    public Integer getIsDelete() {
-        return this.isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Integer getIsHot() {
-        return this.isHot;
-    }
-
-    public void setIsHot(Integer isHot) {
-        this.isHot = isHot;
-    }
-
-    public Integer getIsNew() {
-        return this.isNew;
-    }
-
-    public void setIsNew(Integer isNew) {
-        this.isNew = isNew;
-    }
-
-    public Integer getIsOnSale() {
-        return this.isOnSale;
-    }
-
-    public void setIsOnSale(Integer isOnSale) {
-        this.isOnSale = isOnSale;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -198,22 +132,6 @@ public class ShopGoodsModel extends BaseModel {
 
     public void setStock(Long stock) {
         this.stock = stock;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
 }

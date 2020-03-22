@@ -62,12 +62,6 @@ public class ShopOrderModel extends BaseModel {
     @Column(name = "total_price" )
     private String totalPrice;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public Long getIdAddress() {
         return this.idAddress;
     }
@@ -118,22 +112,6 @@ public class ShopOrderModel extends BaseModel {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
 }

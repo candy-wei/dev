@@ -30,12 +30,6 @@ public class ShopCategoryBannerRelModel extends BaseModel {
     @Column(name = "id_category" )
     private Long idCategory;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public Long getIdBanner() {
         return this.idBanner;
     }
@@ -50,22 +44,6 @@ public class ShopCategoryBannerRelModel extends BaseModel {
 
     public void setIdCategory(Long idCategory) {
         this.idCategory = idCategory;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
 }

@@ -43,12 +43,6 @@ public class ShopCartModel extends BaseModel {
     @Column(name = "open_id" )
     private String openId;
 
-    @Column(name = "create_time" )
-    private Date createTime;
-
-    @Column(name = "update_time" )
-    private Date updateTime;
-
     public BigDecimal getCount() { return count; }
 
     public void setCount(BigDecimal count) { this.count = count; }
@@ -72,21 +66,5 @@ public class ShopCartModel extends BaseModel {
     public String getOpenId() { return openId; }
 
     public void setOpenId(String openId) { this.openId = openId; }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
 }

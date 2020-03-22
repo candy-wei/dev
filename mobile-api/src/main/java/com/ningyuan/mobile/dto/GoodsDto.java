@@ -8,7 +8,7 @@ public class GoodsDto {
     private String detail;
     private String gallery;
     private Long idCategory;
-    private Integer isOnSale;
+    private Boolean isOnSale;
     private String name;
     private String pic;
     /**
@@ -41,9 +41,13 @@ public class GoodsDto {
 
     public void setIdCategory(Long idCategory) { this.idCategory = idCategory; }
 
-    public Integer getIsOnSale() { return isOnSale; }
+    public Boolean getOnSale() {
+        return isOnSale;
+    }
 
-    public void setIsOnSale(Integer isOnSale) { this.isOnSale = isOnSale; }
+    public void setOnSale(Boolean onSale) {
+        isOnSale = onSale;
+    }
 
     public String getName() { return name; }
 
