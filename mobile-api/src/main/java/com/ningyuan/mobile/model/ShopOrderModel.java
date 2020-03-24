@@ -5,6 +5,7 @@ import com.ningyuan.base.annotation.FiledComment;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -46,21 +47,21 @@ public class ShopOrderModel extends BaseModel {
      */
     @FiledComment(text = "实付金额" )
     @Column(name = "real_price" )
-    private String realPrice;
+    private BigDecimal realPrice;
 
     /**
      * 状态
      */
     @FiledComment(text = "状态" )
     @Column(name = "status" )
-    private Long status;
+    private Integer status;
 
     /**
      * 总金额
      */
     @FiledComment(text = "总金额" )
     @Column(name = "total_price" )
-    private String totalPrice;
+    private BigDecimal totalPrice;
 
     public Long getIdAddress() {
         return this.idAddress;
@@ -90,28 +91,15 @@ public class ShopOrderModel extends BaseModel {
         this.orderSn = orderSn;
     }
 
-    public String getRealPrice() {
-        return this.realPrice;
-    }
+    public BigDecimal getRealPrice() { return realPrice; }
 
-    public void setRealPrice(String realPrice) {
-        this.realPrice = realPrice;
-    }
+    public void setRealPrice(BigDecimal realPrice) { this.realPrice = realPrice; }
 
-    public Long getStatus() {
-        return this.status;
-    }
+    public Integer getStatus() { return status; }
 
-    public void setStatus(Long status) {
-        this.status = status;
-    }
+    public void setStatus(Integer status) { this.status = status; }
 
-    public String getTotalPrice() {
-        return this.totalPrice;
-    }
+    public BigDecimal getTotalPrice() { return totalPrice; }
 
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
+    public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
 }

@@ -45,8 +45,8 @@ public class ShopCartController extends BaseController {
     @ResponseBody
     public Object add(@RequestBody CartAddDto cartDto, String openId){
         cartDto.setOpenId(openId);
-//        Integer result = cartService.add(cartDto);
-        return Rets.success();
+        Integer result = cartService.addCartItem(cartDto, openId);
+        return Rets.success(result);
     }
 
     @RequestMapping(value="/count",method = RequestMethod.GET)

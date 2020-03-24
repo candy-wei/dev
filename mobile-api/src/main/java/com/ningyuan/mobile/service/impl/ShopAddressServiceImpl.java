@@ -16,4 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopAddressServiceImpl extends BaseServiceImpl<ShopAddressMapper, ShopAddressModel> implements IShopAddressService {
 
+
+    @Override
+    public ShopAddressModel getDefaultAddr(String openId) {
+        ShopAddressModel addressModel = new ShopAddressModel();
+        addressModel.setOpenId(openId);
+        addressModel.setIsDefault(Boolean.TRUE);
+        return this.selectLimitOne(addressModel);
+    }
 }

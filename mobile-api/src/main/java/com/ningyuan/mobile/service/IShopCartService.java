@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
+import com.ningyuan.mobile.dto.CartAddDto;
 import com.ningyuan.mobile.dto.ShopCartDto;
 import com.ningyuan.mobile.model.ShopCartModel;
 
@@ -16,4 +17,10 @@ import java.util.List;
 public interface IShopCartService extends IBaseService<ShopCartModel> {
 
     List<ShopCartDto> queryCart(String openId);
+
+    Integer addCartItem(CartAddDto cartDto, String openId);
+
+    List<ShopCartDto> queryUserCarts(ShopCartModel cartModel);
+
+    void deleteCartList(List<ShopCartDto> cartList);
 }

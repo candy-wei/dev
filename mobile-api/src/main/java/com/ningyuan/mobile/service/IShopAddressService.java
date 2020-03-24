@@ -12,4 +12,5 @@ import com.ningyuan.mobile.model.ShopAddressModel;
 
 public interface IShopAddressService extends IBaseService<ShopAddressModel> {
 
+    ShopAddressModel getDefaultAddr(String openId);
 }

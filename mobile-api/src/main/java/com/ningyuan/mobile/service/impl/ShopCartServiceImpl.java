@@ -2,11 +2,13 @@ package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
 import com.ningyuan.mobile.daomapper.mapper.ShopCartMapper;
+import com.ningyuan.mobile.dto.CartAddDto;
 import com.ningyuan.mobile.dto.ShopCartDto;
 import com.ningyuan.mobile.model.ShopCartModel;
 import com.ningyuan.mobile.service.IShopCartService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,5 +25,45 @@ public class ShopCartServiceImpl extends BaseServiceImpl<ShopCartMapper, ShopCar
     @Override
     public List<ShopCartDto> queryCart(String openId) {
         return this.mapper.queryCart(openId);
+    }
+
+    @Override
+    public Integer addCartItem(CartAddDto cartDto, String openId) {
+        Integer count = cartDto.getCount();
+        Long idSku = cartDto.getIdSku();
+
+        ShopCartModel shopCartModel = new ShopCartModel();
+        shopCartModel.setOpenId(openId);
+        shopCartModel.setIdGoods(cartDto.getIdGoods());
+
+        if(idSku != null){
+            shopCartModel.setIdSku(idSku);
+        }
+
+        ShopCartModel old  = this.selectLimitOne(shopCartModel);
+        Integer result = 0;
+        if(old!=null){
+            old.setCount(old.getCount().add(new BigDecimal(count)));
+            this.updateByPrimaryKeySelective(old);
+        }else {
+            ShopCartModel cart = new ShopCartModel();
+            cart.setIdGoods(cartDto.getIdGoods());
+            cart.setCount(new BigDecimal(count));
+            cart.setOpenId(openId);
+            cart.setIdSku(idSku);
+            insert(cart);
+            result = 1;
+        }
+        return result;
+    }
+
+    @Override
+    public List<ShopCartDto> queryUserCarts(ShopCartModel cartModel) {
+        return null;
+    }
+
+    @Override
+    public void deleteCartList(List<ShopCartDto> cartList) {
+        // TODO 清除购物车列表
     }
 }

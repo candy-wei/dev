@@ -162,4 +162,24 @@ public class StringUtil {
         }
         return params;
     }
+
+    /**
+     * 是否为非空字符
+     */
+    public static boolean isNotEmpty(String str) {
+        return (!isEmpty(str));
+    }
+
+    /**
+     * 是否为空字符
+     */
+    public static boolean isEmpty(String str) {
+        if (str == null || str.trim().length() == 0) {
+            return true;
+        }
+        if ("null".equalsIgnoreCase(str) || "undefined".equalsIgnoreCase(str)) {
+            return true;
+        }
+        return false;
+    }
 }
