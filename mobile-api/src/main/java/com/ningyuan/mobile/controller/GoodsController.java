@@ -75,7 +75,7 @@ public class GoodsController extends BaseController {
                 Map treeNode = Maps.newHashMap();
                 treeNode.put("k", attrKey.getAttrName());
                 List<Map> v = Lists.newArrayList();
-                List<ShopAttrVal> attrValListChildren = attrKeyService.getAttrVals();
+                List<ShopAttrVal> attrValListChildren = attrKeyService.getAttrVals(attrKey.getId());
                 attrValList.addAll(attrValListChildren);
                 for (ShopAttrVal attrVal : attrValListChildren) {
                     v.add(Maps.newHashMap(

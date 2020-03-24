@@ -7,5 +7,5 @@ import com.ningyuan.mobile.model.ShopAttrVal;
 import java.util.List;
 
 public interface IAttrKeyService extends IBaseService<ShopAttrKey> {
-    List<ShopAttrVal> getAttrVals();
+    List<ShopAttrVal> getAttrVals(Long keyId);
 }

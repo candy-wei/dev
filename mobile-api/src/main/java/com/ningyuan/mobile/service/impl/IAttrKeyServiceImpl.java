@@ -20,7 +20,7 @@ import java.util.List;
 public class IAttrKeyServiceImpl extends BaseServiceImpl<ShopAttrKeyMapper, ShopAttrKey> implements IAttrKeyService {
 
     @Override
-    public List<ShopAttrVal> getAttrVals() {
-        return null;
+    public List<ShopAttrVal> getAttrVals(Long keyId) {
+        return this.mapper.getAttrVals(keyId);
     }
 }
