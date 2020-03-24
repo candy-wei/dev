@@ -1,6 +1,8 @@
 package com.ningyuan.utils;
 
 
+import net.sf.ehcache.hibernate.management.impl.BeanUtils;
+
 import java.util.*;
 
 /**
@@ -136,7 +138,7 @@ public final class Lists {
      * @return
      */
     public static <K, V> Map<K, V> toMap(List<V> list, String keyProperty) {
-        Map<K, V> map = new HashMap<K, V>(100);
+        Map<K, V> map = new HashMap<>(100);
         for (V v : list) {
 
             try {
@@ -173,6 +175,6 @@ public final class Lists {
     }
 
     private static Object getProperty(Object bean,String name){
-        return null;
+        return BeanUtils.getBeanProperty(bean,name);
     }
 }

@@ -39,7 +39,9 @@ public class NingyuanInterceptor implements HandlerInterceptor {
             ResponseUtils.printError("authFailusre", "未找到openId为" + openId + "的用户");
             return false;
         }*/
-        System.out.println("123");
+
+        /*String openId = request.getHeader("openId");
+        Context.addTreadLocal("openId", openId);*/
         return true;
     }
 
