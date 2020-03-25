@@ -40,8 +40,8 @@ public class NingyuanInterceptor implements HandlerInterceptor {
             return false;
         }*/
 
-        /*String openId = request.getHeader("openId");
-        Context.addTreadLocal("openId", openId);*/
+        String openId = request.getHeader("openId");
+        Context.addTreadLocal("openId", openId);
         return true;
     }
 

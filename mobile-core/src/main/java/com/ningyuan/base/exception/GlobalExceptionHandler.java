@@ -20,7 +20,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(NotAuthorizedException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public @ResponseBody
     ErrorMessage handleNotAuthorizedException(NotAuthorizedException e) {
         logger.error("权限访问错误", e);
@@ -29,7 +29,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(DataAccessException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public ModelAndView handleDataAccessException(DataAccessException e) {
         logger.error("数据访问错误:", e);
         return new ModelAndView("common/net_err");
@@ -37,7 +37,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public ModelAndView handleException(Exception e) {
         String openId="";
         if(Context.containTreadLocal("openId")){
@@ -49,7 +49,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(StatelessException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public @ResponseBody
     ErrorMessage handleStatelessException(BaseException e) {
         logger.error("业务处理错误:", e);
@@ -58,7 +58,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ViewException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public ModelAndView handleViewlessException(ViewException e) {
         logger.error("业务处理错误:");
 
@@ -73,7 +73,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BaseException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public @ResponseBody
     ErrorMessage handleBaseException(BaseException e) {
         logger.error("业务处理错误:", e);
@@ -82,7 +82,7 @@ class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BindException.class)
-//    @AspectBefore(handle = "exceptionTest")
+//    @AspectBefore(handler = "exceptionTest")
     public @ResponseBody
     ErrorMessage handleBindException(BindException e) {
         logger.error("请求参数错误:", e);

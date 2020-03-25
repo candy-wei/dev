@@ -63,6 +63,10 @@ public class ShopOrderModel extends BaseModel {
     @Column(name = "total_price" )
     private BigDecimal totalPrice;
 
+    @FiledComment(text = "是否支付" )
+    @Column(name = "has_pay" )
+    private Boolean hasPay;
+
     public Long getIdAddress() {
         return this.idAddress;
     }
@@ -102,4 +106,8 @@ public class ShopOrderModel extends BaseModel {
     public BigDecimal getTotalPrice() { return totalPrice; }
 
     public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
+
+    public Boolean getHasPay() { return hasPay; }
+
+    public void setHasPay(Boolean hasPay) { this.hasPay = hasPay; }
 }

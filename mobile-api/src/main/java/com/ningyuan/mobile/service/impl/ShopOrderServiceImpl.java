@@ -1,6 +1,8 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.core.Context;
+import com.ningyuan.mobile.constant.OrderEnum;
 import com.ningyuan.mobile.daomapper.mapper.ShopOrderMapper;
 import com.ningyuan.mobile.model.ShopOrderItemModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
@@ -39,12 +41,32 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     @Override
     public void cancelOrder(String orderSn) {
         // TODO 取消订单
+        ShopOrderModel shopOrderModel = queryOrderByUser(orderSn);
+        if (shopOrderModel != null && !shopOrderModel.getHasPay()) {
+            // 未支付订单，可以取消
+            shopOrderModel.setStatus(OrderEnum.OrderStatusEnum.CANCEL.getId());
+            this.updateByPrimaryKeySelective(shopOrderModel);
+        }
+
     }
 
     @Override
     public ShopOrderModel confirmReceive(String orderSn) {
         // TODO 确认订单
-        return null;
+        ShopOrderModel shopOrderModel = queryOrderByUser(orderSn);
+        if (shopOrderModel != null && !shopOrderModel.getHasPay()) {
+            // 未支付订单，可以取消
+            shopOrderModel.setStatus(OrderEnum.OrderStatusEnum.FINISHED.getId());
+            this.updateByPrimaryKeySelective(shopOrderModel);
+        }
+        return shopOrderModel;
+    }
+
+    private ShopOrderModel queryOrderByUser(String orderSn) {
+        ShopOrderModel orderModel = new ShopOrderModel();
+        orderModel.setOpenId(Context.getOpenId());
+        orderModel.setOrderSn(orderSn);
+        return this.selectLimitOne(orderModel);
     }
 
     /**

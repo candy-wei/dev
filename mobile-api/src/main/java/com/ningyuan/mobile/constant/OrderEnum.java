@@ -5,7 +5,8 @@ public class OrderEnum {
         UN_PAY(1, "待付款"),
         UN_SEND(2, "待发货"),
         SENDED(3, "已发货"),
-        FINISHED(4, "已完成");
+        FINISHED(4, "已完成"),
+        CANCEL(5, "取消");
 
 
         private String value;
