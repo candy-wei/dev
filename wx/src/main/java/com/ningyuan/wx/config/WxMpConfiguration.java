@@ -5,6 +5,8 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.WxMpConfigStorage;
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +17,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class WxMpConfiguration {
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
-    WxMpHttpClientBuilder httpClientBuilder;
+    private WxMpHttpClientBuilder httpClientBuilder;
 
     public WxMpConfigStorage wxMpConfigStorage() {
+        logger.info("到这儿了吗WxMpConfiguration！", "到了！");
         WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
         configStorage.setAppId(Conf.get("wxsa.appId"));
         configStorage.setSecret(Conf.get("wxsa.appSecret"));
@@ -30,6 +35,7 @@ public class WxMpConfiguration {
 
     @Bean
     public WxMpService wxMpService() {
+        logger.info("创建WxMpService", "ok！");
         WxMpService wxMpService = new WxMpServiceImpl();
         wxMpService.setWxMpConfigStorage(wxMpConfigStorage());    //default
         return wxMpService;

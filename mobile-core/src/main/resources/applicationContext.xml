@@ -22,7 +22,6 @@
   </bean>
 
   <mvc:annotation-driven/>
-  <context:component-scan base-package="com.ningyuan.**.controller"/>
   <context:component-scan base-package="com.ningyuan.**.service"/>
   <context:component-scan base-package="com.ningyuan.**.daomapper.*"/>
   <context:component-scan base-package="com.ningyuan.base.exception"/>
@@ -31,6 +30,7 @@
   <context:component-scan base-package="com.ningyuan.**.config"/>
   <context:component-scan base-package="com.ningyuan.**.handler"/>
   <context:component-scan base-package="com.ningyuan.**.validator"/>
+  <context:component-scan base-package="com.ningyuan.**.controller"/>
 
   <mvc:default-servlet-handler />
   <aop:aspectj-autoproxy proxy-target-class="true"/>

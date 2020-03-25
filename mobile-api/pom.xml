@@ -22,6 +22,12 @@
 
         <dependency>
             <groupId>com.ningyuan</groupId>
+            <artifactId>wx</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ningyuan</groupId>
             <artifactId>swagger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

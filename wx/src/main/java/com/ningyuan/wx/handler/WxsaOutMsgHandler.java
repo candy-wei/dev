@@ -58,7 +58,7 @@ public class WxsaOutMsgHandler {
         //统计 菜单点击量
         if (StringUtils.equals(wxMessage.getMsgType(), WxConsts.XmlMsgType.EVENT)
                 && StringUtils.equalsAny(wxMessage.getEvent(), WxConsts.EventType.VIEW, WxConsts.EventType.CLICK)) {
-            String keyShort = StringUtils.substringAfter(wxMessage.getEventKey(), "dasijiaoyu.com");
+            String keyShort = StringUtils.substringAfter(wxMessage.getEventKey(), "ningyuan.com");
             String key = StringUtils.isNotBlank(keyShort) ? keyShort : wxMessage.getEventKey();
         }
 
