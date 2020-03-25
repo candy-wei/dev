@@ -5,7 +5,7 @@
             <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
         <!--error log日志文件的位置-->
-        <RollingFile name="promote" fileName="logs/promote.log" filePattern="logs/$${date:yyyy-MM}/promote.log-%d{yyyy-MM-dd}-%i.log.gz" immediateFlush="true">
+        <RollingFile name="ningyuan" fileName="logs/ningyuan.log" filePattern="logs/$${date:yyyy-MM}/ningyuan.log-%d{yyyy-MM-dd}-%i.log.gz" immediateFlush="true">
             <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SS} %level [%thread][%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy />
@@ -13,7 +13,7 @@
             </Policies>
             <DefaultRolloverStrategy max="20" />
         </RollingFile>
-        <RollingFile name="errorFile" fileName="logs/promote.error.log" filePattern="logs/$${date:yyyy-MM}/promote.error.log-%d{yyyy-MM-dd}-%i.log.gz" immediateFlush="true">
+        <RollingFile name="errorFile" fileName="logs/ningyuan.error.log" filePattern="logs/$${date:yyyy-MM}/ningyuan.error.log-%d{yyyy-MM-dd}-%i.log.gz" immediateFlush="true">
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SS} %level [%thread][%file:%line] - %msg%n" />
             <Policies>
@@ -31,7 +31,7 @@
         <logger name="net.fckeditor" level="error"></logger>
         <logger name="com.aliyun.oss" level="error"></logger>
         <root level="info">
-            <appender-ref ref="promote"/>
+            <appender-ref ref="ningyuan"/>
             <appender-ref ref="errorFile"/>
             <appender-ref ref="console"/>
         </root>
