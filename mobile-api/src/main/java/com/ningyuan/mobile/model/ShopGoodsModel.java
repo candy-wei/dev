@@ -5,6 +5,7 @@ import com.ningyuan.base.BaseModel;
 import com.ningyuan.base.annotation.FiledComment;
 
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -71,7 +72,7 @@ public class ShopGoodsModel extends BaseModel {
      */
     @FiledComment(text = "价格" )
     @Column(name = "price" )
-    private String price;
+    private BigDecimal price;
 
     /**
      * 库存数量
@@ -142,13 +143,9 @@ public class ShopGoodsModel extends BaseModel {
         this.pic = pic;
     }
 
-    public String getPrice() {
-        return this.price;
-    }
+    public BigDecimal getPrice() { return price; }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
     public Long getStock() {
         return this.stock;
