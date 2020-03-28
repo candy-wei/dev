@@ -1,10 +1,16 @@
 package com.ningyuan.mobile.dto;
 
+import com.ningyuan.utils.CreateGUID;
+
 public class CartAddDto {
     private Long idGoods;
     private Integer count;
     private Long idSku;
     private String openId;
+
+    public static void main(String[] args) {
+        System.out.println(CreateGUID.createGuId());
+    }
 
     public Long getIdGoods() { return idGoods; }
 

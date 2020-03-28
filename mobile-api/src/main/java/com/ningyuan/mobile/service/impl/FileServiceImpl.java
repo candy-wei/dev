@@ -137,8 +137,8 @@ public class FileServiceImpl extends BaseServiceImpl<FileMapper, SysFileInfoMode
     @Override
     public SysFileInfoModel getByName(String fileName) {
         SysFileInfoModel infoModel = new SysFileInfoModel();
-        infoModel.setRealFileName(fileName);
-        SysFileInfoModel fileInfo = this.mapper.selectOneByExample(infoModel);
+        infoModel.setId(Long.parseLong(fileName));
+        SysFileInfoModel fileInfo = this.selectLimitOne(infoModel);
         fileInfo.setAblatePath(Conf.get("system.file.upload.path") + File.separator + fileInfo.getRealFileName());
         return fileInfo;
     }

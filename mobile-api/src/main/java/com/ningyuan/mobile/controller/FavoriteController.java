@@ -30,7 +30,7 @@ public class FavoriteController extends BaseController {
         ShopFavoriteModel favorite = new ShopFavoriteModel();
         favorite.setOpenId(openId);
         favorite.setIdGoods(idGoods);
-        favoriteService.insert(favorite);
+        favoriteService.insertSelective(favorite);
         return Rets.success();
     }
     @RequestMapping(value = "/ifLike/{idGoods}",method = RequestMethod.GET)
