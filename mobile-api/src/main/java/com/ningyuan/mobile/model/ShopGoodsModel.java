@@ -74,13 +74,6 @@ public class ShopGoodsModel extends BaseModel {
     @Column(name = "price" )
     private BigDecimal price;
 
-    /**
-     * 库存数量
-     */
-    @FiledComment(text = "库存数量" )
-    @Column(name = "stock" )
-    private Long stock;
-
     @Column(name = "create_time" )
     private Date createTime;
 
@@ -146,14 +139,6 @@ public class ShopGoodsModel extends BaseModel {
     public BigDecimal getPrice() { return price; }
 
     public void setPrice(BigDecimal price) { this.price = price; }
-
-    public Long getStock() {
-        return this.stock;
-    }
-
-    public void setStock(Long stock) {
-        this.stock = stock;
-    }
 
     public Date getCreateTime() {
         return this.createTime;

@@ -58,11 +58,6 @@ public class ShopCartServiceImpl extends BaseServiceImpl<ShopCartMapper, ShopCar
     }
 
     @Override
-    public List<ShopCartDto> queryUserCarts(ShopCartModel cartModel) {
-        return null;
-    }
-
-    @Override
     public void deleteCartList(List<ShopCartDto> cartList) {
         // TODO 清除购物车列表
     }

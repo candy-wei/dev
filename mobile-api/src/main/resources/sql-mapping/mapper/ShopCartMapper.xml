@@ -4,12 +4,45 @@
 <mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopCartMapper">
 
     <resultMap id="queryCartMap" type="com.ningyuan.mobile.dto.ShopCartDto">
+        <id property="id" column="id" />
+        <result property="idGoods" column="id_goods"/>
+        <result property="idSku" column="id_sku"/>
+        <result property="amount" column="count"/>
+        <association property="goods" column="id_goods"
+                     javaType="com.ningyuan.mobile.model.ShopGoodsModel" resultMap="shopGoodsMap"/>
+        <association property="skuModel" column="id_sku"
+                     javaType="com.ningyuan.mobile.model.ShopGoodsSkuModel" resultMap="ShopGoodsSkuMap"/>
+    </resultMap>
 
+    <resultMap id="shopGoodsMap" type="com.ningyuan.mobile.model.ShopGoodsModel">
+        <id property="id" column="id_goods"/>
+        <result property="descript" column="descript"/>
+        <result property="detail" column="detail"/>
+        <result property="gallery" column="gallery"/>
+        <result property="idCategory" column="id_category"/>
+        <result property="isOnSale" column="is_on_sale"/>
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
+    <resultMap id="ShopGoodsSkuMap" type="com.ningyuan.mobile.model.ShopGoodsSkuModel">
+        <id property="id" column="id_sku"/>
+        <result property="code" column="code"/>
+        <result property="name" column="code_name"/>
+        <result property="marketingPrice" column="marketing_price"/>
     </resultMap>
 
     <select id="queryCart" resultMap="queryCartMap">
-        select id, id_goods, idSku, amount, price, title, sg.*, sgs.* from shop_cart as sc
-        left join shop_goods as sg on sc.id_goods = sg.id left join shop_goods_sku as sgs
+        select
+            sc.id, sc.id_goods, sc.count, sc.id_sku,
+            sg.descript, sg.detail, sg.gallery, sg.id_category, sg.is_on_sale, sg.name, sg.pic, sg.price,
+            sgs.code, sgs.code_name, sgs.marketing_price
+        from
+            shop_cart as sc
+        left join shop_goods as sg
+        on sc.id_goods = sg.id left join shop_goods_sku as sgs
         on sc.id_sku = sgs.id
+        where sc.open_id = #{openId}
     </select>
 </mapper>

@@ -20,7 +20,5 @@ public interface IShopCartService extends IBaseService<ShopCartModel> {
 
     Integer addCartItem(CartAddDto cartDto, String openId);
 
-    List<ShopCartDto> queryUserCarts(ShopCartModel cartModel);
-
     void deleteCartList(List<ShopCartDto> cartList);
 }

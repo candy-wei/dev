@@ -1,33 +1,28 @@
 package com.ningyuan.mobile.dto;
 
-import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopGoodsModel;
 import com.ningyuan.mobile.model.ShopGoodsSkuModel;
+
 import java.math.BigDecimal;
 
 public class ShopCartDto {
     private Long id;
-    private ShopCustomerModel customerModel;
     private ShopGoodsModel goods;
-    private ShopGoodsSkuModel sku;
+    private ShopGoodsSkuModel skuModel;
     private Long idGoods;
     private Long idSku;
     private BigDecimal amount;
     private BigDecimal price;
-    private String title;
 
     public BigDecimal getPrice(){
         if(idSku!=null){
-            return sku.getPrice();
+            return skuModel.getPrice();
         }
         return goods.getPrice();
     }
     public String getTitle(){
-        return idSku!=null? getGoods().getName()+" "+getSku().getCodeName():getGoods().getName();
+        return idSku!=null? getGoods().getName()+" "+getSkuModel().getCodeName():getGoods().getName();
     }
-    public ShopCustomerModel getCustomerModel() { return customerModel; }
-
-    public void setCustomerModel(ShopCustomerModel customerModel) { this.customerModel = customerModel; }
 
     public Long getIdGoods() { return idGoods; }
 
@@ -41,9 +36,9 @@ public class ShopCartDto {
 
     public void setIdSku(Long idSku) { this.idSku = idSku; }
 
-    public ShopGoodsSkuModel getSku() { return sku; }
+    public ShopGoodsSkuModel getSkuModel() { return skuModel; }
 
-    public void setSku(ShopGoodsSkuModel sku) { this.sku = sku; }
+    public void setSkuModel(ShopGoodsSkuModel skuModel) { this.skuModel = skuModel; }
 
     public BigDecimal getAmount() { return amount; }
 
@@ -55,5 +50,4 @@ public class ShopCartDto {
 
     public void setId(Long id) { this.id = id; }
 
-    public void setTitle(String title) { this.title = title; }
 }

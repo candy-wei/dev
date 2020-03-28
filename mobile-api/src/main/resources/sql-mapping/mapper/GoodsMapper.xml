@@ -13,7 +13,6 @@
         <result property="name" column="goods_name"/>
         <result property="pic" column="goods_pic"/>
         <result property="price" column="goods_price"/>
-        <result property="stock" column="goods_stock"/>
         <association property="category" column="goods_id_category"
                      javaType="com.ningyuan.mobile.model.ShopCategoryModel" resultMap="categoryResult"/>
     </resultMap>
@@ -28,7 +27,7 @@
     <select id="getGoods" resultMap="goodsMap">
         select
             sg.id, sg.descript goods_descript, sg.detail goods_detail, sg.is_on_sale goods_noSale, sg.gallery goods_gallery,
-            sg.id_category goods_id_category, sg.name goods_name, sg.pic goods_pic, sg.price goods_price, sg.stock goods_stock,
+            sg.id_category goods_id_category, sg.name goods_name, sg.pic goods_pic, sg.price goods_price,
             sc.id category_id, sc.icon category_icon, sc.name category_name, sc.url category_url
         from
             shop_goods as sg left join shop_category as sc on sg.id_category = sc.id
