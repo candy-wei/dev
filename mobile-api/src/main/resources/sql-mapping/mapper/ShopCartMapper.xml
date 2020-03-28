@@ -8,7 +8,7 @@
     </resultMap>
 
     <select id="queryCart" resultMap="queryCartMap">
-        select id, idGoods, idSku, amount, price, title, sg.*, sgs.* from shop_cart as sc
+        select id, id_goods, idSku, amount, price, title, sg.*, sgs.* from shop_cart as sc
         left join shop_goods as sg on sc.id_goods = sg.id left join shop_goods_sku as sgs
         on sc.id_sku = sgs.id
     </select>
