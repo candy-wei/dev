@@ -74,7 +74,7 @@ public class ShopOrderController extends BaseController {
         String openId = Context.getOpenId();
         ShopCartModel cartModel = new ShopCartModel();
         cartModel.setOpenId(openId);
-        List<ShopCartModel> list = cartService.select(cartModel);
+        List<ShopCartDto> list = cartService.queryCart(openId);
         ShopAddressModel address = new ShopAddressModel();
         logger.info("chosenAddressId：{}",chosenAddressId);
         if(chosenAddressId==null || chosenAddressId==0) {

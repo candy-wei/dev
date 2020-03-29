@@ -29,7 +29,7 @@
     <resultMap id="ShopGoodsSkuMap" type="com.ningyuan.mobile.model.ShopGoodsSkuModel">
         <id property="id" column="id_sku"/>
         <result property="code" column="code"/>
-        <result property="name" column="code_name"/>
+        <result property="codeName" column="code_name"/>
         <result property="marketingPrice" column="marketing_price"/>
     </resultMap>
 

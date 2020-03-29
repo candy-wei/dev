@@ -96,7 +96,6 @@ public class AddressController extends BaseController {
         }else{
             addressService.insertSelective(addressInfo);
         }
-
         return Rets.success();
     }
 }
