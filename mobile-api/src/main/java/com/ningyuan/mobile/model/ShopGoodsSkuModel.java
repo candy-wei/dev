@@ -53,6 +53,10 @@ public class ShopGoodsSkuModel extends BaseModel {
     @Column(name = "price" )
     private BigDecimal price;
 
+    @FiledComment(text = "库存" )
+    @Column(name = "stock" )
+    private Integer stock;
+
     public String getCode() {
         return this.code;
     }
@@ -85,4 +89,7 @@ public class ShopGoodsSkuModel extends BaseModel {
 
     public void setPrice(BigDecimal price) { this.price = price; }
 
+    public Integer getStock() { return stock; }
+
+    public void setStock(Integer stock) { this.stock = stock; }
 }
