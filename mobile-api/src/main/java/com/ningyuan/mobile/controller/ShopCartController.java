@@ -36,7 +36,8 @@ public class ShopCartController extends BaseController {
 
     @RequestMapping(value = "/queryByUser",method = RequestMethod.GET)
     @ResponseBody
-    public Object getByUser(String openId){
+    public Object getByUser(){
+        String openId = Context.getOpenId();
         List<ShopCartDto> list = cartService.queryCart(openId);
         return Rets.success(list);
     }
