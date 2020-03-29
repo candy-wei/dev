@@ -31,13 +31,14 @@
         <result property="code" column="code"/>
         <result property="codeName" column="code_name"/>
         <result property="marketingPrice" column="marketing_price"/>
+        <result property="price" column="sku_price"/>
     </resultMap>
 
     <select id="queryCart" resultMap="queryCartMap">
         select
             sc.id, sc.id_goods, sc.count, sc.id_sku,
             sg.descript, sg.detail, sg.gallery, sg.id_category, sg.is_on_sale, sg.name, sg.pic, sg.price,
-            sgs.code, sgs.code_name, sgs.marketing_price
+            sgs.code, sgs.code_name, sgs.marketing_price, sgs.price sku_price
         from
             shop_cart as sc
         left join shop_goods as sg

@@ -53,7 +53,8 @@ public class ShopCartController extends BaseController {
 
     @RequestMapping(value="/count",method = RequestMethod.GET)
     @ResponseBody
-    public Object count(String openId){
+    public Object count(){
+        String openId = Context.getOpenId();
         ShopCartModel shopCartModel = new ShopCartModel();
         shopCartModel.setOpenId(openId);
         return Rets.success(cartService.selectCount(shopCartModel));
