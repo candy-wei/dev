@@ -74,6 +74,10 @@ public class ShopGoodsModel extends BaseModel {
     @Column(name = "price" )
     private BigDecimal price;
 
+    @FiledComment(text = "库存" )
+    @Column(name = "stock" )
+    private BigDecimal stock;
+
     @Column(name = "create_time" )
     private Date createTime;
 
@@ -139,6 +143,10 @@ public class ShopGoodsModel extends BaseModel {
     public BigDecimal getPrice() { return price; }
 
     public void setPrice(BigDecimal price) { this.price = price; }
+
+    public BigDecimal getStock() { return stock; }
+
+    public void setStock(BigDecimal stock) { this.stock = stock; }
 
     public Date getCreateTime() {
         return this.createTime;

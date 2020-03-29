@@ -113,6 +113,7 @@ public class GoodsController extends BaseController {
             skuMap.put("none_sku", true);
         }
         skuMap.put("tree", tree);
+        skuMap.put("stock_num", goods.getStock());
         skuMap.put("hide_stock", true);
         return Rets.success(Maps.newHashMap(
                 "goods", goods,
