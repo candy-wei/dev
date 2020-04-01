@@ -16,14 +16,11 @@ import java.io.InputStream;
 @Table ( name ="wx_user" )
 public class WxUserModel extends BaseModel {
 
-    @Column(name = "subscribe" )
-    private String subscribe;
-
     @Column(name = "open_id" )
     private String openId;
 
-    @Column(name = "unionid" )
-    private String unionid;
+    @Column(name = "union_id" )
+    private String unionId;
 
     @Column(name = "nickname" )
     private InputStream nickname;
@@ -43,31 +40,8 @@ public class WxUserModel extends BaseModel {
     @Column(name = "country" )
     private String country;
 
-    @Column(name = "headimgurl" )
-    private String headimgurl;
-
-    @Column(name = "subscribe_time" )
-    private String subscribeTime;
-
-    @Column(name = "remark" )
-    private String remark;
-
-    @Column(name = "groupid" )
-    private String groupid;
-
-    @Column(name = "user_agent" )
-    private String userAgent;
-
-    @Column(name = "promote_type" )
-    private String promoteType;
-
-    public String getSubscribe() {
-        return this.subscribe;
-    }
-
-    public void setSubscribe(String subscribe) {
-        this.subscribe = subscribe;
-    }
+    @Column(name = "head_img_url" )
+    private String headImgUrl;
 
     public String getOpenId() {
         return openId;
@@ -77,13 +51,9 @@ public class WxUserModel extends BaseModel {
         this.openId = openId;
     }
 
-    public String getUnionid() {
-        return this.unionid;
-    }
+    public String getUnionId() { return unionId; }
 
-    public void setUnionid(String unionid) {
-        this.unionid = unionid;
-    }
+    public void setUnionId(String unionId) { this.unionId = unionId; }
 
     public InputStream getNickname() {
         return this.nickname;
@@ -133,43 +103,7 @@ public class WxUserModel extends BaseModel {
         this.country = country;
     }
 
-    public String getHeadimgurl() {
-        return this.headimgurl;
-    }
+    public String getHeadImgUrl() { return headImgUrl; }
 
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl;
-    }
-
-    public String getSubscribeTime() {
-        return this.subscribeTime;
-    }
-
-    public void setSubscribeTime(String subscribeTime) {
-        this.subscribeTime = subscribeTime;
-    }
-
-    public String getRemark() {
-        return this.remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getGroupid() {
-        return this.groupid;
-    }
-
-    public void setGroupid(String groupid) {
-        this.groupid = groupid;
-    }
-
-    public String getUserAgent() { return userAgent; }
-
-    public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
-
-    public String getPromoteType() { return promoteType; }
-
-    public void setPromoteType(String promoteType) { this.promoteType = promoteType; }
+    public void setHeadImgUrl(String headImgUrl) { this.headImgUrl = headImgUrl; }
 }

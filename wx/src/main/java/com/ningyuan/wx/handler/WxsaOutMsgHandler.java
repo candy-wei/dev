@@ -8,10 +8,7 @@ import com.ningyuan.wx.model.WxRelateModel;
 import com.ningyuan.wx.model.wxsa.WxsaCustomerModel;
 import com.ningyuan.wx.model.wxsa.WxsaOutMsgModel;
 import com.ningyuan.wx.model.wxsa.WxsaSubscribeModel;
-import com.ningyuan.wx.service.IWxCommonRelateService;
-import com.ningyuan.wx.service.IWxsaCustomerService;
-import com.ningyuan.wx.service.IWxsaOutMsgService;
-import com.ningyuan.wx.service.IWxsaSubscribeService;
+import com.ningyuan.wx.service.*;
 import com.ningyuan.wx.utils.WxsaUtils;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -20,6 +17,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
 import me.chanjar.weixin.mp.bean.message.*;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,9 +45,7 @@ public class WxsaOutMsgHandler {
     @Autowired
     private WxMpService wxMpService;
     @Autowired
-    private IWxCommonRelateService commonRelateService;
-    @Autowired
-    private IWxsaCustomerService customerService;
+    private IWxUserService wxUserService;
 
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
@@ -186,31 +182,9 @@ public class WxsaOutMsgHandler {
                 subscribeService.updateByPrimaryKeySelective(subscribeModel);
             }
             //update wxUser.remark
-            if (StringUtils.isNotEmpty(sceneId)) {
-                String remark = "wxsa" + subscribeModel.getId() + "wxsa";
-                wxMpService.getUserService().userUpdateRemark(openId, remark);
-                logger.info("wx_user,after updateRemark:{}", wxMpService.getUserService().userInfo(openId));
-            }
-            //设置 parentOpenId, articleId
-            WxRelateModel commonRelateModel = commonRelateService.getByTypeOpenId(
-                    Conf.get("wxsa.article.wx_relate.promoteType:wxsaArticle"), openId);
-            if (commonRelateModel != null) {
-                String countermanId = WxsaUtils.getFromCommonParams(commonRelateModel.getParams(), WxsaConstant.commonRelate.PARAMS_COUNTERMAN_ID);
-                if (StringUtils.isNotEmpty(countermanId)) {
-                    WxsaCustomerModel selCustomer = new WxsaCustomerModel();
-                    selCustomer.setCountermanId(countermanId);
-                    WxsaCustomerModel parent = customerService.selectOne(selCustomer);
-                    if (parent != null) {
-                        WxsaCustomerModel customerModel = new WxsaCustomerModel();
-                        String articleId = WxsaUtils.getFromCommonParams(commonRelateModel.getParams(), WxsaConstant.commonRelate.PARAMS_ARTICLE_ID);
-                        customerModel.setArticleId(articleId);
-                        customerModel.setParentOpenId(parent.getOpenId());
-                        customerService.saveCustomer(openId, customerModel);
-                    } else {
-                        logger.error("parent no found,countermanId:{}", countermanId);
-                    }
-                }
-            }
+            String remark = "wxsa" + subscribeModel.getId() + "wxsa";
+            wxMpService.getUserService().userUpdateRemark(openId, remark);
+            wxUserService.saveWxUser(wxMpService.getUserService().userInfo(openId));
         }
     }
 

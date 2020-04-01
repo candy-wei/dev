@@ -80,12 +80,11 @@ public class WxUtils {
         return object.toJavaObject(tClass);
     }
 
-    public static GetBrandWCPayRequestDto getPayRequestDto(String promoteType, String attach, String openId, String price) throws Exception {
-        return getPayRequestDto(promoteType, attach, openId, price, null);
+    public static GetBrandWCPayRequestDto getPayRequestDto(String attach, String openId, String price) throws Exception {
+        return getPayRequestDto(attach, openId, price, null);
     }
 
     /**
-     * @param promoteType
      * @param attach
      * @param openId
      * @param price
@@ -93,7 +92,7 @@ public class WxUtils {
      * @return
      * @throws Exception
      */
-    public static GetBrandWCPayRequestDto getPayRequestDto(String promoteType, String attach, String openId, String price, String payType) throws Exception {
+    public static GetBrandWCPayRequestDto getPayRequestDto(String attach, String openId, String price, String payType) throws Exception {
         UnifiedorderDto dto = new UnifiedorderDto();
         GetBrandWCPayRequestDto payRequestDto = new GetBrandWCPayRequestDto();
         dto.setAppid(Conf.get("wx.appId"));
@@ -109,7 +108,7 @@ public class WxUtils {
         dto.setOut_trade_no(CreateGUID.createGuId());
         dto.setTotal_fee((int) (100 * Double.parseDouble(price)) + "");
         dto.setTrade_type("JSAPI");
-        dto.setNotify_url(TemplateUtils.replaceAll(Conf.get("wx.notify.uri"), promoteType));
+        dto.setNotify_url(TemplateUtils.replaceAll(Conf.get("wx.notify.uri")));
         dto.setOpenid(openId);
         dto.setSpbill_create_ip("127.0.0.1");
         Map<String, String> result = getPrepareId(dto);
@@ -290,11 +289,6 @@ public class WxUtils {
 
         resultService.updateByPrimaryKey(resultModel);
         return redPackReturnDto;
-    }
-
-    public static boolean isSubscribe(String openId) {
-        WxUserModel wxUserModel = WxUtils.getServerUserInfo("wx.user.info.subscript", openId, getAccessToken().getAccess_token());
-        return wxUserModel != null && "1".equals(wxUserModel.getSubscribe());
     }
 
     public static ResponseEntity<byte[]> downloadMedia(String mediaId) {

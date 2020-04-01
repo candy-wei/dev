@@ -2,13 +2,6 @@ package com.ningyuan.wx.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ningyuan.wx.dto.GetTokenByCodeResultDto;
-import com.ningyuan.wx.dto.JsApiDto;
-import com.ningyuan.wx.dto.WxConfigDto;
-import com.ningyuan.wx.service.IWxRelateService;
-import com.ningyuan.wx.service.IWxUserService;
-import com.ningyuan.wx.utils.WxShareUtils;
-import com.ningyuan.wx.utils.WxUtils;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.ningyuan.annotation.AspectAroun;
 import com.ningyuan.base.BaseController;
@@ -16,6 +9,13 @@ import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.utils.MaskUtils;
 import com.ningyuan.utils.TemplateUtils;
+import com.ningyuan.wx.dto.GetTokenByCodeResultDto;
+import com.ningyuan.wx.dto.JsApiDto;
+import com.ningyuan.wx.dto.WxConfigDto;
+import com.ningyuan.wx.service.IWxRelateService;
+import com.ningyuan.wx.service.IWxUserService;
+import com.ningyuan.wx.utils.WxShareUtils;
+import com.ningyuan.wx.utils.WxUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -63,7 +63,7 @@ public class WxRestController extends BaseController {
         //从微信获得openId, 并保存微信用户信息
         GetTokenByCodeResultDto getTokenByCodeResultDto = WxUtils.getAccessTokenByCode(code);
         String openId = getTokenByCodeResultDto.getOpenid();
-        wxUserService.saveWxUser(getTokenByCodeResultDto, promoteType);
+        wxUserService.saveWxUser(getTokenByCodeResultDto);
         //更新关联关系
         Context.getBean(promoteType, IWxRelateService.class).updateRelate(promoteType, openId, state);
         return Context.getBean(promoteType, IWxRelateService.class).view(promoteType, openId, state);
@@ -123,5 +123,4 @@ public class WxRestController extends BaseController {
         dto.setJsApiList(JSONObject.parseArray(Conf.get("wx.jsApi.config.menu"), String.class));
         return dto;
     }
-
 }
