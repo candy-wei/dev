@@ -1,15 +1,13 @@
 package com.ningyuan.wx.service.impl;
 
+import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.base.exception.ViewException;
+import com.ningyuan.core.Conf;
+import com.ningyuan.utils.ParamsUtils;
+import com.ningyuan.utils.TemplateUtils;
 import com.ningyuan.wx.daomapper.mapper.WxRelateMapper;
 import com.ningyuan.wx.model.WxRelateModel;
 import com.ningyuan.wx.service.IWxCommonRelateService;
-import com.ningyuan.wx.service.IWxCommonRelateView;
-import com.ningyuan.base.BaseServiceImpl;
-import com.ningyuan.core.Conf;
-import com.ningyuan.core.Context;
-import com.ningyuan.utils.ParamsUtils;
-import com.ningyuan.utils.TemplateUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,19 +28,16 @@ public class WxCommonRelateServiceImpl extends BaseServiceImpl<WxRelateMapper, W
     }
 
     @Override
-    public ModelAndView view(String promoteType, String openId, String state) {
+    public ModelAndView view(String openId, String state) {
         WxRelateModel wxRelateModel = this.selectByPrimaryKey(state);
-        if(StringUtils.equals(wxRelateModel.getPromoteType(), Conf.get("wxsa.article.wx_relate.promoteType:wxsaArticle"))){
-            return Context.getBean(wxRelateModel.getPromoteType(), IWxCommonRelateView.class).viewByType(wxRelateModel);
-        }
-        String url = TemplateUtils.replaceAll(Conf.get("promote.index.view.wx" + "." + wxRelateModel.getPromoteType()), wxRelateModel);
+        String url = TemplateUtils.replaceAll(Conf.get("shop.index.view.wx"), wxRelateModel);
         return new ModelAndView("redirect:" + ParamsUtils.getRomote() + url);
     }
 
     @Override
     public void updateRelateDef(String openId, String state) throws Exception {
         WxRelateModel relateModel = this.selectByPrimaryKey(state);
-        WxRelateModel oldRelate = getByTypeOpenId(relateModel.getPromoteType(),openId);
+        WxRelateModel oldRelate = getByTypeOpenId(openId);
         if (!this.isUpdateRelate(openId) && oldRelate != null) {
             this.deleteByPrimaryKey(state);
             return;
@@ -57,10 +52,17 @@ public class WxCommonRelateServiceImpl extends BaseServiceImpl<WxRelateMapper, W
     }
 
     @Override
-    public WxRelateModel getByTypeOpenId(String type, String openId) {
+    public WxRelateModel getByTypeOpenId(String openId) {
         WxRelateModel sel =new WxRelateModel();
         sel.setOpenId(openId);
-        sel.setPromoteType(type);
         return this.selectOne(sel);
+    }
+
+    @Override
+    public void verify(String openId) throws Exception {
+        // 做一个校验，不能是重复的订单号支付，也就是不能重复支付
+        if (false) {
+            throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
+        }
     }
 }

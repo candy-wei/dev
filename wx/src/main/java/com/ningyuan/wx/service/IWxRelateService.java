@@ -2,7 +2,6 @@ package com.ningyuan.wx.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ningyuan.wx.model.WxNotifyInfoModel;
 import com.ningyuan.annotation.AspectBefore;
 import com.ningyuan.base.BaseModel;
 import com.ningyuan.base.exception.ErrorMessage;
@@ -12,6 +11,7 @@ import com.ningyuan.core.Context;
 import com.ningyuan.utils.ParamsUtils;
 import com.ningyuan.utils.RESTUtils;
 import com.ningyuan.utils.TemplateUtils;
+import com.ningyuan.wx.model.WxNotifyInfoModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -29,14 +29,14 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
         return this.getByOpenId(openId);
     }
 
-    default String saveRelate(String promoteType, HttpServletRequest request) throws Exception {
+    default String saveRelate(HttpServletRequest request) throws Exception {
         Map<String, String> params = ParamsUtils.requestParams2Map(request.getParameterMap());
         params.remove("openId");
-        return saveRelate(promoteType, params);
+        return saveRelate(params);
     }
 
     @AspectBefore(handle = "saveRelateTest")
-    default String saveRelate(String promoteType, Map<String, String> params) throws Exception {
+    default String saveRelate(Map<String, String> params) throws Exception {
         Class<T> tClass = getRelateClass();
         T relateModel = ParamsUtils.mapToObject(params, tClass);
         this.insertSelective(relateModel);
@@ -45,7 +45,7 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
 
     boolean isUpdateRelate(String openId);
 
-    default void updateRelate(String promoteType, String openId, String state) throws Exception {
+    default void updateRelate(String openId, String state) throws Exception {
         updateRelateDef(openId, state);
     }
 
@@ -78,6 +78,17 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
     }
 
     default void preHandle(String openId, String id) throws Exception {
+        /*MerrimentCustomerModel customerModel = merrimentCustomerService.getByOpenId(openId);
+        if (customerModel.getHasPurchase()) {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:" + Conf.get("merriment.pay.success.url") + openId);
+            throw new ViewException(modelAndView, "");
+        }
+
+        AppointmentPenddingDto appointmentPenddingDto = appointmentService.getAppointmentPenddingById(id);
+        appointmentPenddingDto.setAmount(Conf.get("merriment.course.price"));
+        appointmentPenddingDto.setLearnYear(Conf.get("merriment.learn.year"));
+        appointmentService.updateAppointPendding(appointmentPenddingDto);*/
     }
 
     @AspectBefore(handle = "paySuccessTest")
@@ -122,11 +133,12 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
      * @return
      */
     default String getPayPrice(String openId) throws StatelessException {
-        return Conf.get("pintuan.course.price");
+        // 计算支付金额
+        return "111";
     }
 
-    default ModelAndView view(String promoteType, String openId, String state) {
-        return new ModelAndView("redirect:" + ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("promote.index.view." + promoteType), openId));
+    default ModelAndView view(String openId, String state) {
+        return new ModelAndView("redirect:" + ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId));
     }
 
     /**

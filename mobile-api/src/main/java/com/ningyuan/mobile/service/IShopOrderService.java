@@ -3,6 +3,7 @@ package com.ningyuan.mobile.service;
 import com.ningyuan.base.IBaseService;
 import com.ningyuan.mobile.model.ShopOrderItemModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
+import com.ningyuan.wx.service.IWxRelateService;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @author (zengrc)
  */
 
-public interface IShopOrderService extends IBaseService<ShopOrderModel> {
+public interface IShopOrderService extends IBaseService<ShopOrderModel>, IWxRelateService<ShopOrderModel> {
 
     void saveOrder(ShopOrderModel order, List<ShopOrderItemModel> itemList);
 

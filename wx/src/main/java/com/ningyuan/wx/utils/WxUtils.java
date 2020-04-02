@@ -2,10 +2,6 @@ package com.ningyuan.wx.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ningyuan.wx.dto.*;
-import com.ningyuan.wx.model.WxRedPackResultModel;
-import com.ningyuan.wx.model.WxUserModel;
-import com.ningyuan.wx.service.IWxRedPackResultService;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.ningyuan.base.exception.ErrorMessage;
@@ -13,6 +9,10 @@ import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.utils.*;
+import com.ningyuan.wx.dto.*;
+import com.ningyuan.wx.model.WxRedPackResultModel;
+import com.ningyuan.wx.model.WxUserModel;
+import com.ningyuan.wx.service.IWxRedPackResultService;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.slf4j.Logger;
@@ -22,12 +22,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: ZengRongChang
@@ -95,11 +96,7 @@ public class WxUtils {
     public static GetBrandWCPayRequestDto getPayRequestDto(String attach, String openId, String price, String payType) throws Exception {
         UnifiedorderDto dto = new UnifiedorderDto();
         GetBrandWCPayRequestDto payRequestDto = new GetBrandWCPayRequestDto();
-        dto.setAppid(Conf.get("wx.appId"));
-        if (org.apache.commons.lang3.StringUtils.equals(payType, "applet")) {
-            //小程序
-            dto.setAppid(Conf.get("wx.applet.appId"));
-        }
+        dto.setAppid(Conf.get("wxsa.appId"));
         dto.setMch_id(Conf.get("wx.partner"));
         dto.setNonce_str(getNonceStr());
         dto.setBody(Conf.get("wx.pay.body"));
@@ -200,10 +197,10 @@ public class WxUtils {
         }
     }
 
-    public static ModelAndView auth2(String state, String promoteType) {
+    public static ModelAndView auth2(String state) {
         String authUrl = TemplateUtils.replaceAll(Conf.get("wx.oauth2.url"), Conf.get("wx.appId"),
-                URLEncoder.encode(TemplateUtils.replaceAll(Conf.get("promote.wx.auth.callback.url"), promoteType)),
-                Conf.get("wx.request.auth.type." + promoteType + ":snsapi_userinfo"), state);
+                URLEncoder.encode(Conf.get("promote.wx.auth.callback.url")),
+                Conf.get("wx.request.auth.type:snsapi_userinfo"), state);
         return new ModelAndView("redirect:" + authUrl);
     }
 

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class WxShareUtils {
 
-    public static void genShareUrl() throws Exception {
+    public static void genShareUrl(IWxRelateService relateService) throws Exception {
 
         if (!Boolean.parseBoolean(Conf.get("wx.share.enable"))) {
             return;
@@ -37,14 +37,14 @@ public class WxShareUtils {
             } else {
                 request.setAttribute("thumbUrl", Conf.get("wx.share.thumb.url"));
             }
-            request.setAttribute("shareLink", TemplateUtils.replaceAll(getShareUrl(openId, promoteType), openId));
+            request.setAttribute("shareLink", TemplateUtils.replaceAll(getShareUrl(openId, relateService), openId));
         }
     }
 
-    public static String getShareUrl(String openId, String promoteType) {
-        Map<String, Object> params = Context.getBean(promoteType, IWxRelateService.class).genShareParams(openId);
+    public static String getShareUrl(String openId, IWxRelateService relateService) {
+        Map<String, Object> params = relateService.genShareParams(openId);
         HttpServletRequest request = Context.getHttpServletRequest();
-        String shareUrl = request.getScheme() + "://" + request.getServerName() + Conf.get(promoteType + ".wx.share.uri") + "&";
+        String shareUrl = request.getScheme() + "://" + request.getServerName() + Conf.get("wx.share.uri") + "&";
         if (params != null) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 if (shareUrl.contains(entry.getKey().concat("="))) {

@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table ( name ="wx_relate" )
 public class WxRelateModel extends BaseModel {
 
-    @Column(name = "promote_type" )
-    private String promoteType;
+    @Column(name = "type" )
+    private String type;
 
     /**
      * 按活动需求定义分割形式
@@ -27,13 +27,9 @@ public class WxRelateModel extends BaseModel {
     @Column(name = "open_id" )
     private String openId;
 
-    public String getPromoteType() {
-        return this.promoteType;
-    }
+    public String getType() { return type; }
 
-    public void setPromoteType(String promoteType) {
-        this.promoteType = promoteType;
-    }
+    public void setType(String type) { this.type = type; }
 
     public String getParams() {
         return this.params;

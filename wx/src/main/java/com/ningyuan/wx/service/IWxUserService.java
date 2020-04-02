@@ -1,9 +1,9 @@
 package com.ningyuan.wx.service;
 
+import com.ningyuan.base.IBaseService;
 import com.ningyuan.wx.dto.GetTokenByCodeResultDto;
 import com.ningyuan.wx.dto.WxUserDto;
 import com.ningyuan.wx.model.WxUserModel;
-import com.ningyuan.base.IBaseService;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 /**
