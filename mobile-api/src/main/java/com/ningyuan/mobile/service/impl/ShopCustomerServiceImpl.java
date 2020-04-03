@@ -3,6 +3,7 @@ package com.ningyuan.mobile.service.impl;
 import com.ningyuan.base.BaseServiceImpl;
 import com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper;
 import com.ningyuan.mobile.model.ShopCustomerModel;
+import com.ningyuan.mobile.model.ShopOrderModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +17,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper, ShopCustomerModel> implements IShopCustomerService {
 
+    @Override
+    public void updateCustomer(ShopOrderModel orderModel) {
+        // TODO 根据支付结果更新customer
+        ShopCustomerModel customerModel = new ShopCustomerModel();
+        customerModel.setOpenId(orderModel.getOpenId());
+        ShopCustomerModel updateModel = this.selectLimitOne(customerModel);
+//        查找wx_relate表的关联关系，给上一级的客户加积分，更新customer
+    }
 }

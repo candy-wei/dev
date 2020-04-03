@@ -8,10 +8,13 @@ import com.ningyuan.mobile.constant.OrderEnum;
 import com.ningyuan.mobile.daomapper.mapper.ShopOrderMapper;
 import com.ningyuan.mobile.model.ShopOrderItemModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
+import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.mobile.service.IShopOrderItemService;
 import com.ningyuan.mobile.service.IShopOrderService;
+import com.ningyuan.utils.CreateGUID;
 import com.ningyuan.utils.DateUtil;
 import com.ningyuan.utils.RandomUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +34,8 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     @Autowired
     private IShopOrderItemService orderItemService;
 
-//    @Autowired
-//    private
+    @Autowired
+    private IShopCustomerService customerService;
 
     @Override
     public void saveOrder(ShopOrderModel order, List<ShopOrderItemModel> itemList) {
@@ -86,11 +89,13 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
         orderModel.setStatus(1);
         orderModel = this.selectLimitOne(orderModel);
 
-//        this.updateOrder(orderModel);
+        this.updateOrder(orderModel);
 
-//        customerService.updateCustomer(orderModel);
+        customerService.updateCustomer(orderModel);
 
     }
+
+
 
     @Override
     public void verify(String openId) throws Exception {
@@ -111,19 +116,24 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     }
 
     /**
-     * 获取唯一订单号
-     * 时间戳+随机数<br>
-     * 建议生产环境使用redis获取唯一订单号
-     *
+     *  生成订单号
      * @return
      */
     private String getOrderSn() {
         return DateUtil.getAllTime() + RandomUtil.getRandomNumber(6);
+//        return CreateGUID.createGuId();
     }
 
 
     @Override
     public boolean isUpdateRelate(String openId) {
         return false;
+    }
+
+    private void updateOrder(ShopOrderModel orderModel) {
+        // TODO 根据支付结果更新订单表
+        orderModel.setStatus(OrderEnum.OrderStatusEnum.UN_SEND.getId());
+        orderModel.setHasPay(Boolean.TRUE);
+        this.updateByPrimaryKeySelective(orderModel);
     }
 }

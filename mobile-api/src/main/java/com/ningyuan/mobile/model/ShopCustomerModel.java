@@ -1,9 +1,10 @@
 package com.ningyuan.mobile.model;
 
+import com.ningyuan.base.BaseModel;
+import com.ningyuan.base.annotation.FiledComment;
+
 import javax.persistence.Column;
-import com.dasijiaoyu.base.annotation.FiledComment;
 import javax.persistence.Table;
-import com.dasijiaoyu.base.BaseModel;
 import java.util.Date;
 
 /**
