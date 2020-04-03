@@ -27,7 +27,7 @@ public class WxController {
     @ApiOperation(value = "触发微信支付")
     @RequestMapping(value = "trigger/{id}/{openId}", method = RequestMethod.GET)
     public String trigger(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId,
-                          @ApiParam(name = "id", value = "预约或预存id", required = true) @PathVariable("id") String id) throws Exception {
+                          @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String id) throws Exception {
         IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
         wxRelateService.verify(openId);
         return "redirect:" + TemplateUtils.replaceAll(Conf.get("wx.common.pay.url"), id, openId);
@@ -36,7 +36,7 @@ public class WxController {
     @ApiOperation(value = "通用微信支付")
     @RequestMapping(value = "pay/{id}/{openId}", method = RequestMethod.GET)
     public ModelAndView pay(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId,
-                            @ApiParam(name = "id", value = "订单id", required = true) @PathVariable("id") String orderId) throws Exception {
+                            @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String orderId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("wxpay/trigger");
         IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
         wxRelateService.preHandle(openId, orderId);

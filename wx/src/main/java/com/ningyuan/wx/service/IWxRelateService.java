@@ -97,24 +97,6 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
         }
 
         this.preHandlePaySuccess(reqData);
-        final String notifyUrl = Conf.get("promote.pay.notify.url");
-        Context.getBean(ThreadPoolTaskExecutor.class).execute(() -> {
-            if (isNotifyHtPaySuccess()) {
-                RESTUtils.post(notifyUrl, ErrorMessage.class, reqData);
-            }
-            try {
-                this.afterHandlePaySuccess(reqData);
-            } catch (Exception e) {
-                logger.error("支付后处理失败", e);
-            }
-        });
-    }
-
-    default boolean isNotifyHtPaySuccess() {
-        return true;
-    }
-
-    default void afterHandlePaySuccess(Map<String, String> reqData) throws Exception {
     }
 
     /**
