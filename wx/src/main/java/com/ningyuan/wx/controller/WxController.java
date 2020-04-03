@@ -10,6 +10,8 @@ import com.ningyuan.wx.utils.WxUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("wx")
 public class WxController {
+    Logger logger = LoggerFactory.getLogger(IWxRelateService.class);
 
     @ApiOperation(value = "触发微信支付")
     @RequestMapping(value = "trigger/{id}/{openId}", method = RequestMethod.GET)
@@ -38,6 +41,7 @@ public class WxController {
         IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
         wxRelateService.preHandle(openId, orderId);
         GetBrandWCPayRequestDto payRequestDto = WxUtils.getPayRequestDto(orderId, openId, wxRelateService.getPayPrice(openId));
+        logger.info("payRequestDto:{}", payRequestDto);
         modelAndView.addObject("payRequestDto", payRequestDto);
         modelAndView.addObject("redirectUri", TemplateUtils.replaceAll(Conf.get("pay.load.view"), openId));
         return modelAndView;

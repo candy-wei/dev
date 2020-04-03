@@ -78,17 +78,6 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
     }
 
     default void preHandle(String openId, String id) throws Exception {
-        /*MerrimentCustomerModel customerModel = merrimentCustomerService.getByOpenId(openId);
-        if (customerModel.getHasPurchase()) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("redirect:" + Conf.get("merriment.pay.success.url") + openId);
-            throw new ViewException(modelAndView, "");
-        }
-
-        AppointmentPenddingDto appointmentPenddingDto = appointmentService.getAppointmentPenddingById(id);
-        appointmentPenddingDto.setAmount(Conf.get("merriment.course.price"));
-        appointmentPenddingDto.setLearnYear(Conf.get("merriment.learn.year"));
-        appointmentService.updateAppointPendding(appointmentPenddingDto);*/
     }
 
     @AspectBefore(handle = "paySuccessTest")

@@ -12,6 +12,4 @@ import com.ningyuan.wx.model.WxRelateModel;
 
 public interface IWxCommonRelateService extends IBaseService<WxRelateModel>, IWxRelateService<WxRelateModel> {
     WxRelateModel getByTypeOpenId(String openId);
-
-    void verify(String openId) throws Exception ;
 }

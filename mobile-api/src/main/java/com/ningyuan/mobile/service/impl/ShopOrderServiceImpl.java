@@ -1,6 +1,8 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.base.exception.ViewException;
+import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.constant.OrderEnum;
 import com.ningyuan.mobile.daomapper.mapper.ShopOrderMapper;
@@ -83,11 +85,19 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     @Override
     public void verify(String openId) throws Exception {
         // 触发微信支付，trigger的逻辑
+        ShopOrderModel orderModel = this.getByOpenId(openId);
+        if (orderModel.getHasPay()) {
+            throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
+        }
     }
 
     @Override
     public void preHandle(String openId, String id) throws Exception {
         // 通用微信支付的逻辑
+        ShopOrderModel orderModel = this.getByOpenId(openId);
+        if (orderModel.getHasPay()) {
+            throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
+        }
     }
 
     /**

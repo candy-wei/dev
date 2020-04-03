@@ -198,14 +198,14 @@ public class WxUtils {
     }
 
     public static ModelAndView auth2(String state) {
-        String authUrl = TemplateUtils.replaceAll(Conf.get("wx.oauth2.url"), Conf.get("wx.appId"),
-                URLEncoder.encode(Conf.get("promote.wx.auth.callback.url")),
+        String authUrl = TemplateUtils.replaceAll(Conf.get("wx.oauth2.url"), Conf.get("wxsa.appId"),
+                URLEncoder.encode(Conf.get("wx.auth.callback.url")),
                 Conf.get("wx.request.auth.type:snsapi_userinfo"), state);
         return new ModelAndView("redirect:" + authUrl);
     }
 
     public static GetTokenByCodeResultDto getAccessTokenByCode(String code) {
-        String url = TemplateUtils.replaceAll(Conf.get("wx.access.token.code.url"), Conf.get("wx.appId"), Conf.get("wx.secret"), code);
+        String url = TemplateUtils.replaceAll(Conf.get("wx.access.token.code.url"), Conf.get("wxsa.appId"), Conf.get("wxsa.secret"), code);
         return get(url, GetTokenByCodeResultDto.class);
     }
 

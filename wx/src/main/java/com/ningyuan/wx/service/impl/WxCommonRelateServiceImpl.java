@@ -57,12 +57,4 @@ public class WxCommonRelateServiceImpl extends BaseServiceImpl<WxRelateMapper, W
         sel.setOpenId(openId);
         return this.selectOne(sel);
     }
-
-    @Override
-    public void verify(String openId) throws Exception {
-        // 做一个校验，不能是重复的订单号支付，也就是不能重复支付
-        if (false) {
-            throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
-        }
-    }
 }
