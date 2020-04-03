@@ -31,6 +31,9 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     @Autowired
     private IShopOrderItemService orderItemService;
 
+//    @Autowired
+//    private
+
     @Override
     public void saveOrder(ShopOrderModel order, List<ShopOrderItemModel> itemList) {
         order.setOrderSn(getOrderSn());
@@ -74,19 +77,26 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
 
     @Override
     public void preHandlePaySuccess(Map<String, String> reqData) throws Exception {
-        // 支付成功的逻辑
-    }
+        // 支付成功的逻辑，更新订单状态，会员积分增加，红包数量增加
+        String orderSn = reqData.get("attach");
+        String openId = reqData.get("openid");
+        ShopOrderModel orderModel = new ShopOrderModel();
+        orderModel.setOpenId(openId);
+        orderModel.setOrderSn(orderSn);
+        orderModel.setStatus(1);
+        orderModel = this.selectLimitOne(orderModel);
 
-    @Override
-    public void afterHandlePaySuccess(Map<String, String> reqData) throws Exception {
-        // 支付成功的逻辑
+//        this.updateOrder(orderModel);
+
+//        customerService.updateCustomer(orderModel);
+
     }
 
     @Override
     public void verify(String openId) throws Exception {
         // 触发微信支付，trigger的逻辑
         ShopOrderModel orderModel = this.getByOpenId(openId);
-        if (orderModel.getHasPay()) {
+        if (orderModel.getStatus().equals(OrderEnum.OrderStatusEnum.UN_PAY.getId()) && orderModel.getHasPay()) {
             throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
         }
     }
