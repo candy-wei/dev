@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
+import com.ningyuan.mobile.dto.UserInfoDto;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
 
@@ -14,4 +15,6 @@ import com.ningyuan.mobile.model.ShopOrderModel;
 public interface IShopCustomerService extends IBaseService<ShopCustomerModel> {
 
     void updateCustomer(ShopOrderModel orderModel);
+
+    UserInfoDto queryUserInfo(String openId);
 }
