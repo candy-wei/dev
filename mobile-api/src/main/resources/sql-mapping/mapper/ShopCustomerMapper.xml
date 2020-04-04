@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper">
+
+    <select id="queryUserInfo" resultType="com.ningyuan.mobile.dto.UserInfoDto">
+        select
+            CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, wu.head_img_url headImgUrl, sc.open_id,
+            (select base_value from basedata where base_key = sc.vip) vip, sc.points, sc.redpacket_receive, sc.redpacket_amount
+        from shop_customer as sc
+        left join wx_user as wu on sc.open_id=wu.open_id
+        where sc.open_id = #{openId}
+    </select>
+</mapper>

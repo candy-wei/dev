@@ -108,7 +108,7 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
         return "111";
     }
 
-    default ModelAndView view(String openId, String state) {
+    default ModelAndView view(String openId) {
         return new ModelAndView("redirect:" + ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId));
     }
 

@@ -61,7 +61,7 @@ public class WxRestController extends BaseController {
         wxUserService.saveWxUser(getTokenByCodeResultDto);
         //更新关联关系
         commonRelateService.updateRelate(openId, state);
-        return commonRelateService.view(openId, state);
+        return commonRelateService.view(openId);
     }
 
     @ApiOperation(value = "支付成功回调通知")

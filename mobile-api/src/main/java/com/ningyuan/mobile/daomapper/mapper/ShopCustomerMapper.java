@@ -1,5 +1,6 @@
 package com.ningyuan.mobile.daomapper.mapper;
 
+import com.ningyuan.mobile.dto.UserInfoDto;
 import tk.mybatis.mapper.common.Mapper;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 
@@ -11,5 +12,5 @@ import com.ningyuan.mobile.model.ShopCustomerModel;
  */
 
 public interface ShopCustomerMapper extends Mapper<ShopCustomerModel> {
-
+    UserInfoDto queryUserInfo(String openId);
 }

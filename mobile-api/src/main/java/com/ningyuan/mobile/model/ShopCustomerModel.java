@@ -28,7 +28,7 @@ public class ShopCustomerModel extends BaseModel {
      */
     @FiledComment(text = "会员等级,0:不是,1:普通会员,依次类推" )
     @Column(name = "vip" )
-    private Boolean vip;
+    private String vip;
 
     /**
      * 会员积分
@@ -94,11 +94,11 @@ public class ShopCustomerModel extends BaseModel {
         this.openId = openId;
     }
 
-    public Boolean getVip() {
+    public String getVip() {
         return this.vip;
     }
 
-    public void setVip(Boolean vip) {
+    public void setVip(String vip) {
         this.vip = vip;
     }
 

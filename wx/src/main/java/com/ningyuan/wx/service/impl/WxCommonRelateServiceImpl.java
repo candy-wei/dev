@@ -24,14 +24,7 @@ public class WxCommonRelateServiceImpl extends BaseServiceImpl<WxRelateMapper, W
 
     @Override
     public boolean isUpdateRelate(String openId) {
-        return true;
-    }
-
-    @Override
-    public ModelAndView view(String openId, String state) {
-        WxRelateModel wxRelateModel = this.selectByPrimaryKey(state);
-        String url = TemplateUtils.replaceAll(Conf.get("shop.index.view.wx"), wxRelateModel);
-        return new ModelAndView("redirect:" + ParamsUtils.getRomote() + url);
+        return false;
     }
 
     @Override
