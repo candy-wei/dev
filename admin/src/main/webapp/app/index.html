@@ -1,0 +1,85 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>促销管理系统</title>
+    <meta name="viewport" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="dev.js"></script>
+    <script>
+        //获得根路径
+        if ('undefined' == typeof (version)) {
+            version = "v0.0.1";
+        }
+
+        if ('undefined' == typeof (appDir)) {
+            appDir = "app";
+        }
+
+        let reg = new RegExp('/(.*?)' + appDir);
+        let r = window.location.pathname.match(reg);
+        if (r != null) {
+            if ('undefined' == typeof (path)) {
+                path = "/" + unescape(r[1]).substring(0, unescape(r[1]).length - 1);
+            }
+        }
+
+        if('undefined' == typeof (appPath)){
+            appPath = path + "/" + appDir;
+        }
+
+        let script = document.createElement('script');
+        script.src = appPath + "/lib/init.load.js?" + version;
+        document.getElementsByTagName("head").item(0).appendChild(script);
+    </script>
+</head>
+
+<body ng-app="promote" ng-controller="menuCtrl">
+<div id="nav-header" class="navbar navbar-static-top container-fluid p-0" style="border-bottom: 1px solid darkgray">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="" id="logo" style="color: white" ng-click="menuShow(0)">促销系统
+            </a>
+        </div>
+
+        <div class="navbar-header">
+            <form id="logout" action="/admin/logout" method="post" style="display: none"></form>
+            <span style="color: white">{{user.username}}</span>
+            <a class="navbar-brand" href="#" style="color: white;padding-left:20px;padding-right: 20px;" ng-click="logout()">退出</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-0">
+    <div class="row m-0">
+        <div class="col-md-2 p-0">
+            <div class="container-fluid p-0" ng-init="initMenu()">
+                <div class="row m-0">
+                    <div class="col-md-5 main-menu-container p-0" ng-style="{'height': wHeigth}">
+                        <div ng-repeat="menu in menus track by $index" ng-class="menu.active ? menu.active : 'main-menu'" style="width:100%">
+                            <a class="none-decoration" id="{{menu.id}}" href="" ng-click="menuShow($index)">
+                                <div style="width:100%">
+                                    <span>{{menu.name}}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 sub-menu-container p-0" ng-style="{'height': wHeigth}">
+                        <div ng-repeat="children in childrens track by $index"
+                             ng-class="children.active ? children.active : 'sub-menu'">
+                            <a id="{{children.id}}" class="none-decoration" href="" ng-click="subMenuShow(mainActive, $index)">
+                                <div>
+                                    <span>{{children.name}}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 p-0" ng-style="{'max-height': wHeigth,'overflow':'auto'}" ng-controller="pageCtrl" ui-view>
+        </div>
+    </div>
+</div>
+</body>
+</html>

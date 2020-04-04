@@ -1,0 +1,21 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end table-border">
+        <li class="page-item">
+            <div class="page-link" style="color: #7f7f7f;font-size:14px;">
+                <span>共有{{pageInfo.total}}条, 每页显示：</span>
+                <select style="color: #7f7f7f;width:40px; font-size:13px;width: auto;text-align: center" ng-model="pageInfo.pageSize"  ng-options="x as x for x in pageSizeOption" ng-change="selectPageSize()">
+                </select>
+                <span>条</span>
+            </div>
+        </li>
+        <li ng-class="pageInfo.hasPreviousPage ? 'page-item': 'page-item disabled'">
+            <a class="page-link" href="" ng-click="prePage()">«</a>
+        </li>
+        <li ng-repeat="pageLink in pageInfo.navigatepageNums" ng-class="pageInfo.pageNum == pageLink ? 'page-item active': 'page-item'">
+            <a class="page-link" href="" ng-click="selectPageNum(pageLink)">{{pageLink}}</a>
+        </li>
+        <li ng-class="pageInfo.hasNextPage ? 'page-item': 'page-item disabled'">
+            <a class="page-link" href="" ng-click="nextPage()">»</a>
+        </li>
+    </ul>
+</nav>

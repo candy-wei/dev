@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.route.daomapper.mapper.BgRoleMapper">
+
+    <select id="getRolesByUser" parameterType="long" resultType="com.ningyuan.route.model.BgRoleModel">
+        select r.id, r.name, r.des
+        from bg_role r,
+             bg_role_user ru
+        where r.id = ru.role_id
+          and ru.user_id = #{id}
+    </select>
+
+</mapper>

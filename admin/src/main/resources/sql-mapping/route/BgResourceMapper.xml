@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.route.daomapper.mapper.BgResourceMapper">
+
+    <select id="getResourcesByRole" parameterType="long" resultType="com.ningyuan.route.model.BgResourceModel">
+        select br.id, br.resource
+        from bg_resource br,
+             bg_route_resource brr,
+             bg_role_route brro
+        where br.id = brr.resource_id
+          and brr.route_id = brro.route_id
+          and brro.role_id = #{id}
+    </select>
+
+</mapper>

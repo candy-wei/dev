@@ -1,0 +1,92 @@
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    margin: 0;
+}
+
+body {
+    line-height: 1.428571429;
+    color: #282828;
+    background: white;
+}
+
+.nav-header > span.glyphicon-chevron-toggle:before {
+    content: "\e113";
+}
+
+.navbar-static-top {
+    background-color: #252a2f;
+    margin-bottom: 0px;
+}
+
+.navbar-brand {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 60px;
+    padding-right: 60px;
+    line-height: 45px;
+    color: #252a2f;
+}
+
+.navbar-brand:hover {
+    background-color: #EAEDF1;
+    color: #252a2f;
+}
+
+/*********************************************自定义部分*********************************************/
+.none-decoration{
+    text-decoration:none!important;
+}
+
+a div {
+    text-align: center;
+    line-height: 30px;
+}
+
+.main-menu-container {
+    background: #252a2f;
+}
+
+.main-menu a {
+    color: white;
+    text-decoration:none;
+}
+
+.main-menu a:hover > div {
+    background-color: #5d6066;
+}
+
+.main-menu a:active > div {
+    color: #252a2f;
+    background-color: #EAEDF1;
+}
+
+.main-active {
+    color: #252a2f;
+    background-color: #d6d9dd;
+}
+
+.sub-menu-container {
+    background: #d6d9dd;
+}
+
+.sub-menu a {
+    color: #252a2f;
+    background: transparent;
+}
+
+.sub-menu a:hover > div {
+    background-color: #dee1e5;
+}
+
+.sub-menu a:active > div {
+    background-color:  #f5f5f5;
+}
+
+.sub-active {
+    background-color:  #f5f5f5;
+}

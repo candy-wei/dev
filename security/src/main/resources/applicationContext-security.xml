@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- HttpSessionCsrfTokenRepository是把token放到session中来存取   -->
+    <bean id="csrfFilter" class="org.springframework.security.web.csrf.CsrfFilter">
+        <constructor-arg>
+            <bean class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 如果用的是spring mvc 的form标签，则配置此项时自动将crsf的token放入到一个hidden的input中，而不需要开发人员显式的写入form -->
+    <bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor"/>
+
+    <bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+        <constructor-arg  name="authenticationEntryPoint">
+            <bean class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+                <constructor-arg  name="loginFormUrl" value="/login.jsp"/>
+            </bean>
+        </constructor-arg>
+        <property name="accessDeniedHandler">
+            <bean class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+                <property name="errorPage" value="/route/access/denied" />
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置认证管理器 -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+            <security:password-encoder hash="bcrypt"/>
+        </security:authentication-provider>
+        <security:authentication-provider ref="rememberMeAuthenticationProvider"/>
+    </security:authentication-manager>
+
+    <!-- AuthenticationEntryPoint，引导用户进行登录 -->
+    <bean id="authEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <constructor-arg name="loginFormUrl" value="/login.jsp"/>
+    </bean>
+
+    <bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+        <property name="usernameParameter" value="username"/>
+        <property name="passwordParameter" value="password"/>
+        <property name="authenticationSuccessHandler"  ref="authSuccess"/>
+        <property name="authenticationFailureHandler">
+            <bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+                <property name="defaultFailureUrl"  value="/login.jsp?flag=loginFail"/>
+            </bean>
+        </property>
+        <property name="filterProcessesUrl" value="/login" />
+    </bean>
+
+    <security:http pattern="/login.jsp" security="none"/>
+    <security:http pattern="/app/**" security="none"/>
+    <security:http pattern="/rest/oss/callback/**" security="none"/>
+    <security:http pattern="/route/access/denied" security="none"/>
+
+    <security:http entry-point-ref="authEntryPoint">
+        <security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/login.jsp" delete-cookies="JSESSIONID"/>
+        <security:custom-filter ref="authenticationFilter" before="FORM_LOGIN_FILTER"/>
+        <security:custom-filter ref="rememberMeFilter" before="REMEMBER_ME_FILTER"/>
+        <!--添加自定义的过滤器 放在FILTER_SECURITY_INTERCEPTOR之前有效  -->
+        <security:custom-filter ref="customFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+        <security:custom-filter ref="exceptionTranslationFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
+        <security:headers>
+            <security:frame-options policy="SAMEORIGIN"/>
+        </security:headers>
+        <security:remember-me token-validity-seconds="${security.token.expire:1209600}"/>
+        <security:csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
+    </security:http>
+
+
+    <bean id="rememberMeFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+        <constructor-arg name="rememberMeServices" ref="rememberMeServices"/>
+        <constructor-arg name="authenticationManager" ref="authenticationManager"/>
+    </bean>
+
+    <bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+        <constructor-arg name="userDetailsService" ref="customUserDetailsService"/>
+        <constructor-arg name="key" value="${security.token.key}"/>
+        <constructor-arg name="tokenRepository" ref="tokenRepository"/>
+    </bean>
+
+    <bean id="tokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <property name="dataSource" ref="${security.data.source}" />
+    </bean>
+
+    <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+        <constructor-arg name="key" value="${security.token.key}"/>
+    </bean>
+
+</beans>

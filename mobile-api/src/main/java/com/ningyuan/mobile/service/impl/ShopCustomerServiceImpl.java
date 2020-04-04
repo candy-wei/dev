@@ -34,9 +34,9 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
 
 //        查找wx_relate表的关联关系，给上一级的客户加积分，更新customer
         WxRelateModel relateModel = commonRelateService.getByOpenId(orderModel.getOpenId());
-        if (!StringUtils.isEmpty(relateModel.getParentOpenId())) {
+        /*if (!StringUtils.isEmpty(relateModel.getParentOpenId())) {
             updateParentCustomer(relateModel.getParentOpenId());
-        }
+        }*/
     }
 
     private void updateParentCustomer(String parentOpenId) {

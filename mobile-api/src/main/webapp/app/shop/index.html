@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+  <title>动物园</title>
+  <script src="./collect.js"></script>
+  <script src="../dev.js"></script>
+  <script>
+    //获得根路径
+    if ('undefined' === typeof (currentVersion)) {
+      currentVersion = "0.0.1";
+    }
+    if ('undefined' === typeof (appDir)) {
+      appDir = "app";
+    }
+    let reg = new RegExp('/(.*?)' + appDir + "/(.*?)/");
+    let r = window.location.pathname.match(reg);
+    if (r != null) {
+      if ('undefined' === typeof (promoteType)) {
+        promoteType = unescape(r[2]);
+      }
+    }
+  </script>
+
+  <script>
+    window.addEventListener('load', function () {
+      document.body.addEventListener('focusin', () => {
+        // 软键盘弹出的事件处理
+        this.isReset = false
+      })
+
+      document.body.addEventListener('focusout', () => {
+        // 软键盘收起的事件处理
+        this.isReset = true
+        setTimeout(() => {
+          // 当焦点在弹出层的输入框之间切换时先不归位
+          if (this.isReset) {
+            window.scroll(0, 0) // 失焦后强制让页面归位
+          }
+        }, 300)
+      })
+
+    })
+
+
+  </script>
+  <script>
+    var _mtac = {};
+    (function() {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+
+      mta.setAttribute("sid", "500691163");
+      mta.setAttribute("cid", "500691175");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+</head>
+<body>
+<noscript>
+  <strong>We're sorry but zoo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
+<!--  <script src="http://192.168.0.110:1337/vorlon.js"></script>-->
+
+<!--<script src="//cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>-->
+<!--<script>eruda.init();</script>-->
+
+</html>

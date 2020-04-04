@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.route.daomapper.mapper.BgRouteMapper">
+
+    <select id="getRouteByRole" parameterType="long" resultType="com.ningyuan.route.model.BgRouteModel">
+        select r.*
+        from bg_route r,
+             bg_role_route rr
+        where r.id = rr.route_id
+          and rr.role_id = #{id}
+        order by (r.parent_id is not null)
+    </select>
+
+</mapper>
