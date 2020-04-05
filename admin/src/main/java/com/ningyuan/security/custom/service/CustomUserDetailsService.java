@@ -1,4 +1,4 @@
-package com.ningyuan.security.custom;
+package com.ningyuan.security.custom.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

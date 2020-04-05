@@ -1,7 +1,7 @@
-package com.ningyuan.security.custom.impl;
+package com.ningyuan.security.custom.service.impl;
 
 import com.ningyuan.core.Conf;
-import com.ningyuan.security.custom.CustomFilterSecurityInterceptor;
+import com.ningyuan.security.custom.service.CustomFilterSecurityInterceptor;
 import com.ningyuan.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDecisionManager;

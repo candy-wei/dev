@@ -1,5 +1,7 @@
 package com.ningyuan.route.controller;
 
+import com.ningyuan.base.exception.BaseException;
+import com.ningyuan.base.exception.ErrorMessage;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.route.dto.BgMenuDto;
@@ -16,12 +18,14 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
 @Controller
 @RequestMapping("menu/")
 public class MenuController {
+    private static List<BgRouteModel> routeModels = new ArrayList<>();
     private static Map<String, List<BgRouteModel>> roleRoutes = new HashMap<>();
 
     @Autowired
@@ -32,6 +36,32 @@ public class MenuController {
 
     @Autowired
     private IBgRoleService roleService;
+
+    @PostMapping("/states")
+    @ResponseBody
+    public List<BgRouteModel> getRoutes() {
+        if (Conf.enable("security.authentication.close") || CollectionUtils.isEmpty(routeModels)) {
+            Example example = new Example(BgRouteModel.class);
+            example.createCriteria().andIsNotNull("state").andNotEqualTo("state", "");
+            example.orderBy("seq").desc();
+            routeModels = bgRouteService.selectByExample(example);
+        }
+        return routeModels;
+    }
+
+    @RequestMapping("access/denied")
+    @ResponseBody
+    public void denied() throws BaseException {
+        throw new BaseException(ErrorMessage.getFailure("authFailuer", "暂无权限"));
+    }
+
+    @RequestMapping("cache/clear")
+    @ResponseBody
+    public static ErrorMessage clearCache()  {
+        routeModels.clear();
+        roleRoutes.clear();
+        return ErrorMessage.getSuccess();
+    }
 
     @PostMapping("/menus")
     @ResponseBody

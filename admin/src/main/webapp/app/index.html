@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>促销管理系统</title>
+    <title>会员管理系统</title>
     <meta name="viewport" content=""/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="dev.js"></script>
@@ -26,6 +26,9 @@
         if('undefined' == typeof (appPath)){
             appPath = path + "/" + appDir;
         }
+        console.log('path:', path)
+        console.log('appPath:', appPath)
+        console.log('appDir:', appDir)
 
         let script = document.createElement('script');
         script.src = appPath + "/lib/init.load.js?" + version;
@@ -37,7 +40,7 @@
 <div id="nav-header" class="navbar navbar-static-top container-fluid p-0" style="border-bottom: 1px solid darkgray">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="" id="logo" style="color: white" ng-click="menuShow(0)">促销系统
+            <a class="navbar-brand" href="" id="logo" style="color: white" ng-click="menuShow(0)">会员管理系统
             </a>
         </div>
 

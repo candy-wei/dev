@@ -1,4 +1,4 @@
-package com.ningyuan.security.custom.impl;
+package com.ningyuan.security.custom.service.impl;
 
 import com.ningyuan.security.ISecurity;
 import com.ningyuan.security.utils.SecurityUtils;

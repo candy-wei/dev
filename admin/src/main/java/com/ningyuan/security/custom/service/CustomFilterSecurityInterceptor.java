@@ -1,4 +1,4 @@
-package com.ningyuan.security.custom;
+package com.ningyuan.security.custom.service;
 
 import javax.servlet.Filter;
 

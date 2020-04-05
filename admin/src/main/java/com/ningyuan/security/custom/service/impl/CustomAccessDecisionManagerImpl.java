@@ -1,7 +1,7 @@
-package com.ningyuan.security.custom.impl;
+package com.ningyuan.security.custom.service.impl;
 
 import com.ningyuan.core.Conf;
-import com.ningyuan.security.custom.CustomAccessDecisionManager;
+import com.ningyuan.security.custom.service.CustomAccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

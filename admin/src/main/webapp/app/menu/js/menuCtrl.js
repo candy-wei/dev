@@ -40,6 +40,7 @@ app.controller('menuCtrl', function ($scope, $location, menus) {
         $scope.subActive = subIndex;
         $scope.subName =  $scope.menus[$scope.mainActive].childrens[$scope.subActive].name;
         if ($scope.menus[$scope.mainActive].childrens.length > 0) {
+            console.log($scope.menus[$scope.mainActive].childrens[$scope.subActive].url);
             $location.path($scope.menus[$scope.mainActive].childrens[$scope.subActive].url);
         } else{
             $location.path("/");

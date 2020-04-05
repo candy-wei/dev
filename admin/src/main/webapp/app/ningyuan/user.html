@@ -1,0 +1,134 @@
+<ul class="breadcrumb">
+    <li>{{menuName}}</li>
+    <li class="active">{{subName}}</li>
+</ul>
+
+<form class="container-fluid">
+    <div class="d-flex form-row align-items-center">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">收件人姓名</div>
+                </div>
+                <input type="text" ng-model="queryModel.name" class="form-control" id="收件人姓名" placeholder="收件人姓名">
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+<div style="float:right; margin: 0 20px 5px 0;">
+    <button type="submit" class="btn btn-primary" ng-click="queryList(queryModel)">查询</button>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">#</th>
+            <th style="width:30px;">操作</th>
+            <th style="width:30px;" class="th-sort" field="nickname">微信昵称</th>
+            <th style="width:30px;" class="th-sort" field="name">收件人姓名</th>
+            <th style="width:30px;" class="th-sort" field="mobile">收件人手机号</th>
+            <th style="width:30px;" class="th-sort" field="vip">会员等级</th>
+            <th style="width:20px;" class="th-sort" field="points">会员积分</th>
+            <th style="width:30px;" class="th-sort" field="redpacketReceive">可领红包数量</th>
+            <th style="width:30px;" class="th-sort" field="redpacketAmount">红包总数</th>
+            <th style="width:50px;" class="th-sort" field="newTask">是否完成新手任务</th>
+            <th style="width:50px;" class="th-sort" field="specialTask">是否完成特殊任务</th>
+            <th style="width:50px;" class="th-sort" field="dailyTask">是否开启日常任务</th>
+            <th style="width:50px;" class="th-sort" field="createTime">创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="userInfoModel in pageInfo.list track by $index">
+            <td>{{$index + 1}}</td>
+            <td>
+                <button type="button" class="btn-success btn" data-loading-text="修改中..."
+                        ng-click="user.update($index)">信息修改
+                </button>
+            </td>
+            <td>{{userInfoModel.nickname}}</td>
+            <td>{{userInfoModel.name}}</td>
+            <td>{{userInfoModel.mobile}}</td>
+            <td>{{userInfoModel.vip}}</td>
+            <td>{{userInfoModel.points}}</td>
+            <td>{{userInfoModel.redpacketReceive}}</td>
+            <td>{{userInfoModel.redpacketAmount}}</td>
+            <td>{{userInfoModel.newTask}}</td>
+            <td>{{userInfoModel.specialTask}}</td>
+            <td>{{userInfoModel.dailyTask}}</td>
+            <td>{{userInfoModel.createTime}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <pager></pager>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" style="max-width:900px" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabel">会员信息修改</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id" ng-model="userInfoModel.id" class="form-control"/>
+                <div class="form-group">
+                    <label>会员昵称</label>
+                    <input type="text" ng-model="userInfoModel.nickname" name="nickname" class="form-control" placeholder="会员昵称" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label>收件人姓名</label>
+                    <input type="text" ng-model="userInfoModel.name" name="name" class="form-control" placeholder="收件人姓名" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label>会员等级</label>
+                    <input type="text" ng-model="userInfoModel.vip" name="vip" class="form-control" placeholder="会员等级"/>
+                </div>
+
+                <div class="form-group">
+                    <label>会员积分</label>
+                    <input type="text" ng-model="userInfoModel.points" name="points" class="form-control" placeholder="会员积分"/>
+                </div>
+
+                <div class="form-group">
+                    <label>可领红包数量</label>
+                    <input type="text" ng-model="userInfoModel.redpacketReceive" name="redpacketReceive" class="form-control" placeholder="可领红包数量"/>
+                </div>
+
+                <div class="form-group">
+                    <label>红包总数</label>
+                    <input type="text" ng-model="userInfoModel.redpacketAmount" name="redpacketAmount" class="form-control" placeholder="红包总数"/>
+                </div>
+
+                <div class="form-group">
+                    <label>是否完成新手任务</label>
+                    <input type="text" ng-model="userInfoModel.newTask" name="newTask" class="form-control" placeholder="是否完成新手任务"/>
+                </div>
+
+                <div class="form-group">
+                    <label>是否完成特殊任务</label>
+                    <input type="text" ng-model="userInfoModel.specialTask" name="specialTask" class="form-control" placeholder="是否完成特殊任务"/>
+                </div>
+
+                <div class="form-group">
+                    <label>是否开启日常任务</label>
+                    <input type="text" ng-model="userInfoModel.dailyTask" name="dailyTask" class="form-control" placeholder="是否开启日常任务"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveButton" type="button" id="btn_submit" data-loading-text="保存中..." class="btn btn-primary"
+                        ng-click="user.save()">
+                    <span aria-hidden="true">保存</span>
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <span aria-hidden="true">关闭</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
