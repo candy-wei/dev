@@ -5,7 +5,7 @@
 
     <select id="listUser" resultType="com.ningyuan.route.dto.ShopUserDto" parameterType="com.ningyuan.route.dto.ShopUserQueryDto">
         select sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, sa.name receiver, sa.mobile, sc.vip, sc.points, sc.redpacket_receive, sc.redpacket_amount,
-        sc.new_task, sc.special_task, sc.daily_task, sc.create_time
+        sc.redpacket_finance, sc.new_task, sc.special_task, sc.daily_task, sc.create_time
         from shop_customer as sc left join wx_user as wu on sc.open_id = wu.open_id
         left join shop_address as sa on sc.open_id = sa.open_id where sa.is_default=1
         <if test="receiver != null and receiver != ''">
@@ -18,6 +18,6 @@
 
     <update id="updateUserByid" parameterType="com.ningyuan.route.dto.ShopUserDto">
         update shop_customer set vip=#{vip}, points=#{points}, redpacket_receive=#{redpacketReceive}, redpacket_amount=#{redpacketAmount},
-        new_task=#{newTask}, special_task=#{specialTask}, daily_task=#{dailyTask} where id=#{id}
+        redpacket_finance=#{redpacketFinance}, new_task=#{newTask}, special_task=#{specialTask}, daily_task=#{dailyTask} where id=#{id}
     </update>
 </mapper>

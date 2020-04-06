@@ -52,6 +52,13 @@ public class ShopCustomerModel extends BaseModel {
     private Integer redpacketAmount;
 
     /**
+     * 红包金额
+     */
+    @FiledComment(text = "红包数量" )
+    @Column(name = "redpacket_finance" )
+    private Integer redpacketFinance;
+
+    /**
      * 是否完成新手任务
      */
     @FiledComment(text = "是否完成新手任务" )
@@ -125,6 +132,10 @@ public class ShopCustomerModel extends BaseModel {
     public void setRedpacketAmount(Integer redpacketAmount) {
         this.redpacketAmount = redpacketAmount;
     }
+
+    public Integer getRedpacketFinance() { return redpacketFinance; }
+
+    public void setRedpacketFinance(Integer redpacketFinance) { this.redpacketFinance = redpacketFinance; }
 
     public Boolean getNewTask() {
         return this.newTask;

@@ -9,6 +9,7 @@ public class ShopUserDto {
     private Integer points;
     private Integer redpacketReceive;
     private Integer redpacketAmount;
+    private Integer redpacketFinance;
     private Boolean newTask;
     private Boolean specialTask;
     private Boolean dailyTask;
@@ -45,6 +46,11 @@ public class ShopUserDto {
     public Integer getRedpacketAmount() { return redpacketAmount; }
 
     public void setRedpacketAmount(Integer redpacketAmount) { this.redpacketAmount = redpacketAmount; }
+
+    public Integer getRedpacketFinance() { return redpacketFinance; }
+
+    public void setRedpacketFinance(Integer redpacketFinance) { this.redpacketFinance = redpacketFinance; }
+
 
     public String getCreateTime() { return createTime; }
 

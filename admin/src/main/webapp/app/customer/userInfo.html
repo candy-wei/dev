@@ -34,6 +34,7 @@
             <th style="width:20px;" class="th-sort" field="points">会员积分</th>
             <th style="width:30px;" class="th-sort" field="redpacketReceive">可领红包数量</th>
             <th style="width:30px;" class="th-sort" field="redpacketAmount">红包总数</th>
+            <th style="width:30px;" class="th-sort" field="redpacketFinance">红包金额</th>
             <th style="width:50px;" class="th-sort" field="newTask">是否完成新手任务</th>
             <th style="width:50px;" class="th-sort" field="specialTask">是否完成特殊任务</th>
             <th style="width:50px;" class="th-sort" field="dailyTask">是否开启日常任务</th>
@@ -55,6 +56,7 @@
             <td>{{userInfoModel.points}}</td>
             <td>{{userInfoModel.redpacketReceive}}</td>
             <td>{{userInfoModel.redpacketAmount}}</td>
+            <td>{{userInfoModel.redpacketFinance}}</td>
             <td>{{userInfoModel.newTask ? '是' : '否'}}</td>
             <td>{{userInfoModel.specialTask ? '是' : '否'}}</td>
             <td>{{userInfoModel.dailyTask ? '是' : '否'}}</td>
@@ -103,6 +105,11 @@
                 <div class="form-group">
                     <label>红包总数</label>
                     <input type="text" ng-model="userInfoModel.redpacketAmount" name="redpacketAmount" class="form-control" placeholder="红包总数"/>
+                </div>
+
+                <div class="form-group">
+                    <label>红包金额</label>
+                    <input type="text" ng-model="userInfoModel.redpacketFinance" name="redpacketFinance" class="form-control" placeholder="红包金额"/>
                 </div>
 
                 <div class="form-group">
