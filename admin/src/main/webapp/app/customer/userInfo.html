@@ -10,7 +10,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">收件人姓名</div>
                 </div>
-                <input type="text" ng-model="queryModel.name" class="form-control" id="收件人姓名" placeholder="收件人姓名">
+                <input type="text" ng-model="queryModel.receiver" class="form-control" id="receiver" placeholder="收件人姓名">
             </div>
         </div>
         </div>
@@ -26,10 +26,10 @@
         <thead>
         <tr>
             <th style="width:15px;">#</th>
-            <th style="width:30px;">操作</th>
+            <th style="width:150px;">操作</th>
             <th style="width:30px;" class="th-sort" field="nickname">微信昵称</th>
-            <th style="width:30px;" class="th-sort" field="name">收件人姓名</th>
-            <th style="width:30px;" class="th-sort" field="mobile">收件人手机号</th>
+            <th style="width:30px;" class="th-sort" field="receiver">收件人姓名</th>
+            <th style="width:80px;" class="th-sort" field="mobile">收件人手机号</th>
             <th style="width:30px;" class="th-sort" field="vip">会员等级</th>
             <th style="width:20px;" class="th-sort" field="points">会员积分</th>
             <th style="width:30px;" class="th-sort" field="redpacketReceive">可领红包数量</th>
@@ -49,15 +49,15 @@
                 </button>
             </td>
             <td>{{userInfoModel.nickname}}</td>
-            <td>{{userInfoModel.name}}</td>
+            <td>{{userInfoModel.receiver}}</td>
             <td>{{userInfoModel.mobile}}</td>
             <td>{{userInfoModel.vip}}</td>
             <td>{{userInfoModel.points}}</td>
             <td>{{userInfoModel.redpacketReceive}}</td>
             <td>{{userInfoModel.redpacketAmount}}</td>
-            <td>{{userInfoModel.newTask}}</td>
-            <td>{{userInfoModel.specialTask}}</td>
-            <td>{{userInfoModel.dailyTask}}</td>
+            <td>{{userInfoModel.newTask ? '是' : '否'}}</td>
+            <td>{{userInfoModel.specialTask ? '是' : '否'}}</td>
+            <td>{{userInfoModel.dailyTask ? '是' : '否'}}</td>
             <td>{{userInfoModel.createTime}}</td>
         </tr>
         </tbody>
@@ -66,7 +66,7 @@
 </div>
 
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-    <div class="modal-dialog" style="max-width:900px" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="modalLabel">会员信息修改</h4>
@@ -82,7 +82,7 @@
 
                 <div class="form-group">
                     <label>收件人姓名</label>
-                    <input type="text" ng-model="userInfoModel.name" name="name" class="form-control" placeholder="收件人姓名" disabled/>
+                    <input type="text" ng-model="userInfoModel.receiver" name="receiver" class="form-control" placeholder="收件人姓名" disabled/>
                 </div>
 
                 <div class="form-group">
@@ -107,17 +107,20 @@
 
                 <div class="form-group">
                     <label>是否完成新手任务</label>
-                    <input type="text" ng-model="userInfoModel.newTask" name="newTask" class="form-control" placeholder="是否完成新手任务"/>
+                    <select class="form-control" name="newTask" ng-model="userInfoModel.newTask" ng-options="opt.value as opt.text for opt in booleanOptions">
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>是否完成特殊任务</label>
-                    <input type="text" ng-model="userInfoModel.specialTask" name="specialTask" class="form-control" placeholder="是否完成特殊任务"/>
+                    <select class="form-control" name="specialTask" ng-model="userInfoModel.specialTask" ng-options="opt.value as opt.text for opt in booleanOptions">
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>是否开启日常任务</label>
-                    <input type="text" ng-model="userInfoModel.dailyTask" name="dailyTask" class="form-control" placeholder="是否开启日常任务"/>
+                    <select class="form-control" name="dailyTask" ng-model="userInfoModel.dailyTask" ng-options="opt.value as opt.text for opt in booleanOptions">
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
