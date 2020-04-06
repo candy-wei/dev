@@ -24,8 +24,8 @@ public class ShopReceiveRecordModel extends BaseModel {
      * 记录类型，1：领取红包，2：红包提现
      */
     @FiledComment(text = "记录类型，1：领取红包，2：红包提现" )
-    @Column(name = "type" )
-    private String type;
+    @Column(name = "opt_type" )
+    private String optType;
 
     /**
      * 金额或者红包个数
@@ -48,13 +48,9 @@ public class ShopReceiveRecordModel extends BaseModel {
         this.openId = openId;
     }
 
-    public String getType() {
-        return this.type;
-    }
+    public String getOptType() { return optType; }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setOptType(String optType) { this.optType = optType; }
 
     public String getAmount() {
         return this.amount;

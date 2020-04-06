@@ -16,4 +16,6 @@ import java.util.List;
 public interface ShopWalletMapper extends Mapper<ShopWalletModel> {
 
     List<RedPacketDto> getCashList(String openId);
+
+    String getCashSum(String openId);
 }

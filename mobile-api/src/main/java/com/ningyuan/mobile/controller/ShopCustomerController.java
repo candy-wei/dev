@@ -35,7 +35,7 @@ public class ShopCustomerController extends BaseController {
                 .concat(TemplateUtils.replaceAll("/app/shop/index.html?openId=${openId}", openId)));
     }
 
-    @RequestMapping(value = "/getInfo/{openId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/getInfo",method = RequestMethod.GET)
     @ResponseBody
     public UserInfoDto getUserInfo(){
         String openId = Context.getOpenId();

@@ -7,22 +7,18 @@ import java.util.Date;
  * @Date: 2019/8/6 10:58
  */
 public class RedPacketDto {
-    private String nickName;
-    private String headImgUrl;
+    private String optionType;
+    private String finance;
     private String openId;
     private Date createTime;
 
-    public String getNickName() {
-        return nickName;
-    }
+    public String getFinance() { return finance; }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
+    public void setFinance(String finance) { this.finance = finance; }
 
-    public String getHeadImgUrl() { return headImgUrl; }
+    public String getOptionType() { return optionType; }
 
-    public void setHeadImgUrl(String headImgUrl) { this.headImgUrl = headImgUrl; }
+    public void setOptionType(String optionType) { this.optionType = optionType; }
 
     public String getOpenId() {
         return openId;

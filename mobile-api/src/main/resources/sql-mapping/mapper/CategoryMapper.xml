@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopWalletMapper">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.CategoryMapper">
 
-    <select id="getCashList" resultType="com.ningyuan.mobile.dto.RedPacketDto">
-        select CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, wu.head_img_url headImgUrl, src.open_id, src.create_time
-        from shop_receive_record as src
-        left join wx_user as wu on src.open_id=wu.open_id
-        where src.open_id = #{openId}
-        order by src.create_time desc
+    <select id="listBannerRel" resultType="com.ningyuan.mobile.model.CmsBannerModel">
+        select
+            cb.*
+        from
+            cms_banner as cb left join shop_category_banner_rel as scbr on scbr.id_banner = cb.id
+        where
+            scbr.id_category = #{id}
     </select>
 </mapper>

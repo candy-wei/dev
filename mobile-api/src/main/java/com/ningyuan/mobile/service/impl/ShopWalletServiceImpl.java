@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.core.Context;
 import com.ningyuan.mobile.daomapper.mapper.ShopWalletMapper;
 import com.ningyuan.mobile.dto.RedPacketDto;
 import com.ningyuan.mobile.model.ShopWalletModel;
@@ -22,5 +23,10 @@ public class ShopWalletServiceImpl extends BaseServiceImpl<ShopWalletMapper, Sho
     @Override
     public List<RedPacketDto> getCashList(String openId) {
         return this.mapper.getCashList(openId);
+    }
+
+    @Override
+    public String getCashSum() {
+        return this.mapper.getCashSum(Context.getOpenId());
     }
 }

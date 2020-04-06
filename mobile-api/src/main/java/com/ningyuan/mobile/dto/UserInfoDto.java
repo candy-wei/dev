@@ -8,6 +8,7 @@ public class UserInfoDto {
     private Integer points;
     private Integer redpacketAmount;
     private Integer redpacketReceive;
+    private Integer receiverCount;
 
     public String getOpenId() { return openId; }
 
@@ -36,4 +37,8 @@ public class UserInfoDto {
     public String getHeadImgUrl() { return headImgUrl; }
 
     public void setHeadImgUrl(String headImgUrl) { this.headImgUrl = headImgUrl; }
+
+    public Integer getReceiverCount() { return receiverCount; }
+
+    public void setReceiverCount(Integer receiverCount) { this.receiverCount = receiverCount; }
 }

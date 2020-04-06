@@ -16,4 +16,6 @@ import java.util.List;
 public interface IShopWalletService extends IBaseService<ShopWalletModel> {
 
     List<RedPacketDto> getCashList(String openId);
+
+    String getCashSum();
 }
