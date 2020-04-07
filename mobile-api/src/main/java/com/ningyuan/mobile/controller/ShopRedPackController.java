@@ -2,11 +2,14 @@ package com.ningyuan.mobile.controller;
 
 import com.ningyuan.base.BaseController;
 import com.ningyuan.base.exception.ErrorMessage;
+import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.dto.RedPacketDto;
+import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopReceiveRecordModel;
 import com.ningyuan.mobile.model.ShopWalletModel;
+import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.mobile.service.IShopReceiveRecordService;
 import com.ningyuan.mobile.service.IShopWalletService;
 import com.ningyuan.utils.CommonUtil;
@@ -32,6 +35,9 @@ public class ShopRedPackController extends BaseController {
 
     @Autowired
     private IShopReceiveRecordService recordService;
+
+    @Autowired
+    private IShopCustomerService customerService;
 
     @ApiOperation(value = "可提现总金额")
     @PostMapping("canCashSum")
@@ -83,7 +89,31 @@ public class ShopRedPackController extends BaseController {
     @ApiOperation(value = "领取红包")
     @PostMapping("open/redpacket")
     @ResponseBody
-    public String openRedpacket() {
-        return null;
+    public String openRedpacket() throws StatelessException {
+        String openId = Context.getOpenId();
+        ShopCustomerModel customerModel = customerService.checkuser(openId);
+        if (customerModel == null || customerModel.getRedpacketReceive() < 0 || customerModel.getRedpacketFinance().compareTo(BigDecimal.ZERO) < 0) {
+            throw new StatelessException(ErrorMessage.getFailure());
+        }
+        String money = customerService.openRedpacket(openId);
+        ShopWalletModel walletModel =new ShopWalletModel();
+        walletModel.setOpenId(openId);
+        ShopWalletModel existModel = walletService.selectLimitOne(walletModel);
+        if (existModel == null) {
+            walletModel.setFinance(money);
+            walletService.insertSelective(walletModel);
+        }else {
+            double sumFinance = add(existModel.getFinance(), money);
+            walletModel.setFinance(sumFinance + "");
+            walletService.updateByPrimaryKeySelective(existModel);
+        }
+        return money;
+    }
+
+    // 提供精确的减法运算。
+    private double add(String value1, String value2) {
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
+        return b1.add(b2).doubleValue();
     }
 }

@@ -7,9 +7,13 @@
         select
             CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, wu.head_img_url headImgUrl, sc.open_id,
             (select base_value from basedata where base_type = 'vip_grade' and base_key = sc.vip) vip, sc.points, sc.redpacket_receive, sc.redpacket_amount,
-            (select count(1) from shop_receive_record where type='1' and open_id = #{openId}) receiverCount
+            (select count(1) from shop_receive_record where opt_type='1' and open_id = #{openId}) receiverCount
         from shop_customer as sc
         left join wx_user as wu on sc.open_id=wu.open_id
         where sc.open_id = #{openId}
+    </select>
+
+    <select id="getRedpacket" parameterType="com.ningyuan.mobile.dto.ShopRedpacketDto">
+        select id, redpacket_receive, redpacket_finance from shop_customer where open_id = #{openId}
     </select>
 </mapper>

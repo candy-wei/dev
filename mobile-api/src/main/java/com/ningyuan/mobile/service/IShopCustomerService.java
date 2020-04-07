@@ -17,4 +17,9 @@ public interface IShopCustomerService extends IBaseService<ShopCustomerModel> {
     void updateCustomer(ShopOrderModel orderModel);
 
     UserInfoDto queryUserInfo(String openId);
+
+    ShopCustomerModel checkuser(String openId);
+
+    // 打开红包
+    String openRedpacket(String openId);
 }

@@ -5,6 +5,7 @@ import com.ningyuan.base.annotation.FiledComment;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -54,9 +55,9 @@ public class ShopCustomerModel extends BaseModel {
     /**
      * 红包金额
      */
-    @FiledComment(text = "红包数量" )
+    @FiledComment(text = "红包金额" )
     @Column(name = "redpacket_finance" )
-    private Integer redpacketFinance;
+    private BigDecimal redpacketFinance;
 
     /**
      * 是否完成新手任务
@@ -133,9 +134,9 @@ public class ShopCustomerModel extends BaseModel {
         this.redpacketAmount = redpacketAmount;
     }
 
-    public Integer getRedpacketFinance() { return redpacketFinance; }
+    public BigDecimal getRedpacketFinance() { return redpacketFinance; }
 
-    public void setRedpacketFinance(Integer redpacketFinance) { this.redpacketFinance = redpacketFinance; }
+    public void setRedpacketFinance(BigDecimal redpacketFinance) { this.redpacketFinance = redpacketFinance; }
 
     public Boolean getNewTask() {
         return this.newTask;

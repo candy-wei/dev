@@ -1,8 +1,8 @@
 package com.ningyuan.mobile.daomapper.mapper;
 
 import com.ningyuan.mobile.dto.RedPacketDto;
-import tk.mybatis.mapper.common.Mapper;
 import com.ningyuan.mobile.model.ShopWalletModel;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 

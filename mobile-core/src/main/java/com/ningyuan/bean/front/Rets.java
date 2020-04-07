@@ -2,7 +2,7 @@ package com.ningyuan.bean.front;
 
 public class Rets {
 
-    public static final Integer SUCCESS = 20000;
+    public static final Integer SUCCESS = 200;
     public static final Integer FAILURE = 9999;
     public static  final Integer TOKEN_EXPIRE=50014;
 
