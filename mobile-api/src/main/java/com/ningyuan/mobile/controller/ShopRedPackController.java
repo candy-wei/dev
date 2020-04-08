@@ -104,7 +104,7 @@ public class ShopRedPackController extends BaseController {
             walletService.insertSelective(walletModel);
         }else {
             double sumFinance = add(existModel.getFinance(), money);
-            walletModel.setFinance(sumFinance + "");
+            existModel.setFinance(sumFinance + "");
             walletService.updateByPrimaryKeySelective(existModel);
         }
         return money;
