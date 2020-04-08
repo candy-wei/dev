@@ -3,6 +3,8 @@ package com.ningyuan.mobile.service.impl;
 import com.ningyuan.base.BaseServiceImpl;
 import com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper;
 import com.ningyuan.mobile.dto.ShopRedpacketDto;
+import com.ningyuan.mobile.dto.TaskStatusDto;
+import com.ningyuan.mobile.dto.UserDto;
 import com.ningyuan.mobile.dto.UserInfoDto;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -93,6 +96,21 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         return money;
     }
 
+    @Override
+    public TaskStatusDto getTaskStatus(String openId) {
+        return this.mapper.getTaskStatus(openId);
+    }
+
+    @Override
+    public List<UserDto> getRecommend(String openId) {
+        return this.mapper.getRecommend(openId);
+    }
+
+    @Override
+    public List<UserDto> getTeam(String openId) {
+        return this.mapper.getTeam(openId);
+    }
+
     private void updateRedpacket(String openId, ShopRedpacketDto redpacket) {
         ShopCustomerModel customerModel = new ShopCustomerModel();
         customerModel.setOpenId(openId);
@@ -110,7 +128,7 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
             return (double) Math.round(Double.parseDouble(redpacket.getRemainMoney()) * 100) / 100;
         }
         Random r = new Random();
-        double min = 0.01; //
+        double min = 0.01;
         double max = this.divide(redpacket.getRemainMoney(), redpacket.getRemainSize() * 0.5);
         double money = this.mul(r.nextDouble(), max);
         money = money <= min ? 0.01: money;

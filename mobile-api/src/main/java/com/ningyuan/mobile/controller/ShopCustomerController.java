@@ -1,8 +1,9 @@
 package com.ningyuan.mobile.controller;
 
 import com.ningyuan.base.BaseController;
+import com.ningyuan.bean.front.Ret;
+import com.ningyuan.bean.front.Rets;
 import com.ningyuan.core.Context;
-import com.ningyuan.mobile.dto.UserInfoDto;
 import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.utils.ParamsUtils;
 import com.ningyuan.utils.TemplateUtils;
@@ -35,10 +36,31 @@ public class ShopCustomerController extends BaseController {
                 .concat(TemplateUtils.replaceAll("/app/shop/index.html?openId=${openId}", openId)));
     }
 
-    @RequestMapping(value = "/getInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "getInfo",method = RequestMethod.POST)
     @ResponseBody
-    public UserInfoDto getUserInfo(){
+    public Ret getUserInfo(){
         String openId = Context.getOpenId();
-        return shopCustomerService.queryUserInfo(openId);
+        return Rets.success(shopCustomerService.queryUserInfo(openId));
+    }
+
+    @RequestMapping(value = "list/task",method = RequestMethod.POST)
+    @ResponseBody
+    public Ret getTaskStatus(){
+        String openId = Context.getOpenId();
+        return Rets.success(shopCustomerService.getTaskStatus(openId));
+    }
+
+    @RequestMapping(value = "recommend",method = RequestMethod.POST)
+    @ResponseBody
+    public Ret getRecommend(){
+        String openId = Context.getOpenId();
+        return Rets.success(shopCustomerService.getRecommend(openId));
+    }
+
+    @RequestMapping(value = "team",method = RequestMethod.POST)
+    @ResponseBody
+    public Ret getTeam(){
+        String openId = Context.getOpenId();
+        return Rets.success(shopCustomerService.getTeam(openId));
     }
 }

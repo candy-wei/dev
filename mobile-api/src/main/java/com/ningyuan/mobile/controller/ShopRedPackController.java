@@ -92,7 +92,7 @@ public class ShopRedPackController extends BaseController {
     public String openRedpacket() throws StatelessException {
         String openId = Context.getOpenId();
         ShopCustomerModel customerModel = customerService.checkuser(openId);
-        if (customerModel == null || customerModel.getRedpacketReceive() < 0 || customerModel.getRedpacketFinance().compareTo(BigDecimal.ZERO) < 0) {
+        if (customerModel == null) {
             throw new StatelessException(ErrorMessage.getFailure());
         }
         String money = customerService.openRedpacket(openId);

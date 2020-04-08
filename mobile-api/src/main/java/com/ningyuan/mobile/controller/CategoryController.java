@@ -24,7 +24,6 @@ public class CategoryController extends BaseController {
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public Object list() {
-        log.info("CategoryController.list: {}", "日志日志日志日志日志日志日志日志日志");
         List<ShopCategoryModel> list = categoryService.listCategory();
         list.forEach(item->{
             item.setBannerList(categoryService.listBannerRel(item.getId()));

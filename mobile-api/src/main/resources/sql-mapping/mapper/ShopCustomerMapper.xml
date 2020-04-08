@@ -4,16 +4,64 @@
 <mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper">
 
     <select id="queryUserInfo" resultType="com.ningyuan.mobile.dto.UserInfoDto">
-        select
-            CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, wu.head_img_url headImgUrl, sc.open_id,
-            (select base_value from basedata where base_type = 'vip_grade' and base_key = sc.vip) vip, sc.points, sc.redpacket_receive, sc.redpacket_amount,
-            (select count(1) from shop_receive_record where opt_type='1' and open_id = #{openId}) receiverCount
-        from shop_customer as sc
-        left join wx_user as wu on sc.open_id=wu.open_id
-        where sc.open_id = #{openId}
+        SELECT
+            CAST( wu.nickname AS CHAR ( 100 ) CHARACTER SET utf8 ) nickName,
+            wu.head_img_url headImgUrl,
+            sc.open_id,
+            ( SELECT base_value FROM basedata WHERE base_type = 'vip_grade' AND base_key = sc.vip ) vip,
+            sc.points,
+            sc.redpacket_receive,
+            sc.redpacket_amount,
+            (
+            SELECT
+                count( 1 )
+            FROM
+                shop_receive_record
+            WHERE
+                opt_type = '1'
+                AND open_id = #{openId}) receiverCount
+            FROM
+                shop_customer AS sc
+                LEFT JOIN wx_user AS wu ON sc.open_id = wu.open_id
+        WHERE
+            sc.open_id = #{openId}
     </select>
 
-    <select id="getRedpacket" parameterType="com.ningyuan.mobile.dto.ShopRedpacketDto">
+    <select id="getRedpacket" resultType="com.ningyuan.mobile.dto.ShopRedpacketDto">
         select id, redpacket_receive, redpacket_finance from shop_customer where open_id = #{openId}
+    </select>
+
+    <select id="getTaskStatus" resultType="com.ningyuan.mobile.dto.TaskStatusDto">
+        SELECT
+            new_task baseTask,
+            special_task specialTask,
+            daily_task dailyTask
+        FROM
+            shop_customer
+        WHERE
+            open_id = #{openId}
+    </select>
+
+    <select id="getRecommend" resultType="com.ningyuan.mobile.dto.UserDto">
+        SELECT
+            wu.head_img_url,
+            CAST( wu.nickname AS CHAR ( 100 ) CHARACTER SET utf8 ) nickName
+        FROM
+            wx_relate AS wr
+            LEFT JOIN wx_user AS wu ON wr.open_id = wu.open_id
+        WHERE
+            wr.open_id IS NOT NULL
+            AND wr.parent_open_id = #{openId}
+    </select>
+
+    <select id="getTeam" resultType="com.ningyuan.mobile.dto.UserDto">
+        SELECT
+            wu.head_img_url, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName
+        FROM
+            ( SELECT open_id FROM wx_relate WHERE open_id IS NOT NULL AND parent_open_id = #{openId} ) AS wr
+            LEFT JOIN wx_relate AS wrr ON wr.open_id = wrr.parent_open_id
+            LEFT JOIN wx_user AS wu ON wrr.open_id = wu.open_id
+        WHERE
+            wrr.open_id IS NOT NULL;
     </select>
 </mapper>
