@@ -69,9 +69,11 @@
         SELECT
             bd.base_value title,
             (select base_value from basedata where base_type = bd.base_key) content,
-            if(sc.new_task = 1, '已完成', '未完成') baseTask,
-            if(sc.special_task = 1, '已完成', '未完成') specialTask,
-            if(sc.daily_task = 1, '已开启', '未开启') dailyTask
+            case bd.base_key
+                when 'base_task' then if(sc.new_task = 1, '已完成', '未完成')
+                when 'special_task' then if(sc.special_task = 1, '已完成', '未完成')
+                when 'daily_task' then if(sc.daily_task = 1, '已开启', '未开启')
+            else '未完成' end taskStatus
         FROM
             shop_customer as sc, basedata as bd
         WHERE
