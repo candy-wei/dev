@@ -1,9 +1,6 @@
 package com.ningyuan.mobile.daomapper.mapper;
 
-import com.ningyuan.mobile.dto.ShopRedpacketDto;
-import com.ningyuan.mobile.dto.TaskStatusDto;
-import com.ningyuan.mobile.dto.UserDto;
-import com.ningyuan.mobile.dto.UserInfoDto;
+import com.ningyuan.mobile.dto.*;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -26,4 +23,6 @@ public interface ShopCustomerMapper extends Mapper<ShopCustomerModel> {
     List<UserDto> getRecommend(String openId);
 
     List<UserDto> getTeam(String openId);
+
+    List<TaskDto> listTask(String openId);
 }

@@ -50,6 +50,13 @@ public class ShopCustomerController extends BaseController {
         return Rets.success(shopCustomerService.getTaskStatus(openId));
     }
 
+    @RequestMapping(value = "list/task",method = RequestMethod.POST)
+    @ResponseBody
+    public Ret listTask(){
+        String openId = Context.getOpenId();
+        return Rets.success(shopCustomerService.listTask(openId));
+    }
+
     @RequestMapping(value = "recommend",method = RequestMethod.POST)
     @ResponseBody
     public Ret getRecommend(){

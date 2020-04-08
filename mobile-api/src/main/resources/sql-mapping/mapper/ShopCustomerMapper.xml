@@ -64,4 +64,15 @@
         WHERE
             wrr.open_id IS NOT NULL;
     </select>
+
+    <select id="listTask" resultType="com.ningyuan.mobile.dto.TaskDto">
+        SELECT
+            new_task title,
+            special_task content,
+            daily_task completeStatus
+        FROM
+            shop_customer
+        WHERE
+            open_id = #{openId}
+    </select>
 </mapper>

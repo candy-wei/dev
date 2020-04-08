@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
+import com.ningyuan.mobile.dto.TaskDto;
 import com.ningyuan.mobile.dto.TaskStatusDto;
 import com.ningyuan.mobile.dto.UserDto;
 import com.ningyuan.mobile.dto.UserInfoDto;
@@ -32,4 +33,6 @@ public interface IShopCustomerService extends IBaseService<ShopCustomerModel> {
     List<UserDto> getRecommend(String openId);
 
     List<UserDto> getTeam(String openId);
+
+    List<TaskDto> listTask(String openId);
 }

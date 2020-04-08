@@ -2,10 +2,7 @@ package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
 import com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper;
-import com.ningyuan.mobile.dto.ShopRedpacketDto;
-import com.ningyuan.mobile.dto.TaskStatusDto;
-import com.ningyuan.mobile.dto.UserDto;
-import com.ningyuan.mobile.dto.UserInfoDto;
+import com.ningyuan.mobile.dto.*;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
@@ -109,6 +106,11 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
     @Override
     public List<UserDto> getTeam(String openId) {
         return this.mapper.getTeam(openId);
+    }
+
+    @Override
+    public List<TaskDto> listTask(String openId) {
+        return this.mapper.listTask(openId);
     }
 
     private void updateRedpacket(String openId, ShopRedpacketDto redpacket) {
