@@ -29,10 +29,6 @@ import java.util.List;
 public class ShopCartController extends BaseController {
     @Autowired
     private IShopCartService cartService;
-    @Autowired
-    private IShopGoodsSkuService goodsSkuService;
-    @Autowired
-    private IGoodsService goodsService;
 
     @RequestMapping(value = "/queryByUser",method = RequestMethod.GET)
     @ResponseBody

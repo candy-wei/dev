@@ -77,7 +77,7 @@ public class ShopRedPackController extends BaseController {
                     , Conf.get("shop.cash.reason"));
             if (StringUtils.equals("SUCCESS", resultModel.getResultCode())) {
                 ShopReceiveRecordModel recordModel = new ShopReceiveRecordModel();
-                recordModel.setAmount("100");
+                recordModel.setAmount(walletModel.getFinance());
                 recordModel.setOpenId(Context.getOpenId());
                 recordModel.setOptType(Conf.get("shop.red.packet.type:2"));
                 recordService.insertSelective(recordModel);

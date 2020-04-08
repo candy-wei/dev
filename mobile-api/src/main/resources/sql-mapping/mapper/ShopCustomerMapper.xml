@@ -28,7 +28,7 @@
     </select>
 
     <select id="getRedpacket" resultType="com.ningyuan.mobile.dto.ShopRedpacketDto">
-        select id, redpacket_receive, redpacket_finance from shop_customer where open_id = #{openId}
+        select id, redpacket_receive remainSize, redpacket_finance remainMoney from shop_customer where open_id = #{openId}
     </select>
 
     <select id="getTaskStatus" resultType="com.ningyuan.mobile.dto.TaskStatusDto">
