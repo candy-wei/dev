@@ -66,13 +66,17 @@
     </select>
 
     <select id="listTask" resultType="com.ningyuan.mobile.dto.TaskDto">
-        /*SELECT
-            new_task title,
-            special_task content,
-            daily_task completeStatus
+        SELECT
+            bd.base_value title,
+            (select base_value from basedata where base_type = bd.base_key) content,
+            if(sc.new_task = 1, '已完成', '未完成') baseTask,
+            if(sc.special_task = 1, '已完成', '未完成') specialTask,
+            if(sc.daily_task = 1, '已开启', '未开启') dailyTask
         FROM
-            shop_customer
+            shop_customer as sc, basedata as bd
         WHERE
-            open_id = #{openId}*/
+            sc.open_id = #{openId} and bd.base_type = 'task'
+        ORDER BY
+            bd.id
     </select>
 </mapper>

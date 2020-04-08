@@ -6,7 +6,7 @@
     <select id="getCashList" resultType="com.ningyuan.mobile.dto.RedPacketDto">
         select
             src.open_id,
-            (select base_value from basedata where base_type = 'receive_record' and base_key = src.type) optionType,
+            (select base_value from basedata where base_type = 'receive_record' and base_key = src.opt_type) optionType,
             src.amount finance,
             src.create_time
         from shop_receive_record as src
@@ -15,7 +15,7 @@
         order by src.create_time desc
     </select>
 
-    <select id="getCashSum" parameterType="string">
+    <select id="getCashSum" resultType="string">
         select sum(if(opt_type =2 , amount, 0)) from shop_receive_record where open_id = #{openId}
     </select>
 </mapper>
