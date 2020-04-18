@@ -30,11 +30,11 @@ public class WxController {
                           @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String id) throws Exception {
         IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
         wxRelateService.verify(openId);
-        return "redirect:" + TemplateUtils.replaceAll(Conf.get("wx.common.pay.url"), id, openId);
+        return "redirect:" + TemplateUtils.replaceAll(Conf.get("wx.common.pay.url"), openId, id);
     }
 
     @ApiOperation(value = "通用微信支付")
-    @RequestMapping(value = "pay/{id}/{openId}", method = RequestMethod.GET)
+    @RequestMapping(value = "pay/{openId}/{id}", method = RequestMethod.GET)
     public ModelAndView pay(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId,
                             @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String orderId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("wxpay/trigger");

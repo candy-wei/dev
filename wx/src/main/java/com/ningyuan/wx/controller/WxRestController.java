@@ -60,7 +60,7 @@ public class WxRestController extends BaseController {
         String openId = getTokenByCodeResultDto.getOpenid();
         wxUserService.saveWxUser(getTokenByCodeResultDto);
         //更新关联关系
-        commonRelateService.updateRelate(openId, state);
+        commonRelateService.updateRelateDef(openId, state);
         return commonRelateService.view(openId);
     }
 

@@ -32,8 +32,9 @@ public class ShopCustomerController extends BaseController {
     @RequestMapping(value = "index/{openId}",method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView callbackHandle(@PathVariable("openId") String openId){
+        System.out.println("123123123");
         return new ModelAndView("redirect:".concat(ParamsUtils.getRomote())
-                .concat(TemplateUtils.replaceAll("/app/shop/index.html?openId=${openId}", openId)));
+                .concat(TemplateUtils.replaceAll("/dist/index.html?openId=${openId}", openId)));
     }
 
     @RequestMapping(value = "getInfo",method = RequestMethod.POST)

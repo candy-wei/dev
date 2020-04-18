@@ -42,11 +42,11 @@ public class ShopRedPackController extends BaseController {
     @ApiOperation(value = "可提现总金额")
     @PostMapping("canCashSum")
     @ResponseBody
-    public Integer canCashSum() {
+    public Double canCashSum() {
         ShopWalletModel walletModel =new ShopWalletModel();
         walletModel.setOpenId(Context.getOpenId());
         walletModel = walletService.selectLimitOne(walletModel);
-        return Integer.parseInt(walletModel.getFinance());
+        return Double.parseDouble(walletModel.getFinance());
     }
 
     @ApiOperation(value = "总收益")

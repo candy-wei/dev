@@ -101,7 +101,7 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     public void verify(String openId) throws Exception {
         // 触发微信支付，trigger的逻辑
         ShopOrderModel orderModel = this.getByOpenId(openId);
-        if (orderModel.getStatus().equals(OrderEnum.OrderStatusEnum.UN_PAY.getId()) && orderModel.getHasPay()) {
+        if (orderModel != null && orderModel.getStatus().equals(OrderEnum.OrderStatusEnum.UN_PAY.getId()) && orderModel.getHasPay()) {
             throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
         }
     }

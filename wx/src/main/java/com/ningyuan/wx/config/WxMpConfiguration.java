@@ -26,7 +26,7 @@ public class WxMpConfiguration {
         logger.info("到这儿了吗WxMpConfiguration！", "到了！");
         WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
         configStorage.setAppId(Conf.get("wxsa.appId"));
-        configStorage.setSecret(Conf.get("wxsa.appSecret"));
+        configStorage.setSecret(Conf.get("wxsa.secret"));
         configStorage.setToken(Conf.get("wxsa.token"));
         configStorage.setAesKey(Conf.get("wxsa.aesKey"));
         configStorage.setApacheHttpClientBuilder(httpClientBuilder);

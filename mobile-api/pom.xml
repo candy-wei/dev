@@ -61,6 +61,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>wx</finalName>
+        <finalName>mobile</finalName>
     </build>
 </project>

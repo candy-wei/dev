@@ -32,4 +32,17 @@
             <version>${ehcache.core.version}</version>
         </dependency>
     </dependencies>
+
+    <!--<build>
+        <resources>
+            &lt;!&ndash; Include other files as resources files. &ndash;&gt;
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>config/dev.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>-->
 </project>

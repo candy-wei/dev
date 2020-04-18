@@ -85,6 +85,8 @@ public class WxUtils {
         return getPayRequestDto(attach, openId, price, null);
     }
 
+
+
     /**
      * @param attach
      * @param openId
@@ -108,7 +110,9 @@ public class WxUtils {
         dto.setNotify_url(TemplateUtils.replaceAll(Conf.get("wx.notify.uri")));
         dto.setOpenid(openId);
         dto.setSpbill_create_ip("127.0.0.1");
+        log.info("UnifiedorderDto : {}", dto);
         Map<String, String> result = getPrepareId(dto);
+        log.info("getPrepareId.result : {}", result);
         payRequestDto.setAppId(dto.getAppid());
         payRequestDto.setTimeStamp(new Date().getTime() + "");
         payRequestDto.setNonceStr(getNonceStr());
@@ -154,6 +158,7 @@ public class WxUtils {
     public static Map<String, String> getPrepareId(UnifiedorderDto unifiedorderDto) throws Exception {
         Map params = CommonUtil.objectToMap(unifiedorderDto);
         String dataXml = WXPayUtil.generateSignedXml(params, Conf.get("wx.api.key"));
+        log.info("params :{}", params);
         String resXml = HttpUtil.postData(WXPayConstants.UNIFIEDORDER_URL, dataXml);
         Map<String, String> result = WXPayUtil.xmlToMap(resXml);
         return result;

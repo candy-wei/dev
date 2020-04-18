@@ -7,7 +7,8 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-  <mvc:resources mapping="/app/**" location="/app/"/>
+  <mvc:resources mapping="/dist/**" location="/dist/"/>
+  <mvc:resources mapping="/auth/**" location="/auth/"/>
 
   <mvc:interceptors>
     <mvc:interceptor>

@@ -45,10 +45,6 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
 
     boolean isUpdateRelate(String openId);
 
-    default void updateRelate(String openId, String state) throws Exception {
-        updateRelateDef(openId, state);
-    }
-
     default void updateRelateDef(String openId, String state) throws Exception {
         T oldRelate = this.getRelateByOpenId(openId);
         if (!this.isUpdateRelate(openId) && oldRelate != null) {
@@ -109,6 +105,8 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
     }
 
     default ModelAndView view(String openId) {
+        String s = ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId);
+        logger.info(s);
         return new ModelAndView("redirect:" + ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId));
     }
 
