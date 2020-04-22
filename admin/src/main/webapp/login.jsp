@@ -23,7 +23,7 @@
 %>
 <html>
 <head>
-    <title>促销管理</title>
+    <title>宁远会员管理</title>
     <link rel="stylesheet" href="${path}/app/lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="${path}/app/css/login.css">
     <script src="${path}/app/lib/js/jquery-3.3.1.min.js"></script>
@@ -37,7 +37,7 @@
 <form:form action="${pageContext.request.contextPath}/login" method="post" onsubmit="setUserNameAndPassoword()">
     <div class="wrapper">
         <div class="container">
-            <h1>促销系统</h1>
+            <h1>宁远商城系统</h1>
             <div class="form">
                 <input type="text" id="username" name="username" value="" placeholder="账号">
                 <input type="password" id="password" name="password" value="" placeholder="密码">

@@ -57,6 +57,7 @@ public class ShopOrderController extends BaseController {
     @ResponseBody
     public Object getOrders(@RequestParam(value = "status",required = false) Integer status){
         String openId = Context.getOpenId();
+        PageHelper.startPage(1, 10);
         PageHelper.startPage(Context.getHttpServletRequest());
         Example example = new Example(ShopOrderModel.class);
         Example.Criteria criteria = example.createCriteria();

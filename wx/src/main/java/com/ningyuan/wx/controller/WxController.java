@@ -28,8 +28,8 @@ public class WxController {
     @RequestMapping(value = "trigger/{id}/{openId}", method = RequestMethod.GET)
     public String trigger(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId,
                           @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String id) throws Exception {
-        IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
-        wxRelateService.verify(openId);
+        // IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
+        // wxRelateService.verify(id, openId);
         return "redirect:" + TemplateUtils.replaceAll(Conf.get("wx.common.pay.url"), openId, id);
     }
 
@@ -40,7 +40,7 @@ public class WxController {
         ModelAndView modelAndView = new ModelAndView("wxpay/trigger");
         IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
         wxRelateService.preHandle(openId, orderId);
-        GetBrandWCPayRequestDto payRequestDto = WxUtils.getPayRequestDto(orderId, openId, wxRelateService.getPayPrice(openId));
+        GetBrandWCPayRequestDto payRequestDto = WxUtils.getPayRequestDto(orderId, openId, wxRelateService.getPayPrice(openId, orderId));
         logger.info("payRequestDto:{}", payRequestDto);
         modelAndView.addObject("payRequestDto", payRequestDto);
         modelAndView.addObject("redirectUri", TemplateUtils.replaceAll(Conf.get("pay.load.view"), openId));

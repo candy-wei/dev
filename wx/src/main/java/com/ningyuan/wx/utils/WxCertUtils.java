@@ -37,6 +37,8 @@ public class WxCertUtils {
         try {
             //指定PKCS12的密码
             keyStore.load(instream, PKCS12.toCharArray());
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             instream.close();
         }

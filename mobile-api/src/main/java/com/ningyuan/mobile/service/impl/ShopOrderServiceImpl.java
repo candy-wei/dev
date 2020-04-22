@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.base.exception.ViewException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
@@ -11,10 +12,8 @@ import com.ningyuan.mobile.model.ShopOrderModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.mobile.service.IShopOrderItemService;
 import com.ningyuan.mobile.service.IShopOrderService;
-import com.ningyuan.utils.CreateGUID;
 import com.ningyuan.utils.DateUtil;
 import com.ningyuan.utils.RandomUtil;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,22 +94,15 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
 
     }
 
-
-
     @Override
-    public void verify(String openId) throws Exception {
-        // 触发微信支付，trigger的逻辑
-        ShopOrderModel orderModel = this.getByOpenId(openId);
-        if (orderModel != null && orderModel.getStatus().equals(OrderEnum.OrderStatusEnum.UN_PAY.getId()) && orderModel.getHasPay()) {
-            throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
-        }
-    }
-
-    @Override
-    public void preHandle(String openId, String id) throws Exception {
+    public void preHandle(String openId, String orderSn) throws Exception {
         // 通用微信支付的逻辑
-        ShopOrderModel orderModel = this.getByOpenId(openId);
-        if (orderModel.getHasPay()) {
+        ShopOrderModel orderModel = new ShopOrderModel();
+        orderModel.setOpenId(openId);
+        orderModel.setOrderSn(orderSn);
+        orderModel.setHasPay(Boolean.TRUE);
+        ShopOrderModel model = this.selectLimitOne(orderModel);
+        if (model != null) {
             throw new ViewException(Conf.get("shop.pay.success.url") + openId, "已支付");
         }
     }
@@ -122,6 +114,19 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
     private String getOrderSn() {
         return DateUtil.getAllTime() + RandomUtil.getRandomNumber(6);
 //        return CreateGUID.createGuId();
+    }
+
+    public String getPayPrice(String openId, String orderId) throws StatelessException {
+        // 计算支付金额
+        ShopOrderModel orderModel = new ShopOrderModel();
+        orderModel.setOpenId(openId);
+        orderModel.setOrderSn(orderId);
+        orderModel.setHasPay(Boolean.FALSE);
+        ShopOrderModel model = this.selectLimitOne(orderModel);
+        if (model == null) {
+            throw new StatelessException();
+        }
+        return model.getTotalPrice().toString();
     }
 
 

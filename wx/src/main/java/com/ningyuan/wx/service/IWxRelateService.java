@@ -70,7 +70,7 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
         return params;
     }
 
-    default void verify(String openId) throws Exception {
+    default void verify(String orderSn, String openId) throws Exception {
     }
 
     default void preHandle(String openId, String id) throws Exception {
@@ -99,7 +99,7 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
      * 支付金额
      * @return
      */
-    default String getPayPrice(String openId) throws StatelessException {
+    default String getPayPrice(String openId, String orderId) throws StatelessException {
         // 计算支付金额
         return "111";
     }

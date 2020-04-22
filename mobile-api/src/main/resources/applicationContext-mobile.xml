@@ -9,6 +9,7 @@
 
   <mvc:resources mapping="/dist/**" location="/dist/"/>
   <mvc:resources mapping="/auth/**" location="/auth/"/>
+  <mvc:resources mapping="/js/**" location="/js/"/>
 
   <mvc:interceptors>
     <mvc:interceptor>

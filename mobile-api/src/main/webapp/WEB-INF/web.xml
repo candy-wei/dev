@@ -78,5 +78,9 @@
         <session-timeout>120</session-timeout>
     </session-config>
 
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>mobile.root</param-value>
+    </context-param>
 </web-app>
         

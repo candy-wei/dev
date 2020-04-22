@@ -4,6 +4,7 @@ import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Ret;
 import com.ningyuan.bean.front.Rets;
 import com.ningyuan.core.Context;
+import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.utils.ParamsUtils;
 import com.ningyuan.utils.TemplateUtils;
@@ -32,7 +33,13 @@ public class ShopCustomerController extends BaseController {
     @RequestMapping(value = "index/{openId}",method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView callbackHandle(@PathVariable("openId") String openId){
-        System.out.println("123123123");
+        // 保存用户信息
+        ShopCustomerModel customerModel = new ShopCustomerModel();
+        customerModel.setOpenId(openId);
+        ShopCustomerModel queryCustomer = shopCustomerService.selectOne(customerModel);
+        if (queryCustomer == null) {
+            shopCustomerService.insertSelective(customerModel);
+        }
         return new ModelAndView("redirect:".concat(ParamsUtils.getRomote())
                 .concat(TemplateUtils.replaceAll("/dist/index.html?openId=${openId}", openId)));
     }
