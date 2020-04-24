@@ -2,12 +2,6 @@ package com.ningyuan.wx.dto;
 
 import java.util.Date;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 15:27 on 2018/5/31.
- * @Modified by:
- */
 public class JsApiTicketDto {
 
     private String errcode;

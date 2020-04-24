@@ -19,12 +19,6 @@ import java.io.*;
 import java.security.KeyStore;
 import java.util.Map;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 9:58 on 2017/12/4.
- * @Modified by:
- */
 public class WxCertUtils {
 
     protected static Logger log = LoggerFactory.getLogger(WxCertUtils.class);

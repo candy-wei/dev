@@ -7,6 +7,7 @@ import com.ningyuan.mobile.dto.RedPacketDto;
 import com.ningyuan.mobile.model.ShopWalletModel;
 import com.ningyuan.mobile.service.IShopWalletService;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -28,5 +29,15 @@ public class ShopWalletServiceImpl extends BaseServiceImpl<ShopWalletMapper, Sho
     @Override
     public String getCashSum() {
         return this.mapper.getCashSum(Context.getOpenId());
+    }
+
+    @Override
+    public void updateWallet(String openId) {
+        Example example = new Example(ShopWalletModel.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("openId", openId);
+        ShopWalletModel walletModel = new ShopWalletModel();
+        walletModel.setFinance("0");
+        this.mapper.updateByExampleSelective(walletModel, example);
     }
 }

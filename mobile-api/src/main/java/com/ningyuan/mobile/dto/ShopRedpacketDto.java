@@ -3,11 +3,16 @@ package com.ningyuan.mobile.dto;
 public class ShopRedpacketDto {
     private Long id;
     private Integer remainSize;
+    private Integer amount;
     private String remainMoney;
 
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
+
+    public Integer getAmount() { return amount; }
+
+    public void setAmount(Integer amount) { this.amount = amount; }
 
     public Integer getRemainSize() { return remainSize; }
 

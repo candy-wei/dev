@@ -20,15 +20,15 @@
             WHERE
                 opt_type = '1'
                 AND open_id = #{openId}) receiverCount
-            FROM
-                shop_customer AS sc
-                LEFT JOIN wx_user AS wu ON sc.open_id = wu.open_id
+        FROM
+            shop_customer AS sc
+            LEFT JOIN wx_user AS wu ON sc.open_id = wu.open_id
         WHERE
             sc.open_id = #{openId}
     </select>
 
     <select id="getRedpacket" resultType="com.ningyuan.mobile.dto.ShopRedpacketDto">
-        select id, redpacket_receive remainSize, redpacket_finance remainMoney from shop_customer where open_id = #{openId}
+        select id, redpacket_receive remainSize, redpacket_finance remainMoney, redpacket_amount amount from shop_customer where open_id = #{openId}
     </select>
 
     <select id="getTaskStatus" resultType="com.ningyuan.mobile.dto.TaskStatusDto">

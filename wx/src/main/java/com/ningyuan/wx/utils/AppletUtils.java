@@ -23,9 +23,6 @@ public class AppletUtils {
         sel.setOpenId(openId);
         sel.setReason(reason);
         WxPay2userResultModel model = resultService.selectOne(sel);
-        if (model != null && "SUCCESS".equals(model.getResultCode())) {
-            throw new StatelessException(ErrorMessage.getFailure("redPack_again", "您已领取红包"));
-        }
         Pay2UserDto pay2UserDto = new Pay2UserDto();
         pay2UserDto.setMch_appid(mchAppId);
         pay2UserDto.setMchid(Conf.get("wx.partner"));

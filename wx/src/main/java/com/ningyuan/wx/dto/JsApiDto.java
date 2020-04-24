@@ -1,13 +1,6 @@
 package com.ningyuan.wx.dto;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 16:43 on 2018/5/31.
- * @Modified by:
- */
 public class JsApiDto {
-
     private String appId;
     private String timestamp;
     private String noncestr;

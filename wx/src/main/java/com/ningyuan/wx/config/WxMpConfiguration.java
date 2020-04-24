@@ -23,7 +23,6 @@ public class WxMpConfiguration {
     private WxMpHttpClientBuilder httpClientBuilder;
 
     public WxMpConfigStorage wxMpConfigStorage() {
-        logger.info("到这儿了吗WxMpConfiguration！", "到了！");
         WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
         configStorage.setAppId(Conf.get("wxsa.appId"));
         configStorage.setSecret(Conf.get("wxsa.secret"));

@@ -21,12 +21,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 17:27 on 2018/5/22.
- * @Modified by:
- */
 @Configuration //必须存在
 @EnableSwagger2 //必须存在
 @EnableWebMvc //必须存在

@@ -2,10 +2,6 @@ package com.ningyuan.wx.dto;
 
 import java.util.List;
 
-/**
- * @Author: zongrui_cai
- * @Date: 2019/6/17 9:41
- */
 public class WxConfigDto {
     private String appId;
     private String timestamp;

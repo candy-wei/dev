@@ -2,10 +2,6 @@ package com.ningyuan.mobile.dto;
 
 import java.util.Date;
 
-/**
- * @Author: zongrui_cai
- * @Date: 2019/8/6 10:58
- */
 public class RedPacketDto {
     private String optionType;
     private String finance;

@@ -3,6 +3,7 @@ package com.ningyuan.mobile.controller;
 import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Ret;
 import com.ningyuan.bean.front.Rets;
+import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
@@ -77,5 +78,12 @@ public class ShopCustomerController extends BaseController {
     public Ret getTeam(){
         String openId = Context.getOpenId();
         return Rets.success(shopCustomerService.getTeam(openId));
+    }
+
+    @RequestMapping("getShareParam")
+    @ResponseBody
+    public Object getShareParam() {
+        String openId = Context.getOpenId();
+        return TemplateUtils.replaceAll(Conf.get("shop.share.url"), openId);
     }
 }

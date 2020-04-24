@@ -28,8 +28,6 @@ public class WxController {
     @RequestMapping(value = "trigger/{id}/{openId}", method = RequestMethod.GET)
     public String trigger(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId,
                           @ApiParam(name = "id", value = "订单号", required = true) @PathVariable("id") String id) throws Exception {
-        // IWxRelateService wxRelateService = Context.getBean("orderService", IWxRelateService.class);
-        // wxRelateService.verify(id, openId);
         return "redirect:" + TemplateUtils.replaceAll(Conf.get("wx.common.pay.url"), openId, id);
     }
 

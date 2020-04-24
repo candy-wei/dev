@@ -71,9 +71,9 @@ public class ShopRedPackController extends BaseController {
         ShopWalletModel walletModel =new ShopWalletModel();
         walletModel.setOpenId(Context.getOpenId());
         walletModel = walletService.selectLimitOne(walletModel);
-        if (walletModel != null) {
+        if (walletModel != null && Double.parseDouble(walletModel.getFinance()) > 0.0) {
             WxPay2userResultModel resultModel = AppletUtils.pay2User(Conf.get("wxsa.appId"), Context.getOpenId()
-                    , walletModel.getFinance(), Conf.get("wx.pay2user.desc")
+                    , (Double.parseDouble(walletModel.getFinance()) * 100) + "", Conf.get("wx.pay2user.desc")
                     , Conf.get("shop.cash.reason"));
             if (StringUtils.equals("SUCCESS", resultModel.getResultCode())) {
                 ShopReceiveRecordModel recordModel = new ShopReceiveRecordModel();
@@ -81,9 +81,11 @@ public class ShopRedPackController extends BaseController {
                 recordModel.setOpenId(Context.getOpenId());
                 recordModel.setOptType(Conf.get("shop.red.packet.type:2"));
                 recordService.insertSelective(recordModel);
+                walletService.updateWallet(Context.getOpenId());
             }
+            return ErrorMessage.getSuccess();
         }
-        return ErrorMessage.getSuccess();
+        return ErrorMessage.getFailure();
     }
 
     @ApiOperation(value = "领取红包")

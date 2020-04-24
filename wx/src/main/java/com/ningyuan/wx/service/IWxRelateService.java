@@ -4,17 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ningyuan.annotation.AspectBefore;
 import com.ningyuan.base.BaseModel;
-import com.ningyuan.base.exception.ErrorMessage;
 import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.utils.ParamsUtils;
-import com.ningyuan.utils.RESTUtils;
 import com.ningyuan.utils.TemplateUtils;
 import com.ningyuan.wx.model.WxNotifyInfoModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,8 +102,6 @@ public interface IWxRelateService<T> extends IWxGetByOpenId<T> {
     }
 
     default ModelAndView view(String openId) {
-        String s = ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId);
-        logger.info(s);
         return new ModelAndView("redirect:" + ParamsUtils.getRomote() + TemplateUtils.replaceAll(Conf.get("shop.index.view"), openId));
     }
 

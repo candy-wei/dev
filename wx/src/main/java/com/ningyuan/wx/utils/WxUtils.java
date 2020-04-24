@@ -30,12 +30,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 9:58 on 2017/12/4.
- * @Modified by:
- */
 public class WxUtils {
 
     protected static Logger log = LoggerFactory.getLogger(WxUtils.class);
@@ -105,7 +99,7 @@ public class WxUtils {
         dto.setFee_type("CNY");
         dto.setAttach(attach);
         dto.setOut_trade_no(CreateGUID.createGuId());
-        dto.setTotal_fee((int) (100 * Double.parseDouble(price)) + "");
+        dto.setTotal_fee((int) (Double.parseDouble(price)) + "");
         dto.setTrade_type("JSAPI");
         dto.setNotify_url(TemplateUtils.replaceAll(Conf.get("wx.notify.uri")));
         dto.setOpenid(openId);
@@ -221,6 +215,7 @@ public class WxUtils {
         try {
             if (wxUserDto.getNickname() != null) {
                 // 将微信昵称转为 UTF-8
+                wxUserModel.setHeadImgUrl(wxUserDto.getHeadimgurl());
                 wxUserModel.setNickname(new ByteArrayInputStream(wxUserDto.getNickname().getBytes("UTF-8")));
             }
         } catch (UnsupportedEncodingException e) {

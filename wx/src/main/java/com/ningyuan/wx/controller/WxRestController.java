@@ -81,37 +81,4 @@ public class WxRestController extends BaseController {
             throw e;
         }
     }
-
-    @ResponseBody
-    @ApiOperation(value = "getShare")
-    @RequestMapping(value = "getShare/{openId}", method = RequestMethod.GET)
-    public Object getShare(@ApiParam(name = "openId", value = "openId", required = true) @PathVariable("openId") String openId) throws Exception {
-        IWxUserService wxUserService = Context.getBean(IWxUserService.class);
-        Map<String, Object> map = new HashMap<>();
-        if (!StringUtils.isEmpty(openId)) {
-            String maskNickname = MaskUtils.build("wx.share.nickname.mask").mask(wxUserService.getDtoByOpenId(openId).getNickname());
-            map.put("shareTitle", TemplateUtils.replaceAll(Conf.get("wx.share.title"), maskNickname));
-            map.put("shareDesc", TemplateUtils.replaceAll(Conf.get("wx.share.desc"), maskNickname));
-            if (Conf.containsKey("wx.share.thumb.url")) {
-                map.put("thumbUrl", Conf.get("wx.share.thumb.url"));
-            } else {
-                map.put("thumbUrl", Conf.get("wx.share.thumb.url"));
-            }
-            map.put("shareLink", WxShareUtils.getShareUrl(openId, commonRelateService));
-        }
-        return map;
-    }
-
-    @ResponseBody
-    @ApiOperation(value = "getWxConfig")
-    @RequestMapping(value = "getWxConfig", method = RequestMethod.GET)
-    public Object getWxConfig(String url) throws Exception {
-        WxConfigDto dto = new WxConfigDto();
-        JsApiDto jsApiDto = WxUtils.genJsApiDto(url);
-        BeanUtils.copyProperties(jsApiDto, dto);
-        dto.setNonceStr(jsApiDto.getNoncestr());
-        dto.setDebug(Conf.enable("wx.jsApi.config.debug.enable"));
-        dto.setJsApiList(JSONObject.parseArray(Conf.get("wx.jsApi.config.menu"), String.class));
-        return dto;
-    }
 }

@@ -1,6 +1,7 @@
 package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
+import com.ningyuan.mobile.dto.OrderDto;
 import com.ningyuan.mobile.model.ShopOrderItemModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
 import com.ningyuan.wx.service.IWxRelateService;
@@ -21,4 +22,6 @@ public interface IShopOrderService extends IBaseService<ShopOrderModel>, IWxRela
     void cancelOrder(String orderSn);
 
     ShopOrderModel confirmReceive(String orderSn);
+
+    List<OrderDto> getOrders(String openId, Integer status);
 }

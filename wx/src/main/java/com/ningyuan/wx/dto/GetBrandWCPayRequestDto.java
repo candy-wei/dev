@@ -1,11 +1,5 @@
 package com.ningyuan.wx.dto;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 9:30 on 2018/1/3.
- * @Modified by:
- */
 public class GetBrandWCPayRequestDto {
 
     private String appId;

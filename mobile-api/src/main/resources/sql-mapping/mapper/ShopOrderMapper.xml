@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.mobile.daomapper.mapper.ShopOrderMapper">
+
+    <select id="getOrders" resultMap="queryCartMap">
+        select
+        so.id, so.id_address, so.open_id, so.order_sn, so.real_price, so.status,
+        (select base_value from basedata where base_type = 'orderStatus' and base_key = so.status) statusName,
+        so.total_price, so.create_time,
+        sa.name, sa.mobile, sa.address_detail, sa.city,
+        sa.district, sa.is_default, sa.province
+        from shop_order as so left join
+        shop_address as sa on so.id_address = sa.id where so.open_id = #{openId}
+        <if test="status != null and status != 0">
+            and so.status = #{status}
+        </if>
+    </select>
+
+    <select id="selectShopGoods" resultMap="shopGoodsMap">
+        select
+            sg.id id_goods, sg.descript, sg.detail, sg.gallery, sg.id_category,
+            sg.is_on_sale, sg.name, sg.pic, sg.price, soi.count
+        from
+            shop_order_item as soi left join shop_goods as sg on soi.id_goods = sg.id
+        where soi.id_order = #{id}
+    </select>
+
+    <resultMap id="queryCartMap" type="com.ningyuan.mobile.dto.OrderDto">
+        <id property="id" column="id" />
+        <result property="idAddress" column="id_address"/>
+        <result property="openId" column="open_id"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="realPrice" column="real_price"/>
+        <result property="status" column="status"/>
+        <result property="statusName" column="statusName"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="createTime" column="create_time"/>
+        <association property="address" column="id_address"
+                     javaType="com.ningyuan.mobile.model.ShopAddressModel" resultMap="addressMap"/>
+        <collection property="goods" column="id" ofType="com.ningyuan.mobile.dto.OrderGoodsDto" select="selectShopGoods"/>
+    </resultMap>
+
+    <resultMap id="addressMap" type="com.ningyuan.mobile.model.ShopAddressModel">
+        <id property="id" column="id_address"/>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="addressDetail" column="address_detail"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="province" column="province"/>
+    </resultMap>
+
+    <resultMap id="shopGoodsMap" type="com.ningyuan.mobile.dto.OrderGoodsDto">
+        <id property="id" column="id_goods"/>
+        <result property="descript" column="descript"/>
+        <result property="detail" column="detail"/>
+        <result property="gallery" column="gallery"/>
+        <result property="idCategory" column="id_category"/>
+        <result property="isOnSale" column="is_on_sale"/>
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="price" column="price"/>
+        <result property="count" column="count"/>
+    </resultMap>
+</mapper>

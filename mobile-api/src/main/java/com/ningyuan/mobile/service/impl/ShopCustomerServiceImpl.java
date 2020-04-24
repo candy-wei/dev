@@ -118,6 +118,7 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         customerModel.setOpenId(openId);
         customerModel.setId(redpacket.getId());
         customerModel.setRedpacketFinance(new BigDecimal(redpacket.getRemainMoney()));
+        customerModel.setRedpacketAmount(redpacket.getAmount() - 1);
         customerModel.setRedpacketReceive(redpacket.getRemainSize());
         this.mapper.updateByPrimaryKeySelective(customerModel);
     }

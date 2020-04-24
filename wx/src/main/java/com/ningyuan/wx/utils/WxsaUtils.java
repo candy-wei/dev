@@ -8,10 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @Author: zongrui_cai
- * @Date: 2019/8/22 14:42
- */
 public class WxsaUtils {
     protected static Logger log = LoggerFactory.getLogger(WxsaUtils.class);
 

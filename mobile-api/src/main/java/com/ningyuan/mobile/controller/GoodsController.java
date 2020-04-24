@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Rets;
-import com.ningyuan.core.Context;
 import com.ningyuan.mobile.model.ShopAttrKey;
 import com.ningyuan.mobile.model.ShopAttrVal;
 import com.ningyuan.mobile.model.ShopGoodsModel;
@@ -16,7 +15,10 @@ import com.ningyuan.utils.Lists;
 import com.ningyuan.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -88,18 +90,18 @@ public class GoodsController extends BaseController {
                 treeNode.put("k_s", "s" + attrKey.getId());
                 tree.add(treeNode);
             }
-            Map<Long, ShopAttrVal> attrValMap = Lists.toMap(attrValList, "id");
+            // Map<Long, ShopAttrVal> attrValMap = Lists.toMap(attrValList, "id");
             List<Map> skuList2 = Lists.newArrayList();
 
             for (ShopGoodsSkuModel sku : skuList) {
                 Map oneSkuMap = Maps.newHashMap();
                 oneSkuMap.put("id", sku.getId());
                 oneSkuMap.put("price", sku.getPrice());
-                String[] attrValIdArr = sku.getCode().split(",");
+                /*String[] attrValIdArr = sku.getCode().split(",");
                 for (String attrValId : attrValIdArr) {
                     ShopAttrVal attrVal = attrValMap.get(Long.valueOf(attrValId));
                     oneSkuMap.put("s" + attrVal.getIdAttrKey(), attrVal.getId());
-                }
+                }*/
                 oneSkuMap.put("code", sku.getCode());
                 skuList2.add(oneSkuMap);
             }

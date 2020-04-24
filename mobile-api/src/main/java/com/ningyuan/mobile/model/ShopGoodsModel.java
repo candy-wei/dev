@@ -74,6 +74,10 @@ public class ShopGoodsModel extends BaseModel {
     @Column(name = "price" )
     private BigDecimal price;
 
+    @FiledComment(text = "邮费")
+    @Column(name = "fare")
+    private BigDecimal fare;
+
     @FiledComment(text = "库存" )
     @Column(name = "stock" )
     private BigDecimal stock;
@@ -143,6 +147,10 @@ public class ShopGoodsModel extends BaseModel {
     public BigDecimal getPrice() { return price; }
 
     public void setPrice(BigDecimal price) { this.price = price; }
+
+    public BigDecimal getFare() { return fare; }
+
+    public void setFare(BigDecimal fare) { this.fare = fare; }
 
     public BigDecimal getStock() { return stock; }
 

@@ -18,11 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("rest")
 public class ReloadController extends BaseController {
 
-    /**
-     * <p>Conf修改后重新加载
-     * @author : ZengRongChang
-     * @version : v0.0.1
-     */
     @ApiOperation(value = "sysparams修改后重新加载")
     @RequestMapping(value = "reload/conf", method = RequestMethod.GET)
     @ResponseBody

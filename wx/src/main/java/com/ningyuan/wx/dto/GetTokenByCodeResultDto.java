@@ -1,11 +1,5 @@
 package com.ningyuan.wx.dto;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 10:35 on 2017/11/29.
- * @Modified by:
- */
 public class GetTokenByCodeResultDto {
 
     private String access_token;

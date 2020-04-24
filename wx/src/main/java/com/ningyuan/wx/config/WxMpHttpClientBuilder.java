@@ -6,10 +6,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * @Author: zongrui_cai
- * @Date: 2019/8/19 9:53
- */
 @Component
 public class WxMpHttpClientBuilder implements ApacheHttpClientBuilder {
 

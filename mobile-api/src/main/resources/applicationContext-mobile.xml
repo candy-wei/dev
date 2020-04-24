@@ -23,9 +23,13 @@
       <mvc:exclude-mapping path="/**/*.js"/>
       <mvc:exclude-mapping path="/**/*.html"/>
       <mvc:exclude-mapping path="/**/*.jsp"/>
+      <mvc:exclude-mapping path="/**/*.svg"/>
+      <mvc:exclude-mapping path="/**/*.ico"/>
       <mvc:exclude-mapping path="/**/*.css"/>
       <mvc:exclude-mapping path="/**/*.json"/>
       <mvc:exclude-mapping path="/rest/**"/>
+      <mvc:exclude-mapping path="/**/rest/**"/>
+      <mvc:exclude-mapping path="/mobile/rest/**"/>
       <mvc:exclude-mapping path="/swagger**"/>
       <mvc:exclude-mapping path="/v2/**"/>
       <mvc:exclude-mapping path="/wx/**"/>

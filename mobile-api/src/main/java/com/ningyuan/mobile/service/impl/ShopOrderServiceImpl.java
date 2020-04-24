@@ -7,6 +7,7 @@ import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.constant.OrderEnum;
 import com.ningyuan.mobile.daomapper.mapper.ShopOrderMapper;
+import com.ningyuan.mobile.dto.OrderDto;
 import com.ningyuan.mobile.model.ShopOrderItemModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
@@ -68,6 +69,11 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
             this.updateByPrimaryKeySelective(shopOrderModel);
         }
         return shopOrderModel;
+    }
+
+    @Override
+    public List<OrderDto> getOrders(String openId, Integer status) {
+        return this.mapper.getOrders(openId, status);
     }
 
     private ShopOrderModel queryOrderByUser(String orderSn) {

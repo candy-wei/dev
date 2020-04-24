@@ -1,11 +1,5 @@
 package com.ningyuan.wx.dto;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 13:03 on 2018/1/2.
- * @Modified by:
- */
 public class UnifiedorderDto {
 
     private String appid;

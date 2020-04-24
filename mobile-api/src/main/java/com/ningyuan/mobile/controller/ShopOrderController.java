@@ -6,6 +6,7 @@ import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Rets;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.constant.OrderEnum;
+import com.ningyuan.mobile.dto.OrderDto;
 import com.ningyuan.mobile.dto.ShopCartDto;
 import com.ningyuan.mobile.model.ShopAddressModel;
 import com.ningyuan.mobile.model.ShopCartModel;
@@ -58,15 +59,8 @@ public class ShopOrderController extends BaseController {
     public Object getOrders(@RequestParam(value = "status",required = false) Integer status){
         String openId = Context.getOpenId();
         PageHelper.startPage(1, 10);
-        PageHelper.startPage(Context.getHttpServletRequest());
-        Example example = new Example(ShopOrderModel.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("openId", openId);
-        example.orderBy("id").desc();
-        if(status != null && status != 0){
-            criteria.andEqualTo("status", status);
-        }
-        return Rets.success( PageInfo.of(orderService.selectByExample(example)));
+       List<OrderDto> orderDtos =  orderService.getOrders(openId, status);
+        return Rets.success( PageInfo.of(orderDtos));
     }
 
     @RequestMapping(value = "prepareCheckout",method = RequestMethod.GET)

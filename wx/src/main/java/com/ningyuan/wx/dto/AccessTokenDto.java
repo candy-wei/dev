@@ -2,12 +2,6 @@ package com.ningyuan.wx.dto;
 
 import java.util.Date;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 10:32 on 2018/3/9.
- * @Modified by:
- */
 public class AccessTokenDto {
     private String access_token;
     private int  expires_in;

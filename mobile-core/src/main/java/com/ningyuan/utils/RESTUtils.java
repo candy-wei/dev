@@ -11,12 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
-/**
- * @Author: ZengRongChang
- * @Description:
- * @Date: Created in 16:08 on 2018/10/15.
- * @Modified by:
- */
 public class RESTUtils {
 
     public static final ApplicationContext ac;
