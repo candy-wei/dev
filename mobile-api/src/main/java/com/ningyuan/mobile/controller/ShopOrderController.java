@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ningyuan.base.BaseController;
 import com.ningyuan.bean.front.Rets;
+import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.constant.OrderEnum;
 import com.ningyuan.mobile.dto.OrderDto;
@@ -96,6 +97,7 @@ public class ShopOrderController extends BaseController {
         order.setOpenId(openId);
         order.setIdAddress(idAddress);
         BigDecimal totalPrice = new BigDecimal(0);
+        BigDecimal fare = new BigDecimal(Integer.parseInt(Conf.get("shop.goods.fare")));
         List<ShopOrderItemModel> itemList  = Lists.newArrayList();
         for(ShopCartDto cart:cartList){
             ShopOrderItemModel orderItem = new ShopOrderItemModel();
@@ -108,7 +110,7 @@ public class ShopOrderController extends BaseController {
             itemList.add(orderItem);
         }
         order.setMessage(message);
-        order.setTotalPrice(totalPrice);
+        order.setTotalPrice(totalPrice.add(fare));
         order.setRealPrice(totalPrice);
         order.setStatus(OrderEnum.OrderStatusEnum.UN_PAY.getId());
 

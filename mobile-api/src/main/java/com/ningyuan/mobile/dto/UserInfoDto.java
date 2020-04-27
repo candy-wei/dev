@@ -5,6 +5,7 @@ public class UserInfoDto {
     private String nickName;
     private String headImgUrl;
     private String vip;
+    private String vipName;
     private Integer points;
     private Integer redpacketAmount;
     private Integer redpacketReceive;
@@ -41,4 +42,8 @@ public class UserInfoDto {
     public Integer getReceiverCount() { return receiverCount; }
 
     public void setReceiverCount(Integer receiverCount) { this.receiverCount = receiverCount; }
+
+    public String getVipName() { return vipName; }
+
+    public void setVipName(String vipName) { this.vipName = vipName; }
 }

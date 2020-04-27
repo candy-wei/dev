@@ -99,7 +99,7 @@ public class WxUtils {
         dto.setFee_type("CNY");
         dto.setAttach(attach);
         dto.setOut_trade_no(CreateGUID.createGuId());
-        dto.setTotal_fee((int) (Double.parseDouble(price)) + "");
+        dto.setTotal_fee((int) (Double.parseDouble(price) + Double.parseDouble(Conf.get("shop.goods.fare"))) + "");
         dto.setTrade_type("JSAPI");
         dto.setNotify_url(TemplateUtils.replaceAll(Conf.get("wx.notify.uri")));
         dto.setOpenid(openId);
