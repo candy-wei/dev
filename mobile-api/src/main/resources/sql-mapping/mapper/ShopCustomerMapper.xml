@@ -13,14 +13,7 @@
             sc.points,
             sc.redpacket_receive,
             sc.redpacket_amount,
-            (
-            SELECT
-                count( 1 )
-            FROM
-                shop_receive_record
-            WHERE
-                opt_type = '1'
-                AND open_id = #{openId}) receiverCount
+            sc.redpacket_daily
         FROM
             shop_customer AS sc
             LEFT JOIN wx_user AS wu ON sc.open_id = wu.open_id

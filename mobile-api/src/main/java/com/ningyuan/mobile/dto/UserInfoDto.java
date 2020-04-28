@@ -9,7 +9,7 @@ public class UserInfoDto {
     private Integer points;
     private Integer redpacketAmount;
     private Integer redpacketReceive;
-    private Integer receiverCount;
+    private Integer redpacketDaily;
 
     public String getOpenId() { return openId; }
 
@@ -39,9 +39,9 @@ public class UserInfoDto {
 
     public void setHeadImgUrl(String headImgUrl) { this.headImgUrl = headImgUrl; }
 
-    public Integer getReceiverCount() { return receiverCount; }
+    public Integer getRedpacketDaily() { return redpacketDaily; }
 
-    public void setReceiverCount(Integer receiverCount) { this.receiverCount = receiverCount; }
+    public void setRedpacketDaily(Integer redpacketDaily) { this.redpacketDaily = redpacketDaily; }
 
     public String getVipName() { return vipName; }
 

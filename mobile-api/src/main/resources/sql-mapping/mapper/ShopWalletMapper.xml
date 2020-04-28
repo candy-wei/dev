@@ -5,17 +5,28 @@
 
     <select id="getCashList" resultType="com.ningyuan.mobile.dto.RedPacketDto">
         select
-            src.open_id,
-            (select base_value from basedata where base_type = 'receive_record' and base_key = src.opt_type) optionType,
-            src.amount finance,
-            src.create_time
-        from shop_receive_record as src
-        left join wx_user as wu on src.open_id=wu.open_id
-        where src.open_id = #{openId}
-        order by src.create_time desc
+            open_id,
+            (select base_value from basedata where base_type = 'receive_record' and base_key = opt_type) optionType,
+            amount finance,
+            create_time
+        from shop_receive_record
+        where open_id = #{openId}
+        order by create_time desc
     </select>
 
     <select id="getCashSum" resultType="string">
         select sum(if(opt_type =2 , amount, 0)) from shop_receive_record where open_id = #{openId}
+    </select>
+
+    <select id="getRecordList" resultType="com.ningyuan.mobile.dto.RedPacketRecordDto">
+        select
+            (select base_value from basedata where base_type = 'receive_record' and base_key = opt_type) desc,
+            amount num,
+            create_time
+        from
+            shop_receive_record
+        where
+            opt_type = #{type} and open_id = #{openId}
+        order by create_time desc
     </select>
 </mapper>

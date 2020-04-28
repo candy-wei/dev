@@ -6,6 +6,7 @@ import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.dto.RedPacketDto;
+import com.ningyuan.mobile.dto.RedPacketRecordDto;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopReceiveRecordModel;
 import com.ningyuan.mobile.model.ShopWalletModel;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -42,18 +44,19 @@ public class ShopRedPackController extends BaseController {
     @ApiOperation(value = "可提现总金额")
     @PostMapping("canCashSum")
     @ResponseBody
-    public Double canCashSum() {
+    public String canCashSum() {
         ShopWalletModel walletModel =new ShopWalletModel();
         walletModel.setOpenId(Context.getOpenId());
         walletModel = walletService.selectLimitOne(walletModel);
-        return Double.parseDouble(walletModel.getFinance());
+        return walletModel != null ? walletModel.getFinance() : "0";
     }
 
     @ApiOperation(value = "总收益")
     @PostMapping("cashSum")
     @ResponseBody
     public String cashSum() {
-        return walletService.getCashSum();
+        String cashSum = walletService.getCashSum();
+        return cashSum != null ? cashSum : "0";
     }
 
     @ApiOperation(value = "提现记录")
@@ -61,7 +64,8 @@ public class ShopRedPackController extends BaseController {
     @ResponseBody
     public List<RedPacketDto> getCashList(Integer pageNum, Integer pageSize) {
         CommonUtil.initPageInfo(pageNum, pageSize, Integer.valueOf(Conf.get("theme.getCashList.pageSize:10")));
-        return walletService.getCashList(Context.getOpenId());
+        List<RedPacketDto> cashList = walletService.getCashList(Context.getOpenId());
+        return cashList != null ? cashList : Collections.emptyList();
     }
 
     @ApiOperation(value = "提现")
@@ -73,7 +77,7 @@ public class ShopRedPackController extends BaseController {
         walletModel = walletService.selectLimitOne(walletModel);
         if (walletModel != null && Double.parseDouble(walletModel.getFinance()) > 0.0) {
             WxPay2userResultModel resultModel = AppletUtils.pay2User(Conf.get("wxsa.appId"), Context.getOpenId()
-                    , (Double.parseDouble(walletModel.getFinance()) * 100) + "", Conf.get("wx.pay2user.desc")
+                    , (int)(Double.parseDouble(walletModel.getFinance()) * 100) + "", Conf.get("wx.pay2user.desc")
                     , Conf.get("shop.cash.reason"));
             if (StringUtils.equals("SUCCESS", resultModel.getResultCode())) {
                 ShopReceiveRecordModel recordModel = new ShopReceiveRecordModel();
@@ -82,8 +86,8 @@ public class ShopRedPackController extends BaseController {
                 recordModel.setOptType(Conf.get("shop.red.packet.type:2"));
                 recordService.insertSelective(recordModel);
                 walletService.updateWallet(Context.getOpenId());
+                return ErrorMessage.getSuccess();
             }
-            return ErrorMessage.getSuccess();
         }
         return ErrorMessage.getFailure();
     }
@@ -110,6 +114,15 @@ public class ShopRedPackController extends BaseController {
             walletService.updateByPrimaryKeySelective(existModel);
         }
         return money;
+    }
+
+    @ApiOperation(value = "红包记录")
+    @PostMapping("getRecordList")
+    @ResponseBody
+    public List<RedPacketRecordDto> getRecordList(Integer pageNum, Integer pageSize) {
+        CommonUtil.initPageInfo(pageNum, pageSize, Integer.valueOf(Conf.get("theme.getCashList.pageSize:10")));
+        List<RedPacketRecordDto> recordList = walletService.getRecordList(Context.getOpenId());
+        return recordList != null ? recordList : Collections.emptyList();
     }
 
     // 提供精确的减法运算。

@@ -1,9 +1,11 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.daomapper.mapper.ShopWalletMapper;
 import com.ningyuan.mobile.dto.RedPacketDto;
+import com.ningyuan.mobile.dto.RedPacketRecordDto;
 import com.ningyuan.mobile.model.ShopWalletModel;
 import com.ningyuan.mobile.service.IShopWalletService;
 import org.springframework.stereotype.Service;
@@ -39,5 +41,11 @@ public class ShopWalletServiceImpl extends BaseServiceImpl<ShopWalletMapper, Sho
         ShopWalletModel walletModel = new ShopWalletModel();
         walletModel.setFinance("0");
         this.mapper.updateByExampleSelective(walletModel, example);
+    }
+
+    @Override
+    public List<RedPacketRecordDto> getRecordList(String openId) {
+        String type = Conf.get("redpacket.record.type");
+        return this.mapper.getRecordList(type, openId);
     }
 }
