@@ -3,13 +3,13 @@ package com.ningyuan.mobile.dto;
 import java.util.Date;
 
 public class RedPacketRecordDto {
-    private String desc;
+    private String redpacketSum;
     private Integer num;
     private Date createTime;
 
-    public String getDesc() { return desc; }
+    public String getRedpacketSum() { return redpacketSum; }
 
-    public void setDesc(String desc) { this.desc = desc; }
+    public void setRedpacketSum(String redpacketSum) { this.redpacketSum = redpacketSum; }
 
     public Integer getNum() { return num; }
 

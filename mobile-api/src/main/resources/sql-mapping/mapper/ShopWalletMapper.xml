@@ -20,7 +20,7 @@
 
     <select id="getRecordList" resultType="com.ningyuan.mobile.dto.RedPacketRecordDto">
         select
-            (select base_value from basedata where base_type = 'receive_record' and base_key = opt_type) desc,
+            (select base_value from basedata where base_type = 'receive_record' and base_key = opt_type) redpacketSum,
             amount num,
             create_time
         from

@@ -16,4 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopReceiveRecordServiceImpl extends BaseServiceImpl<ShopReceiveRecordMapper, ShopReceiveRecordModel> implements IShopReceiveRecordService {
 
+    @Override
+    public void insertRecord(String optType, String amount, String openId) {
+        ShopReceiveRecordModel recordModel = new ShopReceiveRecordModel();
+        recordModel.setAmount(amount);
+        recordModel.setOpenId(openId);
+        recordModel.setOptType(optType);
+        this.mapper.insertSelective(recordModel);
+    }
 }

@@ -12,4 +12,5 @@ import com.ningyuan.mobile.model.ShopReceiveRecordModel;
 
 public interface IShopReceiveRecordService extends IBaseService<ShopReceiveRecordModel> {
 
+    void insertRecord(String optType, String amount, String openId);
 }
