@@ -20,6 +20,8 @@ public interface ShopCustomerMapper extends Mapper<ShopCustomerModel> {
 
     TaskStatusDto getTaskStatus(String openId);
 
+    ParentUserDto getParentOpenId(String openId);
+
     List<UserDto> getRecommend(String openId);
 
     List<UserDto> getTeam(String openId);

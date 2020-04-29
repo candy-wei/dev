@@ -1,5 +1,6 @@
 package com.ningyuan.route.daomapper.mapper;
 
+import com.ningyuan.route.dto.SettingDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
 
@@ -16,4 +17,10 @@ public interface ShopUserMapper {
     List<ShopUserDto> listUser(ShopUserQueryDto queryDto);
 
     void updateUserByid(ShopUserDto shopUserDto);
+
+    String getPerformanceRatio();
+
+    String getDividendRatio();
+
+    void updateSetting(SettingDto settingDto);
 }

@@ -20,4 +20,19 @@
         update shop_customer set vip=#{vip}, points=#{points}, redpacket_receive=#{redpacketReceive}, redpacket_amount=#{redpacketAmount},
         redpacket_finance=#{redpacketFinance}, new_task=#{newTask}, special_task=#{specialTask}, daily_task=#{dailyTask} where id=#{id}
     </update>
+
+    <select id="getPerformanceRatio" resultType="String">
+        select base_key
+        from basedata where base_type= 'performance_ratio'
+    </select>
+
+    <select id="getDividendRatio" resultType="String">
+        select base_key
+        from basedata where base_type= 'dividend_ratio'
+    </select>
+
+    <update id="updateSetting" parameterType="com.ningyuan.route.dto.SettingDto">
+        update basedata set base_key=#{performance_ratio} where base_type= 'performance_ratio';
+        update basedata set base_key=#{dividend_ratio} where base_type= 'dividend_ratio';
+    </update>
 </mapper>

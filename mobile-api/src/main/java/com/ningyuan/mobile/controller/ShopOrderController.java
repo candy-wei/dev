@@ -103,7 +103,7 @@ public class ShopOrderController extends BaseController {
             ShopOrderItemModel orderItem = new ShopOrderItemModel();
             orderItem.setIdGoods(cart.getIdGoods());
             orderItem.setIdSku(cart.getIdSku());
-            orderItem.setPrice(cart.getPrice());
+            orderItem.setPrice(cart.getPrice().add(cart.getFare()));
             orderItem.setCount(cart.getAmount());
             orderItem.setTotalPrice(orderItem.getPrice().multiply(orderItem.getCount()));
             totalPrice = totalPrice.add(orderItem.getTotalPrice());

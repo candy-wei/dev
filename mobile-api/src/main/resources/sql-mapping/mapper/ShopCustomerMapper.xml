@@ -22,7 +22,7 @@
     </select>
 
     <select id="getRedpacket" resultType="com.ningyuan.mobile.dto.ShopRedpacketDto">
-        select id, redpacket_receive remainSize, redpacket_finance remainMoney, redpacket_amount amount from shop_customer where open_id = #{openId}
+        select id, redpacket_receive remainSize, redpacket_finance remainMoney,redpacket_amount remainAmount from shop_customer where open_id = #{openId}
     </select>
 
     <select id="getTaskStatus" resultType="com.ningyuan.mobile.dto.TaskStatusDto">
@@ -34,6 +34,20 @@
             shop_customer
         WHERE
             open_id = #{openId}
+    </select>
+
+    <select id="getParentOpenId" resultType="com.ningyuan.mobile.dto.ParentUserDto">
+        SELECT
+            wrr.open_id as parentOpenId,
+            wrr.parent_open_id as topParentOpenId,
+            per.base_key as performanceRatio,
+            divi.base_key as dividendRatio
+        FROM
+            wx_relate AS wr
+            LEFT JOIN wx_relate AS wrr ON wrr.open_id = wr.parent_open_id
+            LEFT JOIN basedata AS per ON per.base_type = 'performance_ratio'
+            LEFT JOIN basedata AS divi ON divi.base_type = 'dividend_ratio'
+        WHERE wr.open_id = #{openId}
     </select>
 
     <select id="getRecommend" resultType="com.ningyuan.mobile.dto.UserDto">

@@ -99,18 +99,6 @@ public class ShopRedPackController extends BaseController {
             throw new StatelessException(ErrorMessage.getFailure());
         }
         String money = customerService.openRedpacket(openId);
-        ShopWalletModel walletModel =new ShopWalletModel();
-        walletModel.setOpenId(openId);
-        ShopWalletModel existModel = walletService.selectLimitOne(walletModel);
-        if (existModel == null) {
-            walletModel.setFinance(money);
-            walletService.insertSelective(walletModel);
-        }else {
-            double sumFinance = add(existModel.getFinance(), money);
-            existModel.setFinance(sumFinance + "");
-            walletService.updateByPrimaryKeySelective(existModel);
-        }
-        recordService.insertRecord(Conf.get("shop.receive.type:1"), money, openId);
         return money;
     }
 
@@ -121,12 +109,5 @@ public class ShopRedPackController extends BaseController {
         CommonUtil.initPageInfo(pageNum, pageSize, Integer.valueOf(Conf.get("theme.getCashList.pageSize:10")));
         List<RedPacketRecordDto> recordList = walletService.getRecordList(Context.getOpenId());
         return recordList != null ? recordList : Collections.emptyList();
-    }
-
-    // 提供精确的减法运算。
-    private double add(String value1, String value2) {
-        BigDecimal b1 = new BigDecimal(value1);
-        BigDecimal b2 = new BigDecimal(value2);
-        return b1.add(b2).doubleValue();
     }
 }

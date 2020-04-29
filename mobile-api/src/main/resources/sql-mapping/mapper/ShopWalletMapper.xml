@@ -5,6 +5,7 @@
 
     <select id="getCashList" resultType="com.ningyuan.mobile.dto.RedPacketDto">
         select
+            opt_type,
             open_id,
             (select base_value from basedata where base_type = 'receive_record' and base_key = opt_type) optionType,
             amount finance,

@@ -24,6 +24,7 @@
         <result property="name" column="name"/>
         <result property="pic" column="pic"/>
         <result property="price" column="price"/>
+        <result property="fare" column="fare"/>
     </resultMap>
 
     <resultMap id="ShopGoodsSkuMap" type="com.ningyuan.mobile.model.ShopGoodsSkuModel">
@@ -38,7 +39,7 @@
     <select id="queryCart" resultMap="queryCartMap">
         select
             sc.id, sc.id_goods, sc.count, sc.id_sku,
-            sg.descript, sg.detail, sg.gallery, sg.id_category, sg.is_on_sale, sg.name, sg.pic, sg.price,
+            sg.descript, sg.detail, sg.gallery, sg.id_category, sg.is_on_sale, sg.name, sg.pic, sg.price,sg.fare,
             sgs.code, sgs.code_name, sgs.marketing_price, sgs.price sku_price, sgs.stock
         from
             shop_cart as sc

@@ -3,6 +3,7 @@
 
     function userInfoCtrlFn($scope, userInfoService) {
         $scope.userInfoModel = {};
+        $scope.settingModel = {};
         userInfoService.getCustomerList($scope);
         $scope.booleanOptions = [{'value': true, 'text': '是'},{'value': false, 'text': '否'}]
 
@@ -18,6 +19,13 @@
             });
         }
 
+        this.saveSetting = function () {
+            userInfoService.saveSetting($scope.settingModel).then(function (response) {
+                console.log('save someThing');
+                $('#updateSetting').modal('hide');
+            });
+        }
+
         this.update = function (index) {
             $scope.currentIndex = index;
             $('.modal-body .form-control').each(function () {
@@ -25,6 +33,14 @@
             })
             $('#modalLabel').text('会员信息修改');
             $('#updateModal').modal();
+        }
+
+        this.updateSetting = function () {
+            userInfoService.getSetting().then(function (response) {
+                console.log(response)
+                $scope.settingModel = response.data
+            })
+            $('#updateSetting').modal();
         }
     }
 }());

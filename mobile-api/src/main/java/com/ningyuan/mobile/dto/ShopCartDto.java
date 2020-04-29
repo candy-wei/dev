@@ -13,41 +13,73 @@ public class ShopCartDto {
     private Long idSku;
     private BigDecimal amount;
     private BigDecimal price;
+    private BigDecimal fare;
 
-    public BigDecimal getPrice(){
-        if(idSku!=null){
+    public BigDecimal getPrice() {
+        if (idSku != null) {
             return skuModel.getPrice();
         }
         return goods.getPrice();
     }
-    public String getTitle(){
-        return idSku!=null? getGoods().getName()+" "+getSkuModel().getCodeName():getGoods().getName();
+
+    public BigDecimal getFare() {
+        return goods.getFare();
     }
 
-    public Long getIdGoods() { return idGoods; }
+    public String getTitle() {
+        return idSku != null ? getGoods().getName() + " " + getSkuModel().getCodeName() : getGoods().getName();
+    }
 
-    public void setIdGoods(Long idGoods) { this.idGoods = idGoods; }
+    public Long getIdGoods() {
+        return idGoods;
+    }
 
-    public ShopGoodsModel getGoods() { return goods; }
+    public void setIdGoods(Long idGoods) {
+        this.idGoods = idGoods;
+    }
 
-    public void setGoods(ShopGoodsModel goods) { this.goods = goods; }
+    public ShopGoodsModel getGoods() {
+        return goods;
+    }
 
-    public Long getIdSku() { return idSku; }
+    public void setGoods(ShopGoodsModel goods) {
+        this.goods = goods;
+    }
 
-    public void setIdSku(Long idSku) { this.idSku = idSku; }
+    public Long getIdSku() {
+        return idSku;
+    }
 
-    public ShopGoodsSkuModel getSkuModel() { return skuModel; }
+    public void setIdSku(Long idSku) {
+        this.idSku = idSku;
+    }
 
-    public void setSkuModel(ShopGoodsSkuModel skuModel) { this.skuModel = skuModel; }
+    public ShopGoodsSkuModel getSkuModel() {
+        return skuModel;
+    }
 
-    public BigDecimal getAmount() { return amount; }
+    public void setSkuModel(ShopGoodsSkuModel skuModel) {
+        this.skuModel = skuModel;
+    }
 
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-    public void setPrice(BigDecimal price) { this.price = price; }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-    public Long getId() { return id; }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

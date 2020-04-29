@@ -1,15 +1,22 @@
 package com.ningyuan.mobile.service.impl;
 
 import com.ningyuan.base.BaseServiceImpl;
+import com.ningyuan.core.Conf;
 import com.ningyuan.mobile.daomapper.mapper.ShopCustomerMapper;
 import com.ningyuan.mobile.dto.*;
 import com.ningyuan.mobile.model.ShopCustomerModel;
 import com.ningyuan.mobile.model.ShopOrderModel;
+import com.ningyuan.mobile.model.ShopReceiveRecordModel;
+import com.ningyuan.mobile.model.ShopWalletModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
+import com.ningyuan.mobile.service.IShopReceiveRecordService;
+import com.ningyuan.mobile.service.IShopWalletService;
+import com.ningyuan.utils.StringUtil;
 import com.ningyuan.wx.model.WxRelateModel;
 import com.ningyuan.wx.service.IWxCommonRelateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
@@ -27,6 +34,12 @@ import java.util.Random;
 public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper, ShopCustomerModel> implements IShopCustomerService {
     @Autowired
     private IWxCommonRelateService commonRelateService;
+
+    @Autowired
+    private IShopWalletService walletService;
+
+    @Autowired
+    private IShopReceiveRecordService recordService;
 
     @Override
     public void updateCustomer(ShopOrderModel orderModel) {
@@ -85,17 +98,96 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
     }
 
     @Override
+    @Transactional(rollbackFor  = Exception.class)
     public String openRedpacket(String openId) {
         // 10个红包，总共发20元
         ShopRedpacketDto redpacket = this.mapper.getRedpacket(openId);
-        String money = getRandomMoney(redpacket) + "";
+        double randomMoney = getRandomMoney(redpacket);
+        BigDecimal bigDecimalMoney = BigDecimal.valueOf(randomMoney);
         this.updateRedpacket(openId, redpacket);
-        return money;
+        ShopWalletModel walletModel =new ShopWalletModel();
+        walletModel.setOpenId(openId);
+        ShopWalletModel existModel = walletService.selectLimitOne(walletModel);
+        if (existModel == null) {
+            walletModel.setFinance(bigDecimalMoney.toString());
+            walletService.insertSelective(walletModel);
+        }else {
+            double sumFinance = add(existModel.getFinance(), bigDecimalMoney.toString());
+            existModel.setFinance(sumFinance + "");
+            walletService.updateByPrimaryKeySelective(existModel);
+        }
+        ShopReceiveRecordModel recordModel = new ShopReceiveRecordModel();
+        recordModel.setAmount(bigDecimalMoney.toString());
+        recordModel.setOpenId(openId);
+        recordModel.setOptType(Conf.get("shop.red.packet.type:1"));
+        recordService.insertSelective(recordModel);
+        recordModel = new ShopReceiveRecordModel();
+        recordModel.setAmount("1");
+        recordModel.setOpenId(openId);
+        recordModel.setOptType(Conf.get("shop.red.packet.type:3"));
+        recordService.insertSelective(recordModel);
+
+        ParentUserDto parentUserDto = this.getParentOpenId(openId);
+        String parentOpenId = parentUserDto.getParentOpenId();
+        String performanceRatio = parentUserDto.getPerformanceRatio();
+        if(!StringUtil.isEmpty(parentOpenId) && !StringUtil.isEmpty(performanceRatio)){
+            BigDecimal bigDecimalRatio = new BigDecimal(performanceRatio).divide(BigDecimal.valueOf(100),4,BigDecimal.ROUND_UP);
+            BigDecimal parentBonus = bigDecimalMoney.multiply(bigDecimalRatio).setScale(2,BigDecimal.ROUND_DOWN);
+            if(parentBonus.compareTo(BigDecimal.ZERO) > 0){
+                walletModel.setOpenId(parentOpenId);
+                existModel = walletService.selectLimitOne(walletModel);
+                if (existModel == null) {
+                    walletModel.setFinance(parentBonus.toString());
+                    walletService.insertSelective(walletModel);
+                }else {
+                    BigDecimal sumFinance = parentBonus.add(new BigDecimal(existModel.getFinance()));
+                    existModel.setFinance(sumFinance.toString());
+                    walletService.updateByPrimaryKeySelective(existModel);
+                }
+
+                recordModel = new ShopReceiveRecordModel();
+                recordModel.setAmount(parentBonus.toString());
+                recordModel.setOpenId(parentOpenId);
+                recordModel.setOptType(Conf.get("shop.red.packet.type:4"));
+                recordService.insertSelective(recordModel);
+            }
+        }
+
+        String topParentOpenId = parentUserDto.getTopParentOpenId();
+        String dividendRatio = parentUserDto.getDividendRatio();
+        if(!StringUtil.isEmpty(topParentOpenId) && !StringUtil.isEmpty(dividendRatio)){
+            BigDecimal bigDecimalRatio = new BigDecimal(dividendRatio).divide(BigDecimal.valueOf(100),4,BigDecimal.ROUND_UP);
+            BigDecimal topParentBonus = bigDecimalMoney.multiply(bigDecimalRatio).setScale(2,BigDecimal.ROUND_DOWN);
+            if(topParentBonus.compareTo(BigDecimal.ZERO) > 0){
+                walletModel.setOpenId(topParentOpenId);
+                existModel = walletService.selectLimitOne(walletModel);
+                if (existModel == null) {
+                    walletModel.setFinance(topParentBonus.toString());
+                    walletService.insertSelective(walletModel);
+                }else {
+                    BigDecimal sumFinance = topParentBonus.add(new BigDecimal(existModel.getFinance()));
+                    existModel.setFinance(sumFinance.toString());
+                    walletService.updateByPrimaryKeySelective(existModel);
+                }
+
+                recordModel = new ShopReceiveRecordModel();
+                recordModel.setAmount(topParentBonus.toString());
+                recordModel.setOpenId(topParentOpenId);
+                recordModel.setOptType(Conf.get("shop.red.packet.type:5"));
+                recordService.insertSelective(recordModel);
+            }
+        }
+        return String.valueOf(randomMoney);
     }
 
     @Override
     public TaskStatusDto getTaskStatus(String openId) {
         return this.mapper.getTaskStatus(openId);
+    }
+
+    @Override
+    public ParentUserDto getParentOpenId(String openId) {
+        return this.mapper.getParentOpenId(openId);
     }
 
     @Override
@@ -118,8 +210,8 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         customerModel.setOpenId(openId);
         customerModel.setId(redpacket.getId());
         customerModel.setRedpacketFinance(new BigDecimal(redpacket.getRemainMoney()));
-        customerModel.setRedpacketAmount(redpacket.getAmount() - 1);
         customerModel.setRedpacketReceive(redpacket.getRemainSize());
+        customerModel.setRedpacketAmount(redpacket.getRemainAmount() - 1);
         this.mapper.updateByPrimaryKeySelective(customerModel);
     }
 
@@ -131,11 +223,18 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
             return (double) Math.round(Double.parseDouble(redpacket.getRemainMoney()) * 100) / 100;
         }
         Random r = new Random();
-        double min = 0.01;
+        double min = 1.00;
         double max = this.divide(redpacket.getRemainMoney(), redpacket.getRemainSize() * 0.5);
-        double money = this.mul(r.nextDouble(), max);
-        money = money <= min ? 0.01: money;
-        money = Math.floor(money * 100) / 100;
+        double money = 0;
+        if(max < min){
+            money = max;
+            money = Math.floor(money * 100) / 100;
+        }else {
+            money = this.mul(r.nextDouble(), max);
+            money = money <= min ? 1.00: money;
+            money = Math.floor(money * 100) / 100;
+        }
+
         redpacket.setRemainSize(redpacket.getRemainSize()-1);
         redpacket.setRemainMoney(this.sub(redpacket.getRemainMoney(), money) + "");
         return money;
@@ -159,6 +258,13 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         BigDecimal b1 = new BigDecimal(value1);
         BigDecimal b2 = new BigDecimal(Double.toString(value2));
         return b1.divide(b2, BigDecimal.ROUND_FLOOR).doubleValue();
+    }
+
+    // 提供精确的减法运算。
+    private double add(String value1, String value2) {
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
+        return b1.add(b2).doubleValue();
     }
 
 }

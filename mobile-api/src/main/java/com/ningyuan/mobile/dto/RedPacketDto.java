@@ -6,6 +6,7 @@ public class RedPacketDto {
     private String optionType;
     private String finance;
     private String openId;
+    private Integer optType;
     private Date createTime;
 
     public String getFinance() { return finance; }
@@ -22,6 +23,14 @@ public class RedPacketDto {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    public Integer getOptType() {
+        return optType;
+    }
+
+    public void setOptType(Integer optType) {
+        this.optType = optType;
     }
 
     public Date getCreateTime() {
