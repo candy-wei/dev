@@ -1,9 +1,7 @@
 package com.ningyuan.mobile.daomapper.mapper;
 
 import com.ningyuan.mobile.dto.RedPacketDto;
-import com.ningyuan.mobile.dto.RedPacketRecordDto;
 import com.ningyuan.mobile.model.ShopWalletModel;
-import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -20,6 +18,4 @@ public interface ShopWalletMapper extends Mapper<ShopWalletModel> {
     List<RedPacketDto> getCashList(String openId);
 
     String getCashSum(String openId);
-
-    List<RedPacketRecordDto> getRecordList(@Param("type") String type, @Param("openId") String openId);
 }

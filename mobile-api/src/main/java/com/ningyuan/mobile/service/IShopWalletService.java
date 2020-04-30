@@ -2,7 +2,6 @@ package com.ningyuan.mobile.service;
 
 import com.ningyuan.base.IBaseService;
 import com.ningyuan.mobile.dto.RedPacketDto;
-import com.ningyuan.mobile.dto.RedPacketRecordDto;
 import com.ningyuan.mobile.model.ShopWalletModel;
 
 import java.util.List;
@@ -21,6 +20,4 @@ public interface IShopWalletService extends IBaseService<ShopWalletModel> {
     String getCashSum();
 
     void updateWallet(String openId);
-
-    List<RedPacketRecordDto> getRecordList(String openId);
 }

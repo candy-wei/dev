@@ -3,6 +3,7 @@ package com.ningyuan.route.daomapper.mapper;
 import com.ningyuan.route.dto.SettingDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,8 @@ public interface ShopUserMapper {
     String getDividendRatio();
 
     void updateSetting(SettingDto settingDto);
+
+    void updateRedpacketAmount(@Param("id") Long id, @Param("redpacketAmount") String redpacketAmount);
+
+    void insertRecord(@Param("openId") String openId, @Param("redpacketAmount") String redpacketAmount, @Param("optType") String optType);
 }

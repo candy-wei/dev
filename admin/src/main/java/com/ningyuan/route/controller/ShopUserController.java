@@ -3,7 +3,6 @@ package com.ningyuan.route.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ningyuan.base.exception.ErrorMessage;
-import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.route.dto.SettingDto;
 import com.ningyuan.route.dto.ShopUserDto;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("user/")
@@ -55,6 +51,13 @@ public class ShopUserController {
             shopUserService.updateSetting(settingDto);
         }
         return settingDto;
+    }
+
+    @PostMapping("updateRedpacketSum")
+    @ResponseBody
+    public ErrorMessage updateRedpacketSum(Long id, String openId, String redpacketAmount) {
+        shopUserService.updateRedpacketAmount(id, openId, redpacketAmount);
+        return ErrorMessage.getSuccess();
     }
 
 }

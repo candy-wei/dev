@@ -2,6 +2,7 @@ package com.ningyuan.route.dto;
 
 public class ShopUserDto {
     private Long id;
+    private String openId;
     private String nickname;
     private String receiver;
     private String mobile;
@@ -10,6 +11,7 @@ public class ShopUserDto {
     private Integer redpacketReceive;
     private Integer redpacketAmount;
     private Integer redpacketFinance;
+    private Integer redpacketDaily;
     private Boolean newTask;
     private Boolean specialTask;
     private Boolean dailyTask;
@@ -18,6 +20,10 @@ public class ShopUserDto {
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
+
+    public String getOpenId() { return openId; }
+
+    public void setOpenId(String openId) { this.openId = openId; }
 
     public String getNickname() { return nickname; }
 
@@ -51,6 +57,9 @@ public class ShopUserDto {
 
     public void setRedpacketFinance(Integer redpacketFinance) { this.redpacketFinance = redpacketFinance; }
 
+    public Integer getRedpacketDaily() { return redpacketDaily; }
+
+    public void setRedpacketDaily(Integer redpacketDaily) { this.redpacketDaily = redpacketDaily; }
 
     public String getCreateTime() { return createTime; }
 

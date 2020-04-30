@@ -1,13 +1,11 @@
 package com.ningyuan.mobile.dto;
 
-import java.util.Date;
-
 public class RedPacketDto {
     private String optionType;
     private String finance;
     private String openId;
     private Integer optType;
-    private Date createTime;
+    private String createTime;
 
     public String getFinance() { return finance; }
 
@@ -33,11 +31,11 @@ public class RedPacketDto {
         this.optType = optType;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

@@ -26,9 +26,6 @@
         if('undefined' == typeof (appPath)){
             appPath = path + "/" + appDir;
         }
-        console.log('path:', path)
-        console.log('appPath:', appPath)
-        console.log('appDir:', appDir)
 
         let script = document.createElement('script');
         script.src = appPath + "/lib/init.load.js?" + version;

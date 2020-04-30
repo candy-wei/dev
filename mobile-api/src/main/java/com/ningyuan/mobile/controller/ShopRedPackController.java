@@ -6,9 +6,7 @@ import com.ningyuan.base.exception.StatelessException;
 import com.ningyuan.core.Conf;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.dto.RedPacketDto;
-import com.ningyuan.mobile.dto.RedPacketRecordDto;
 import com.ningyuan.mobile.model.ShopCustomerModel;
-import com.ningyuan.mobile.model.ShopReceiveRecordModel;
 import com.ningyuan.mobile.model.ShopWalletModel;
 import com.ningyuan.mobile.service.IShopCustomerService;
 import com.ningyuan.mobile.service.IShopReceiveRecordService;
@@ -24,9 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("shop/redPack")
@@ -59,13 +55,32 @@ public class ShopRedPackController extends BaseController {
         return cashSum != null ? cashSum : "0";
     }
 
-    @ApiOperation(value = "提现记录")
-    @PostMapping("getCashList")
+    @ApiOperation(value = "领取记录")
+    @PostMapping("getList")
     @ResponseBody
-    public List<RedPacketDto> getCashList(Integer pageNum, Integer pageSize) {
+    public Map<String, List<RedPacketDto>> getCashList(Integer pageNum, Integer pageSize) {
         CommonUtil.initPageInfo(pageNum, pageSize, Integer.valueOf(Conf.get("theme.getCashList.pageSize:10")));
-        List<RedPacketDto> cashList = walletService.getCashList(Context.getOpenId());
-        return cashList != null ? cashList : Collections.emptyList();
+        Map<String, List<RedPacketDto>> map = new HashMap<>();
+        List<RedPacketDto> list = walletService.getCashList(Context.getOpenId());
+        List<RedPacketDto> cashList = new ArrayList<>();
+        List<RedPacketDto> receiveList = new ArrayList<>();
+        List<RedPacketDto> recordList = new ArrayList<>();
+        Integer cashtype = Integer.parseInt(Conf.get("wallet.cash.type:2"));
+        Integer openType = Integer.parseInt(Conf.get("wallet.open.type:3"));
+        Integer receiveType = Integer.parseInt(Conf.get("wallet.receive.type:6"));
+        list.forEach(redRacket -> {
+            if (redRacket.getOptType().equals(cashtype)) {
+                cashList.add(redRacket);
+            } else if (redRacket.getOptType().equals(openType) || redRacket.getOptType().equals(receiveType)) {
+                receiveList.add(redRacket);
+            } else {
+                recordList.add(redRacket);
+            }
+        });
+        map.put("cashList", cashList);
+        map.put("receiveList", receiveList);
+        map.put("recordList", recordList);
+        return map;
     }
 
     @ApiOperation(value = "提现")
@@ -100,14 +115,5 @@ public class ShopRedPackController extends BaseController {
         }
         String money = customerService.openRedpacket(openId);
         return money;
-    }
-
-    @ApiOperation(value = "红包记录")
-    @PostMapping("getRecordList")
-    @ResponseBody
-    public List<RedPacketRecordDto> getRecordList(Integer pageNum, Integer pageSize) {
-        CommonUtil.initPageInfo(pageNum, pageSize, Integer.valueOf(Conf.get("theme.getCashList.pageSize:10")));
-        List<RedPacketRecordDto> recordList = walletService.getRecordList(Context.getOpenId());
-        return recordList != null ? recordList : Collections.emptyList();
     }
 }

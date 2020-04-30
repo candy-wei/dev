@@ -18,5 +18,14 @@
         this.getSetting = function () {
             return $req.get('/user/getSetting');
         }
+
+        this.saveRedpacketSum = function (id, redpacketAmount, openId) {
+            let param = {
+                "id": id,
+                "redpacketAmount": redpacketAmount,
+                "openId": openId
+            }
+            return $req.post('/user/updateRedpacketSum', param);
+        }
     }
 }());
