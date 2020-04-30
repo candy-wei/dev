@@ -5,6 +5,7 @@ import com.ningyuan.bean.front.Rets;
 import com.ningyuan.core.Context;
 import com.ningyuan.mobile.model.ShopAddressModel;
 import com.ningyuan.mobile.service.IShopAddressService;
+import com.ningyuan.mobile.service.IShopCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class AddressController extends BaseController {
 
     @Autowired
     private IShopAddressService addressService;
+
+    @Autowired
+    private IShopCustomerService shopCustomerService;
 
     @RequestMapping(value = "{id}",method = RequestMethod.GET)
     @ResponseBody
@@ -96,6 +100,7 @@ public class AddressController extends BaseController {
         }else{
             addressService.insertSelective(addressInfo);
         }
+        shopCustomerService.saveMobile(openId, addressInfo.getMobile());
         return Rets.success();
     }
 }

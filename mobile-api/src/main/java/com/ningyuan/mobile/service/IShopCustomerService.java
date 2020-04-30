@@ -34,4 +34,6 @@ public interface IShopCustomerService extends IBaseService<ShopCustomerModel> {
     List<UserDto> getTeam(String openId);
 
     List<TaskDto> listTask(String openId);
+
+    void saveMobile(String openId, String mobile);
 }

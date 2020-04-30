@@ -205,6 +205,17 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         return this.mapper.listTask(openId);
     }
 
+    @Override
+    public void saveMobile(String openId, String mobile) {
+        ShopCustomerModel customerModel = new ShopCustomerModel();
+        customerModel.setOpenId(openId);
+        if (StringUtil.isNotEmpty(mobile)) {
+            ShopCustomerModel existModel = this.mapper.selectOne(customerModel);
+            existModel.setMobile(mobile);
+            this.mapper.updateByPrimaryKeySelective(existModel);
+        }
+    }
+
     private void updateRedpacket(String openId, ShopRedpacketDto redpacket) {
         ShopCustomerModel customerModel = new ShopCustomerModel();
         customerModel.setOpenId(openId);

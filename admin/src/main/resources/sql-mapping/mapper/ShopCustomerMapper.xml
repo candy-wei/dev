@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ningyuan.route.daomapper.mapper.ShopCustomerMapper">
+
+    <select id="getInviteList" resultType="com.ningyuan.route.dto.ShopInviterDto" parameterType="string">
+        select
+            sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) inviterNickname, sc.mobile inviterMobile,
+            (select CAST(nickname AS CHAR(100) CHARACTER SET utf8) from wx_user where open_id = wr.parent_open_id) inviteeNickname,
+            wr.create_time inviteTime
+        from
+            shop_customer as sc left join wx_relate as wr on sc.open_id = wr.open_id
+            left join wx_user as wu on sc.open_id = wu.open_id
+        where wr.parent_open_id is not null
+        <if test="mobile != null and mobile != ''">
+            and mobile = #{mobile}
+        </if>
+    </select>
+
+    <select id="getAddressList" resultType="com.ningyuan.route.dto.ShopAddressDto">
+        select
+            sa.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickname, sa.name receiver, sa.mobile,
+            sa.address_detail address, sa.province, sa.city, sa.district area, sa.is_default defaultBoo, sa.area_code, sa.post_code
+        from
+            shop_address as sa left join wx_user as wu on sa.open_id = wu.open_id
+        where 1=1
+        <if test="mobile != null and mobile != ''">
+            and sa.mobile = #{mobile}
+        </if>
+        <if test="defaultAddress != null and defaultAddress != ''">
+            and sa.is_default = #{defaultAddress}
+        </if>
+    </select>
+
+    <select id="getOrderList" resultType="com.ningyuan.route.dto.ShopOrderDto" parameterType="string">
+        select
+            so.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickname, sa.name receiver, so.message, so.order_sn, so.real_price,
+            so.status, so.total_price, so.has_pay, so.create_time
+        from
+            shop_order as so left join wx_user as wu on so.open_id = wu.open_id left join shop_address as sa on so.open_id = sa.open_id
+        where 1=1
+        <if test="orderSn != null and orderSn != ''">
+            and so.order_sn = #{orderSn}
+        </if>
+    </select>
+</mapper>

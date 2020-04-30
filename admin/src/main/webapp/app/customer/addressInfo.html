@@ -1,0 +1,58 @@
+<ul class="breadcrumb">
+    <li>{{menuName}}</li>
+    <li class="active">{{subName}}</li>
+</ul>
+
+<form class="container-fluid">
+    <div class="d-flex form-row align-items-center">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="width: auto;">收件人手机号</div>
+                </div>
+                <input type="text" ng-model="queryModel.mobile" class="form-control" id="mobile" placeholder="收件人手机号">
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+<div style="float:right; margin: 0 20px 5px 0;">
+    <button type="submit" class="btn btn-primary" ng-click="queryList(queryModel)">查询</button>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">#</th>
+            <th style="width:80px;" class="th-sort" field="nickname">微信昵称</th>
+            <th style="width:80px;" class="th-sort" field="receiver">收件人姓名</th>
+            <th style="width:40px;" class="th-sort" field="mobile">联系电话</th>
+            <th style="width:80px;" class="th-sort" field="address">详细地址</th>
+            <th style="width:50px;" class="th-sort" field="province">省</th>
+            <th style="width:40px;" class="th-sort" field="city">市</th>
+            <th style="width:40px;" class="th-sort" field="area">区县</th>
+            <th style="width:40px;" class="th-sort" field="defaultBoo">是否默认地址</th>
+            <th style="width:50px;" class="th-sort" field="areaCode">地区编码</th>
+            <th style="width:40px;" class="th-sort" field="postCode">邮政编码</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="addressModel in pageInfo.list track by $index">
+            <td>{{$index + 1}}</td>
+            <td>{{addressModel.nickname}}</td>
+            <td>{{addressModel.receiver}}</td>
+            <td>{{addressModel.mobile}}</td>
+            <td>{{addressModel.address}}</td>
+            <td>{{addressModel.province}}</td>
+            <td>{{addressModel.city}}</td>
+            <td>{{addressModel.area}}</td>
+            <td>{{addressModel.defaultBoo}}</td>
+            <td>{{addressModel.areaCode}}</td>
+            <td>{{addressModel.postCode}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <pager></pager>
+</div>
