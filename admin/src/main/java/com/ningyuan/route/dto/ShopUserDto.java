@@ -15,6 +15,7 @@ public class ShopUserDto {
     private Boolean newTask;
     private Boolean specialTask;
     private Boolean dailyTask;
+    private Boolean hasConfirm;
     private String createTime;
 
     public Long getId() { return id; }
@@ -87,5 +88,13 @@ public class ShopUserDto {
 
     public void setDailyTask(Boolean dailyTask) {
         this.dailyTask = dailyTask;
+    }
+
+    public Boolean getHasConfirm() {
+        return this.hasConfirm;
+    }
+
+    public void setHasConfirm(Boolean hasConfirm) {
+        this.hasConfirm = hasConfirm;
     }
 }

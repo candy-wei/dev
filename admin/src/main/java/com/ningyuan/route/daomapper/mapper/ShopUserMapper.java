@@ -15,7 +15,9 @@ import java.util.List;
  */
 
 public interface ShopUserMapper {
-    List<ShopUserDto> listUser(ShopUserQueryDto queryDto);
+    List<ShopUserDto> listConfirmUser(ShopUserQueryDto queryDto);
+
+    List<ShopUserDto> listUnConfirmUser(ShopUserQueryDto queryDto);
 
     void updateUserByid(ShopUserDto shopUserDto);
 
@@ -28,4 +30,6 @@ public interface ShopUserMapper {
     void updateRedpacketAmount(@Param("id") Long id, @Param("redpacketAmount") String redpacketAmount);
 
     void insertRecord(@Param("openId") String openId, @Param("redpacketAmount") String redpacketAmount, @Param("optType") String optType);
+
+    void updateConfirm(Long id);
 }

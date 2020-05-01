@@ -80,6 +80,13 @@ public class ShopCustomerModel extends BaseModel {
     @Column(name = "daily_task" )
     private Boolean dailyTask;
 
+    /**
+     * 是否确认：0：未确认，1：已确认
+     */
+    @FiledComment(text = "是否确认：0：未确认，1：已确认" )
+    @Column(name = "isconfirm" )
+    private String isconfirm;
+
     @Column(name = "create_time" )
     private Date createTime;
 
@@ -161,6 +168,10 @@ public class ShopCustomerModel extends BaseModel {
     public void setDailyTask(Boolean dailyTask) {
         this.dailyTask = dailyTask;
     }
+
+    public String getIsconfirm() { return isconfirm; }
+
+    public void setIsconfirm(String isconfirm) { this.isconfirm = isconfirm; }
 
     public Date getCreateTime() {
         return this.createTime;

@@ -15,7 +15,11 @@ import java.util.List;
 
 public interface IShopUserService {
 
-    List<ShopUserDto> listUser(ShopUserQueryDto queryDto);
+    List<ShopUserDto> listConfirmUser(ShopUserQueryDto queryDto);
+
+    List<ShopUserDto> listUnConfirmUser(ShopUserQueryDto queryDto);
+
+    void updateConfirm(Long id);
 
     void updateUserByid(ShopUserDto shopUserDto);
 

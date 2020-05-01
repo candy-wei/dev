@@ -5,8 +5,8 @@
 
     <select id="getInviteList" resultType="com.ningyuan.route.dto.ShopInviterDto" parameterType="string">
         select
-            sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) inviterNickname, sc.mobile inviterMobile,
-            (select CAST(nickname AS CHAR(100) CHARACTER SET utf8) from wx_user where open_id = wr.parent_open_id) inviteeNickname,
+            sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) inviteeNickname, sc.mobile inviterMobile,
+            (select CAST(nickname AS CHAR(100) CHARACTER SET utf8) from wx_user where open_id = wr.parent_open_id) inviterNickname,
             wr.create_time inviteTime
         from
             shop_customer as sc left join wx_relate as wr on sc.open_id = wr.open_id

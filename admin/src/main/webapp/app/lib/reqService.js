@@ -4,7 +4,7 @@ app.service('$req', function ($http) {
         let params = {};
         //去除空字符串
         for (let key in data)   {
-            if(data[key] != null && data[key] != 'null'&& (typeof (data[key]) == 'boolean' || data[key] != '') ){
+            if(data[key] != null && data[key] != 'null'&& (data[key] !== '' || typeof (data[key]) == 'boolean') ){
                 params[key] = data[key];
             }
         }

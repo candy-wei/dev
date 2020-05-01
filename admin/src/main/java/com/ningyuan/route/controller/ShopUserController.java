@@ -22,11 +22,18 @@ public class ShopUserController {
     @Autowired
     private IShopUserService shopUserService;
 
-    @PostMapping("list")
+    @PostMapping("list/confirm")
     @ResponseBody
-    public PageInfo<ShopUserDto> listUser(ShopUserQueryDto queryDto) {
+    public PageInfo<ShopUserDto> listConfirmUser(ShopUserQueryDto queryDto) {
         PageHelper.startPage(Context.getHttpServletRequest());
-        return PageInfo.of(shopUserService.listUser(queryDto));
+        return PageInfo.of(shopUserService.listConfirmUser(queryDto));
+    }
+
+    @PostMapping("list/unConfirm")
+    @ResponseBody
+    public PageInfo<ShopUserDto> listUnConfirmUser(ShopUserQueryDto queryDto) {
+        PageHelper.startPage(Context.getHttpServletRequest());
+        return PageInfo.of(shopUserService.listUnConfirmUser(queryDto));
     }
 
     @PostMapping("update")
@@ -36,6 +43,16 @@ public class ShopUserController {
             shopUserService.updateUserByid(shopUserDto);
         }
         return shopUserDto;
+    }
+
+    @PostMapping("confirm/update")
+    @ResponseBody
+    public ErrorMessage updateConfirm(Long id) {
+        if (id != null) {
+            shopUserService.updateConfirm(id);
+            return ErrorMessage.getSuccess();
+        }
+        return ErrorMessage.getFailure();
     }
 
     @GetMapping("getSetting")

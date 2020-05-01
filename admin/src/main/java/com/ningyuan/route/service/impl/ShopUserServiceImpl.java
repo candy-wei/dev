@@ -26,8 +26,18 @@ public class ShopUserServiceImpl implements IShopUserService {
     private ShopUserMapper shopUserMapper;
 
     @Override
-    public List<ShopUserDto> listUser(ShopUserQueryDto queryDto) {
-        return shopUserMapper.listUser(queryDto);
+    public List<ShopUserDto> listConfirmUser(ShopUserQueryDto queryDto) {
+        return shopUserMapper.listConfirmUser(queryDto);
+    }
+
+    @Override
+    public List<ShopUserDto> listUnConfirmUser(ShopUserQueryDto queryDto) {
+        return shopUserMapper.listUnConfirmUser(queryDto);
+    }
+
+    @Override
+    public void updateConfirm(Long id) {
+        shopUserMapper.updateConfirm(id);
     }
 
     @Override

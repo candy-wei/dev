@@ -3,16 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ningyuan.route.daomapper.mapper.ShopUserMapper">
 
-    <select id="listUser" resultType="com.ningyuan.route.dto.ShopUserDto" parameterType="com.ningyuan.route.dto.ShopUserQueryDto">
+    <sql id="userList">
         select sc.id, sc.open_id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickName, sa.name receiver, sa.mobile, sc.vip, sc.points, sc.redpacket_receive, sc.redpacket_amount,
-        sc.redpacket_finance, sc.new_task, sc.special_task, sc.daily_task, sc.redpacket_daily, sc.create_time
+        sc.redpacket_finance, sc.new_task, sc.special_task, sc.daily_task, sc.redpacket_daily, sc.isconfirm hasConfirm, sc.create_time
         from shop_customer as sc left join wx_user as wu on sc.open_id = wu.open_id
-        left join shop_address as sa on sc.open_id = sa.open_id where 1=1
+        left join shop_address as sa on sc.open_id = sa.open_id
+    </sql>
+
+    <select id="listConfirmUser" resultType="com.ningyuan.route.dto.ShopUserDto" parameterType="com.ningyuan.route.dto.ShopUserQueryDto">
+        <include refid="userList" /> where sc.isconfirm = '1'
         <if test="receiver != null and receiver != ''">
             and sa.name = #{receiver}
         </if>
-        <if test="id != null and id != ''">
-            and sc.id = #{id}
+        <if test="mobile != null and mobile != ''">
+            and sc.mobile = #{mobile}
         </if>
     </select>
 
@@ -43,4 +47,18 @@
     <insert id="insertRecord">
         insert into shop_receive_record(open_id, opt_type, amount) values (#{openId}, #{optType}, #{redpacketAmount})
     </insert>
+
+    <select id="listUnConfirmUser" resultType="com.ningyuan.route.dto.ShopUserDto" parameterType="com.ningyuan.route.dto.ShopUserQueryDto">
+        <include refid="userList" /> where sc.isconfirm = '0'
+        <if test="receiver != null and receiver != ''">
+            and sa.name = #{receiver}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and sc.mobile = #{mobile}
+        </if>
+    </select>
+
+    <update id="updateConfirm">
+        update shop_customer set isconfirm = 1 where id = #{id}
+    </update>
 </mapper>

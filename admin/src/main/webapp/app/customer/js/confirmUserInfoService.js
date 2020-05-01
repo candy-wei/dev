@@ -1,10 +1,10 @@
 (function () {
-    app.service('userInfoService', userInfoServiceFn);
+    app.service('confirmUserInfoService', confirmUserInfoServiceFn);
 
-    function userInfoServiceFn($req) {
+    function confirmUserInfoServiceFn($req) {
 
         this.getCustomerList = function ($scope) {
-            $scope.initList('/user/list', {});
+            $scope.initList('/user/list/confirm', {});
         };
 
         this.saveUser = function (data) {
