@@ -61,10 +61,20 @@ public class ShopUserServiceImpl implements IShopUserService {
     }
 
     @Override
-    public void updateRedpacketAmount(Long id, String openId, String redpacketAmount) {
-        shopUserMapper.updateRedpacketAmount(id, redpacketAmount);
+    public void addRedpacketAmount(Long id, String openId, Integer addAmount, Integer amount) {
+        shopUserMapper.updateRedpacketAmount(id, amount);
         if (StringUtil.isNotEmpty(openId)) {
-            shopUserMapper.insertRecord(openId, redpacketAmount, Conf.get("wallet.receive.type:6"));
+            shopUserMapper.insertRecord(openId, addAmount, Conf.get("wallet.receive.type:6"));
         }
+    }
+
+    @Override
+    public void minusRedpacketAmount(Long id, Integer amount) {
+        shopUserMapper.updateRedpacketAmount(id, amount);
+    }
+
+    @Override
+    public Integer getShopCustomer(Long id) {
+        return shopUserMapper.getCustomer(id);
     }
 }

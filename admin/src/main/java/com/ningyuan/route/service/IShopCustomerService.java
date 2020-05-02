@@ -1,5 +1,6 @@
 package com.ningyuan.route.service;
 
+import com.ningyuan.route.dto.InviteQueryDto;
 import com.ningyuan.route.dto.ShopAddressDto;
 import com.ningyuan.route.dto.ShopInviterDto;
 import com.ningyuan.route.dto.ShopOrderDto;
@@ -14,9 +15,11 @@ import java.util.List;
  */
 
 public interface IShopCustomerService {
-    List<ShopInviterDto> getInviteList(String mobile);
+    List<ShopInviterDto> getInviteList(InviteQueryDto inviteQueryDto);
 
     List<ShopAddressDto> getAddressList(String mobile, String defaultAddress);
 
     List<ShopOrderDto> getOrderList(String orderSn);
+
+    void updateOrder(ShopOrderDto orderDto);
 }

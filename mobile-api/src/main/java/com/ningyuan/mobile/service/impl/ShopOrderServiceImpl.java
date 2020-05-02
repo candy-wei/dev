@@ -96,7 +96,7 @@ public class ShopOrderServiceImpl extends BaseServiceImpl<ShopOrderMapper, ShopO
 
         this.updateOrder(orderModel);
 
-        customerService.updateCustomer(orderModel);
+        // customerService.updateCustomer(orderModel);
 
     }
 

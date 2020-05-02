@@ -44,13 +44,13 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
     @Override
     public void updateCustomer(ShopOrderModel orderModel) {
         // TODO 根据支付结果更新customer
-        ShopCustomerModel customerModel = new ShopCustomerModel();
+        /*ShopCustomerModel customerModel = new ShopCustomerModel();
         customerModel.setOpenId(orderModel.getOpenId());
         ShopCustomerModel updateModel = this.selectLimitOne(customerModel);
-        updateCustomerModel(updateModel);
+        updateCustomerModel(updateModel);*/
 
 //        查找wx_relate表的关联关系，给上一级的客户加积分，更新customer
-        WxRelateModel relateModel = commonRelateService.getByOpenId(orderModel.getOpenId());
+       // WxRelateModel relateModel = commonRelateService.getByOpenId(orderModel.getOpenId());
         /*if (!StringUtils.isEmpty(relateModel.getParentOpenId())) {
             updateParentCustomer(relateModel.getParentOpenId());
         }*/
@@ -93,7 +93,6 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         criteria.andEqualTo("openId", openId);
         criteria.andGreaterThan("redpacketReceive", "0");
         criteria.andGreaterThan("redpacketFinance", "0");
-        criteria.andNotEqualTo("vip", "0");
         return this.mapper.selectOneByExample(example);
     }
 
@@ -231,7 +230,9 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         // remainMoney 剩余的钱
         if (redpacket.getRemainSize() == 1) {
             redpacket.setRemainSize(redpacket.getRemainSize()-1);
-            return (double) Math.round(Double.parseDouble(redpacket.getRemainMoney()) * 100) / 100;
+           double leftMoney =  (double) Math.round(Double.parseDouble(redpacket.getRemainMoney()) * 100) / 100;
+            redpacket.setRemainMoney(this.sub(redpacket.getRemainMoney(), leftMoney) + "");
+            return leftMoney;
         }
         Random r = new Random();
         double min = 1.00;

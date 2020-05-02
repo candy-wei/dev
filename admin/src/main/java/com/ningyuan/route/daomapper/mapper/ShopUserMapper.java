@@ -27,9 +27,11 @@ public interface ShopUserMapper {
 
     void updateSetting(SettingDto settingDto);
 
-    void updateRedpacketAmount(@Param("id") Long id, @Param("redpacketAmount") String redpacketAmount);
+    void updateRedpacketAmount(@Param("id") Long id, @Param("amount") Integer amount);
 
-    void insertRecord(@Param("openId") String openId, @Param("redpacketAmount") String redpacketAmount, @Param("optType") String optType);
+    void insertRecord(@Param("openId") String openId, @Param("addAmount") Integer addAmount, @Param("optType") String optType);
 
     void updateConfirm(Long id);
+
+    Integer getCustomer(Long id);
 }

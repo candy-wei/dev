@@ -1,6 +1,7 @@
 package com.ningyuan.route.service.impl;
 
 import com.ningyuan.route.daomapper.mapper.ShopCustomerMapper;
+import com.ningyuan.route.dto.InviteQueryDto;
 import com.ningyuan.route.dto.ShopAddressDto;
 import com.ningyuan.route.dto.ShopInviterDto;
 import com.ningyuan.route.dto.ShopOrderDto;
@@ -25,8 +26,8 @@ public class ShopCustomerServiceImpl implements IShopCustomerService {
 
 
     @Override
-    public List<ShopInviterDto> getInviteList(String mobile) {
-        return shopCustomerMapper.getInviteList(mobile);
+    public List<ShopInviterDto> getInviteList(InviteQueryDto inviteQueryDto) {
+        return shopCustomerMapper.getInviteList(inviteQueryDto);
     }
 
     @Override
@@ -37,5 +38,10 @@ public class ShopCustomerServiceImpl implements IShopCustomerService {
     @Override
     public List<ShopOrderDto> getOrderList(String orderSn) {
         return shopCustomerMapper.getOrderList(orderSn);
+    }
+
+    @Override
+    public void updateOrder(ShopOrderDto orderDto) {
+        shopCustomerMapper.updateOrder(orderDto);
     }
 }

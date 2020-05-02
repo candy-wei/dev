@@ -1,5 +1,6 @@
 package com.ningyuan.route.daomapper.mapper;
 
+import com.ningyuan.route.dto.InviteQueryDto;
 import com.ningyuan.route.dto.ShopAddressDto;
 import com.ningyuan.route.dto.ShopInviterDto;
 import com.ningyuan.route.dto.ShopOrderDto;
@@ -15,9 +16,11 @@ import java.util.List;
  */
 
 public interface ShopCustomerMapper {
-    List<ShopInviterDto> getInviteList(String mobile);
+    List<ShopInviterDto> getInviteList(InviteQueryDto inviteQueryDto);
 
     List<ShopAddressDto> getAddressList(@Param("mobile") String mobile, @Param("defaultAddress") String defaultAddress);
 
-    List<ShopOrderDto> getOrderList(String orderSn);
+    List<ShopOrderDto> getOrderList(@Param("orderSn") String orderSn);
+
+    void updateOrder(ShopOrderDto orderDto);
 }

@@ -26,35 +26,90 @@
         <thead>
         <tr>
             <th style="width:15px;">#</th>
+            <th style="width:50px;">操作</th>
             <th style="width:80px;" class="th-sort" field="nickname">昵称</th>
             <th style="width:40px;" class="th-sort" field="receiver">收件人姓名</th>
-            <th style="width:80px;" class="th-sort" field="message">订单备注</th>
             <th style="width:40px;" class="th-sort" field="orderSn">订单号</th>
             <th style="width:40px;" class="th-sort" field="realPrice">实付金额</th>
             <th style="width:40px;" class="th-sort" field="status">状态</th>
             <th style="width:40px;" class="th-sort" field="totalPrice">总金额</th>
             <th style="width:40px;" class="th-sort" field="hasPay">是否支付</th>
+            <th style="width:80px;" class="th-sort" field="message">订单备注</th>
             <th style="width:40px;" class="th-sort" field="createTime">创建日期</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="orderModel in pageInfo.list track by $index">
             <td>{{$index + 1}}</td>
+            <td>
+                <button type="button" class="btn-success small btn" data-loading-text="修改中..."
+                        ng-click="orderInfo.update($index)">订单修改
+                </button>
+            </td>
             <td>{{orderModel.nickname}}</td>
             <td>{{orderModel.receiver}}</td>
-            <td>{{orderModel.message}}</td>
             <td title="{{orderModel.orderSn}}">
                 <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
                     {{orderModel.orderSn}}
                 </div>
             </td>
             <td>{{orderModel.realPrice}}</td>
-            <td>{{orderModel.status}}</td>
+            <td>{{statusOpt[orderModel.status-1].text}}</td>
             <td>{{orderModel.totalPrice}}</td>
             <td>{{orderModel.hasPay === '1' ? '是' : '否'}}</td>
+            <td>{{orderModel.message}}</td>
             <td>{{orderModel.createTime | date:'yyyy-MM-dd'}}</td>
         </tr>
         </tbody>
     </table>
     <pager></pager>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabel">订单信息修改</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id" ng-model="orderModel.id" class="form-control"/>
+                <input type="hidden" name="orderSn" ng-model="orderModel.orderSn" class="form-control"/>
+                <div class="form-group">
+                    <label>昵称</label>
+                    <input type="text" ng-model="orderModel.nickname" name="nickname" class="form-control"
+                           placeholder="昵称" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label>收件人姓名</label>
+                    <input type="text" ng-model="orderModel.receiver" name="receiver" class="form-control"
+                           placeholder="收件人姓名" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label>实付金额</label>
+                    <input type="text" ng-model="orderModel.realPrice" name="realPrice" class="form-control"
+                           placeholder="实付金额" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label>订单状态</label>
+                    <select class="form-control" name="status" ng-model="orderModel.status"
+                            ng-options="opt.value as opt.text for opt in statusOpt">
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveButton" type="button" data-loading-text="保存中..." class="btn btn-primary"
+                        ng-click="orderInfo.save()">
+                    <span aria-hidden="true">保存</span>
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <span aria-hidden="true">关闭</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

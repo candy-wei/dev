@@ -68,6 +68,7 @@ public class WxRestController extends BaseController {
     @RequestMapping(value = "notify", method = RequestMethod.POST)
     @ResponseBody
     public void payNotify() throws Exception {
+        log.info("支付回调到这了吗？");
         try {
             Map<String, String> reqData = WxUtils.getRequestXml();
             if (!WXPayUtil.isSignatureValid(reqData, Conf.get("wx.api.key"))) {

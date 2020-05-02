@@ -19,10 +19,11 @@
             return $req.get('/user/getSetting');
         }
 
-        this.saveRedpacketSum = function (id, redpacketAmount, openId) {
+        this.saveRedpacketSum = function (id, addAmount, minusAmount, openId) {
             let param = {
                 "id": id,
-                "redpacketAmount": redpacketAmount,
+                "addAmount": addAmount,
+                "minusAmount": minusAmount,
                 "openId": openId
             }
             return $req.post('/user/updateRedpacketSum', param);

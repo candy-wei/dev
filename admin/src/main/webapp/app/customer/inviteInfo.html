@@ -8,9 +8,9 @@
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <div class="input-group-text" style="width: auto;">邀请人手机号</div>
+                    <div class="input-group-text" style="width: auto;">被邀请人手机号</div>
                 </div>
-                <input type="text" ng-model="queryModel.inviterMobile" class="form-control" id="inviterMobile" placeholder="邀请人手机号">
+                <input type="text" ng-model="queryModel.inviteeMobile" class="form-control" id="inviteeMobile" placeholder="被邀请人手机号">
             </div>
         </div>
         </div>
@@ -26,18 +26,32 @@
         <thead>
         <tr>
             <th style="width:15px;">#</th>
+            <th style="width:80px;" class="th-sort" field="inviterName">邀请人</th>
             <th style="width:80px;" class="th-sort" field="inviterNickname">邀请人昵称</th>
             <th style="width:40px;" class="th-sort" field="inviterMobile">邀请人手机号</th>
+            <th style="width:80px;" class="th-sort" field="inviteeName">被邀请人</th>
             <th style="width:80px;" class="th-sort" field="inviteeNickname">被邀请人昵称</th>
+            <th style="width:40px;" class="th-sort" field="inviteeMobile">被邀请人手机号</th>
             <th style="width:40px;" class="th-sort" field="inviteTime">邀请时间</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="customerModel in pageInfo.list track by $index">
             <td>{{$index + 1}}</td>
-            <td>{{customerModel.inviterNickname}}</td>
+            <td>{{customerModel.inviterName}}</td>
+            <td title="{{customerModel.inviterNickname}}">
+                <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                    {{customerModel.inviterNickname}}
+                </div>
+            </td>
             <td>{{customerModel.inviterMobile}}</td>
-            <td>{{customerModel.inviteeNickname}}</td>
+            <td>{{customerModel.inviteeName}}</td>
+            <td title="{{customerModel.inviteeNickname}}">
+                <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                    {{customerModel.inviteeNickname}}
+                </div>
+            </td>
+            <td>{{customerModel.inviteeMobile}}</td>
             <td>{{customerModel.inviteTime | date:'yyyy-MM-dd'}}</td>
         </tr>
         </tbody>

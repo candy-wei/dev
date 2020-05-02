@@ -8,6 +8,8 @@ import com.ningyuan.route.dto.SettingDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
 import com.ningyuan.route.service.IShopUserService;
+import com.ningyuan.utils.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,8 +74,15 @@ public class ShopUserController {
 
     @PostMapping("updateRedpacketSum")
     @ResponseBody
-    public ErrorMessage updateRedpacketSum(Long id, String openId, String redpacketAmount) {
-        shopUserService.updateRedpacketAmount(id, openId, redpacketAmount);
+    public ErrorMessage updateRedpacketSum(Long id, String openId, Integer addAmount, Integer minusAmount) {
+        Integer redpacketAmount = shopUserService.getShopCustomer(id);
+        if (redpacketAmount != null && addAmount != null && StringUtil.isNotEmpty(openId)) {
+            shopUserService.addRedpacketAmount(id, openId, addAmount, redpacketAmount + addAmount);
+        }
+
+        if (redpacketAmount != null && minusAmount != null && redpacketAmount - minusAmount > 0) {
+            shopUserService.minusRedpacketAmount(id, redpacketAmount - minusAmount);
+        }
         return ErrorMessage.getSuccess();
     }
 

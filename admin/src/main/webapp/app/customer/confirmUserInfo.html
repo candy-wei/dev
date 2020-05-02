@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>红包金额</label>
+                    <label>红包金额(支持小数点后两位)</label>
                     <input type="text" ng-model="confirmUserInfoModel.redpacketFinance" name="redpacketFinance"
                            class="form-control" placeholder="红包金额"/>
                 </div>
@@ -239,14 +239,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label>红包总数</label>
-                    <input type="text" ng-model="confirmUserInfoModel.redpacketAmount" name="redpacketAmount"
+                    <label>新增红包（单位：个）</label>
+                    <input type="text" ng-model="confirmUserInfoModel.addAmount" name="redpacketAmount"
+                           class="form-control" placeholder="红包总数"/>
+                </div>
+
+                <div class="form-group">
+                    <label>减少红包（单位：个）</label>
+                    <input type="text" ng-model="confirmUserInfoModel.minusAmount" name="redpacketAmount"
                            class="form-control" placeholder="红包总数"/>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-loading-text="保存中..." class="btn btn-primary"
-                        ng-click="confirmUserInfo.saveRedpacketSum(confirmUserInfoModel.id, confirmUserInfoModel.redpacketAmount, confirmUserInfoModel.openId)">
+                        ng-click="confirmUserInfo.saveRedpacketSum(confirmUserInfoModel.id, confirmUserInfoModel.addAmount, confirmUserInfoModel.minusAmount, confirmUserInfoModel.openId)">
                     <span aria-hidden="true">保存</span>
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">

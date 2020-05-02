@@ -3,17 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ningyuan.route.daomapper.mapper.ShopCustomerMapper">
 
-    <select id="getInviteList" resultType="com.ningyuan.route.dto.ShopInviterDto" parameterType="string">
+    <select id="getInviteList" resultType="com.ningyuan.route.dto.ShopInviterDto" parameterType="com.ningyuan.route.dto.InviteQueryDto">
         select
-            sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) inviteeNickname, sc.mobile inviterMobile,
+            sc.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) inviteeNickname, sc.mobile inviteeMobile,
+            sa.name inviteeName, (select name from shop_address where open_id = wr.parent_open_id
+                order by create_time desc, update_time desc limit 1) inviterName,
             (select CAST(nickname AS CHAR(100) CHARACTER SET utf8) from wx_user where open_id = wr.parent_open_id) inviterNickname,
+            (select mobile from shop_customer where open_id = wr.parent_open_id) inviterMobile,
             wr.create_time inviteTime
         from
             shop_customer as sc left join wx_relate as wr on sc.open_id = wr.open_id
-            left join wx_user as wu on sc.open_id = wu.open_id
+            left join wx_user as wu on sc.open_id = wu.open_id left join shop_address as sa on sc.open_id = sa.open_id
         where wr.parent_open_id is not null
-        <if test="mobile != null and mobile != ''">
-            and mobile = #{mobile}
+        <if test="inviteeMobile != null and inviteeMobile != ''">
+            and sc.mobile like '%${inviteeMobile}%'
         </if>
     </select>
 
@@ -32,15 +35,20 @@
         </if>
     </select>
 
-    <select id="getOrderList" resultType="com.ningyuan.route.dto.ShopOrderDto" parameterType="string">
+    <select id="getOrderList" resultType="com.ningyuan.route.dto.ShopOrderDto">
         select
-            so.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickname, sa.name receiver, so.message, so.order_sn, so.real_price,
+            so.id, CAST(wu.nickname AS CHAR(100) CHARACTER SET utf8) nickname,
+            (select name from shop_address where is_default = '1' and open_id = so.open_id) receiver, so.message, so.order_sn, so.real_price,
             so.status, so.total_price, so.has_pay, so.create_time
         from
-            shop_order as so left join wx_user as wu on so.open_id = wu.open_id left join shop_address as sa on so.open_id = sa.open_id
+            shop_order as so left join wx_user as wu on so.open_id = wu.open_id
         where 1=1
         <if test="orderSn != null and orderSn != ''">
             and so.order_sn = #{orderSn}
         </if>
     </select>
+
+    <update id="updateOrder" parameterType="com.ningyuan.route.dto.ShopOrderDto" >
+        update shop_order set status = #{status} where id = #{id} and order_sn = #{orderSn}
+    </update>
 </mapper>

@@ -41,11 +41,11 @@
     </update>
 
     <update id="updateRedpacketAmount">
-        update shop_customer set redpacket_amount = #{redpacketAmount} where id = #{id}
+        update shop_customer set redpacket_amount = #{amount} where id = #{id}
     </update>
 
     <insert id="insertRecord">
-        insert into shop_receive_record(open_id, opt_type, amount) values (#{openId}, #{optType}, #{redpacketAmount})
+        insert into shop_receive_record(open_id, opt_type, amount) values (#{openId}, #{optType}, #{addAmount})
     </insert>
 
     <select id="listUnConfirmUser" resultType="com.ningyuan.route.dto.ShopUserDto" parameterType="com.ningyuan.route.dto.ShopUserQueryDto">
@@ -61,4 +61,8 @@
     <update id="updateConfirm">
         update shop_customer set isconfirm = 1 where id = #{id}
     </update>
+
+    <select id="getCustomer" parameterType="Long" resultType="Integer">
+        select redpacket_amount from shop_customer where id = #{id}
+    </select>
 </mapper>

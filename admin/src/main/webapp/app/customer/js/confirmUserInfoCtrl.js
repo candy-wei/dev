@@ -51,10 +51,12 @@
             $('#addRedpacketModal').modal();
         }
 
-        this.saveRedpacketSum = function (id, redpacketAmount, openId) {
-            confirmUserInfoService.saveRedpacketSum(id, redpacketAmount, openId).then(function (response) {
+        this.saveRedpacketSum = function (id, addAmount, minusAmount, openId) {
+            confirmUserInfoService.saveRedpacketSum(id, addAmount, minusAmount, openId).then(function (response) {
                 if (response.data.errorCode === 'SUCCESS') {
-                    $scope.pageInfo.list[$scope.currentIndex].redpacketAmount = redpacketAmount;
+                    alert('保存成功')
+                    $scope.confirmUserInfoModel = {};
+                    confirmUserInfoService.getCustomerList($scope);
                 } else {
                     alert('保存失败')
                 }

@@ -27,5 +27,9 @@ public interface IShopUserService {
 
     void updateSetting(SettingDto settingDto);
 
-    void updateRedpacketAmount(Long id, String openId, String redpacketAmount);
+    void addRedpacketAmount(Long id, String openId, Integer addAmount, Integer amount);
+
+    void minusRedpacketAmount(Long id, Integer amount);
+
+    Integer getShopCustomer(Long id);
 }
