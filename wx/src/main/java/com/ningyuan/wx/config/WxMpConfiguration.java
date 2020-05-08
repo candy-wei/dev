@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class WxMpConfiguration {
-    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private WxMpHttpClientBuilder httpClientBuilder;
@@ -34,7 +33,6 @@ public class WxMpConfiguration {
 
     @Bean
     public WxMpService wxMpService() {
-        logger.info("创建WxMpService", "ok！");
         WxMpService wxMpService = new WxMpServiceImpl();
         wxMpService.setWxMpConfigStorage(wxMpConfigStorage());    //default
         return wxMpService;

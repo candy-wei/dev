@@ -28,8 +28,6 @@ import java.util.List;
 public class SwaggerConfig {
     @Bean
     public Docket customDocket() {
-        Logger log = LoggerFactory.getLogger(getClass());
-        log.info("扫描到SwaggerConfig这个bean");
         if (Boolean.parseBoolean(Conf.get("swagger.show"))) {
             //添加head参数start
             ParameterBuilder tokenPar = new ParameterBuilder();

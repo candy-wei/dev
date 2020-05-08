@@ -33,9 +33,9 @@
         </dependency>
     </dependencies>
 
-    <!--<build>
+    <build>
         <resources>
-            &lt;!&ndash; Include other files as resources files. &ndash;&gt;
+            <!-- Include other files as resources files. -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
@@ -44,5 +44,5 @@
                 </excludes>
             </resource>
         </resources>
-    </build>-->
+    </build>
 </project>

@@ -93,6 +93,7 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         criteria.andEqualTo("openId", openId);
         criteria.andGreaterThan("redpacketReceive", "0");
         criteria.andGreaterThan("redpacketFinance", "0");
+        criteria.andGreaterThan("redpacketAmount", "0");
         return this.mapper.selectOneByExample(example);
     }
 
@@ -136,6 +137,7 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
                 walletModel.setOpenId(parentOpenId);
                 existModel = walletService.selectLimitOne(walletModel);
                 if (existModel == null) {
+                    walletModel.setId(null);
                     walletModel.setFinance(parentBonus.toString());
                     walletService.insertSelective(walletModel);
                 }else {
@@ -161,6 +163,7 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
                 walletModel.setOpenId(topParentOpenId);
                 existModel = walletService.selectLimitOne(walletModel);
                 if (existModel == null) {
+                    walletModel.setId(null);
                     walletModel.setFinance(topParentBonus.toString());
                     walletService.insertSelective(walletModel);
                 }else {
