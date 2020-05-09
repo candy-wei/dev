@@ -1,21 +1,19 @@
 package com.ningyuan.route.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ningyuan.base.exception.ErrorMessage;
 import com.ningyuan.core.Context;
-import com.ningyuan.route.dto.SettingDto;
-import com.ningyuan.route.dto.ShopUserDto;
-import com.ningyuan.route.dto.ShopUserQueryDto;
+import com.ningyuan.route.dto.*;
 import com.ningyuan.route.service.IShopUserService;
 import com.ningyuan.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("user/")
@@ -57,19 +55,20 @@ public class ShopUserController {
         return ErrorMessage.getFailure();
     }
 
-    @GetMapping("getSetting")
+    @GetMapping("getMarketRatio")
     @ResponseBody
-    public SettingDto getSetting() {
-        return shopUserService.getSettingDto();
+    public List<ShopMarketRatioDto> getMarketRatio() {
+        return shopUserService.getMarketRatio();
     }
 
     @PostMapping("updateSetting")
     @ResponseBody
-    public SettingDto updateSetting(SettingDto settingDto) {
-        if (settingDto != null) {
-            shopUserService.updateSetting(settingDto);
+    public String updateSetting(@RequestParam("marketRatio") String marketRatio) {
+        if (marketRatio != null) {
+            List<ShopMarketRatioDto> shopMarketRatioDtos = JSON.parseArray(marketRatio, ShopMarketRatioDto.class);
+            shopUserService.updateSetting(shopMarketRatioDtos);
         }
-        return settingDto;
+        return "";
     }
 
     @PostMapping("updateRedpacketSum")

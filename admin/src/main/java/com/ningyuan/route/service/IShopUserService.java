@@ -1,6 +1,7 @@
 package com.ningyuan.route.service;
 
 import com.ningyuan.route.dto.SettingDto;
+import com.ningyuan.route.dto.ShopMarketRatioDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
 
@@ -23,9 +24,9 @@ public interface IShopUserService {
 
     void updateUserByid(ShopUserDto shopUserDto);
 
-    SettingDto getSettingDto();
+    List<ShopMarketRatioDto> getMarketRatio();
 
-    void updateSetting(SettingDto settingDto);
+    void updateSetting(List<ShopMarketRatioDto> marketRatio);
 
     void addRedpacketAmount(Long id, String openId, Integer addAmount, Integer amount);
 

@@ -12,11 +12,12 @@
         }
 
         this.saveSetting = function (data) {
-            return $req.post('/user/updateSetting', data);
+            console.log()
+            return $req.post('/user/updateSetting', {marketRatio:JSON.stringify(data)});
         }
 
         this.getSetting = function () {
-            return $req.get('/user/getSetting');
+            return $req.get('/user/getMarketRatio');
         }
 
         this.saveRedpacketSum = function (id, addAmount, minusAmount, openId) {

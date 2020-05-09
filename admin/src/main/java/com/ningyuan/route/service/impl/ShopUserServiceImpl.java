@@ -3,6 +3,7 @@ package com.ningyuan.route.service.impl;
 import com.ningyuan.core.Conf;
 import com.ningyuan.route.daomapper.mapper.ShopUserMapper;
 import com.ningyuan.route.dto.SettingDto;
+import com.ningyuan.route.dto.ShopMarketRatioDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
 import com.ningyuan.route.service.IShopUserService;
@@ -46,18 +47,14 @@ public class ShopUserServiceImpl implements IShopUserService {
     }
 
     @Override
-    public SettingDto getSettingDto() {
-        String performanceRatio = shopUserMapper.getPerformanceRatio();
-        String dividendRatio = shopUserMapper.getDividendRatio();
-        SettingDto settingDto = new SettingDto();
-        settingDto.setPerformance_ratio(performanceRatio);
-        settingDto.setDividend_ratio(dividendRatio);
-        return settingDto;
+    public List<ShopMarketRatioDto> getMarketRatio() {
+        List<ShopMarketRatioDto> marketRatio = shopUserMapper.getMarketRatio();
+        return marketRatio;
     }
 
     @Override
-    public void updateSetting(SettingDto settingDto) {
-        shopUserMapper.updateSetting(settingDto);
+    public void updateSetting(List<ShopMarketRatioDto> marketRatio) {
+        shopUserMapper.updateMarketRatio(marketRatio);
     }
 
     @Override

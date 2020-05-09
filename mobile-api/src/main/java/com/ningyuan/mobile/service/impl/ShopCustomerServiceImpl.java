@@ -128,6 +128,9 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         recordService.insertSelective(recordModel);
 
         ParentUserDto parentUserDto = this.getParentOpenId(openId);
+        if(parentUserDto == null){
+            return String.valueOf(randomMoney);
+        }
         String parentOpenId = parentUserDto.getParentOpenId();
         String performanceRatio = parentUserDto.getPerformanceRatio();
         if(!StringUtil.isEmpty(parentOpenId) && !StringUtil.isEmpty(performanceRatio)){
@@ -239,16 +242,15 @@ public class ShopCustomerServiceImpl extends BaseServiceImpl<ShopCustomerMapper,
         }
         Random r = new Random();
         double min = 1.00;
-        double max = this.divide(redpacket.getRemainMoney(), redpacket.getRemainSize() * 0.5);
+        double max = this.divide(redpacket.getRemainMoney(), Double.valueOf(redpacket.getRemainSize()));
         double money = 0;
         if(max < min){
             money = max;
-            money = Math.floor(money * 100) / 100;
         }else {
             money = this.mul(r.nextDouble(), max);
             money = money <= min ? 1.00: money;
-            money = Math.floor(money * 100) / 100;
         }
+        money = Math.floor(money * 100) / 100;
 
         redpacket.setRemainSize(redpacket.getRemainSize()-1);
         redpacket.setRemainMoney(this.sub(redpacket.getRemainMoney(), money) + "");

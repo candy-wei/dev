@@ -1,6 +1,7 @@
 package com.ningyuan.route.daomapper.mapper;
 
 import com.ningyuan.route.dto.SettingDto;
+import com.ningyuan.route.dto.ShopMarketRatioDto;
 import com.ningyuan.route.dto.ShopUserDto;
 import com.ningyuan.route.dto.ShopUserQueryDto;
 import org.apache.ibatis.annotations.Param;
@@ -21,11 +22,9 @@ public interface ShopUserMapper {
 
     void updateUserByid(ShopUserDto shopUserDto);
 
-    String getPerformanceRatio();
+    List<ShopMarketRatioDto> getMarketRatio();
 
-    String getDividendRatio();
-
-    void updateSetting(SettingDto settingDto);
+    void updateMarketRatio(List<ShopMarketRatioDto> list);
 
     void updateRedpacketAmount(@Param("id") Long id, @Param("amount") Integer amount);
 

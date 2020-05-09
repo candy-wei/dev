@@ -25,19 +25,22 @@
         redpacket_daily=#{redpacketDaily}, new_task=#{newTask}, special_task=#{specialTask}, daily_task=#{dailyTask} where id=#{id}
     </update>
 
-    <select id="getPerformanceRatio" resultType="String">
-        select base_key
-        from basedata where base_type= 'performance_ratio'
+    <select id="getMarketRatio" resultType="com.ningyuan.route.dto.ShopMarketRatioDto">
+        select smr.*,ba.base_value as vipName from shop_market_ratio smr
+        left join basedata ba on ba.base_type = 'vip_grade' and ba.base_key = smr.vip_key
     </select>
 
-    <select id="getDividendRatio" resultType="String">
-        select base_key
-        from basedata where base_type= 'dividend_ratio'
-    </select>
-
-    <update id="updateSetting" parameterType="com.ningyuan.route.dto.SettingDto">
-        update basedata set base_key=#{performance_ratio} where base_type= 'performance_ratio';
-        update basedata set base_key=#{dividend_ratio} where base_type= 'dividend_ratio';
+    <update id="updateMarketRatio" parameterType="java.util.List">
+        <foreach collection="list" item="bean" index="index" open="" close="" separator=";">
+            UPDATE shop_market_ratio
+            <set>
+                dividend_ratio=#{bean.dividendRatio},
+                performance_ratio=#{bean.performanceRatio}
+            </set>
+            <where>
+                id = #{bean.id}
+            </where>
+        </foreach>
     </update>
 
     <update id="updateRedpacketAmount">

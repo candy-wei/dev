@@ -40,13 +40,15 @@
         SELECT
             wrr.open_id as parentOpenId,
             wrr.parent_open_id as topParentOpenId,
-            per.base_key as performanceRatio,
-            divi.base_key as dividendRatio
+            per.performance_ratio as performanceRatio,
+            divi.dividend_ratio as dividendRatio
         FROM
             wx_relate AS wr
             LEFT JOIN wx_relate AS wrr ON wrr.open_id = wr.parent_open_id
-            LEFT JOIN basedata AS per ON per.base_type = 'performance_ratio'
-            LEFT JOIN basedata AS divi ON divi.base_type = 'dividend_ratio'
+            LEFT JOIN shop_customer AS sc ON sc.open_id = wrr.open_id
+            LEFT JOIN shop_customer AS scc ON scc.open_id = wrr.parent_open_id
+            LEFT JOIN shop_market_ratio AS per ON per.vip_key = sc.vip
+            LEFT JOIN shop_market_ratio AS divi ON divi.vip_key = scc.vip
         WHERE wr.open_id = #{openId}
     </select>
 

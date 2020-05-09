@@ -3,7 +3,7 @@
 
     function confirmUserInfoCtrlFn($scope, confirmUserInfoService) {
         $scope.confirmUserInfoModel = {};
-        $scope.settingModel = {};
+        $scope.settingModel = [];
         confirmUserInfoService.getCustomerList($scope);
         $scope.booleanOptions = [{'value': true, 'text': '是'},{'value': false, 'text': '否'}]
         $scope.vipGrade = [{'value': '1', 'text': '普通会员'},{'value': '2', 'text': '银牌会员'},{'value': '3', 'text': '金牌会员'},
